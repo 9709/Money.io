@@ -18,6 +18,7 @@
 		17DA9514222B6675002E2057 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9513222B6675002E2057 /* User.swift */; };
 		17DA9516222B67DA002E2057 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9515222B67DA002E2057 /* Group.swift */; };
 		17DA9518222B6E55002E2057 /* NewEditMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */; };
+		C8FCD143222C814300607F4D /* NewTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD142222C814300607F4D /* NewTransactionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		17DA9513222B6675002E2057 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		17DA9515222B67DA002E2057 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditMemberViewController.swift; sourceTree = "<group>"; };
+		C8FCD142222C814300607F4D /* NewTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				17DA950F222B6160002E2057 /* GroupViewController.swift */,
 				17DA9511222B6514002E2057 /* GroupMembersViewController.swift */,
 				17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */,
+				C8FCD142222C814300607F4D /* NewTransactionViewController.swift */,
 				17DA9513222B6675002E2057 /* User.swift */,
 				17DA9515222B67DA002E2057 /* Group.swift */,
 				17DA94F6222B6074002E2057 /* Assets.xcassets */,
@@ -216,6 +219,7 @@
 				17DA9512222B6514002E2057 /* GroupMembersViewController.swift in Sources */,
 				17DA9510222B6160002E2057 /* GroupViewController.swift in Sources */,
 				17DA94ED222B6073002E2057 /* AppDelegate.swift in Sources */,
+				C8FCD143222C814300607F4D /* NewTransactionViewController.swift in Sources */,
 				17DA9516222B67DA002E2057 /* Group.swift in Sources */,
 				17DA9514222B6675002E2057 /* User.swift in Sources */,
 				17DA94F5222B6073002E2057 /* Money_io.xcdatamodeld in Sources */,

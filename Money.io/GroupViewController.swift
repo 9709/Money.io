@@ -9,24 +9,24 @@
 import UIKit
 
 class GroupViewController: UIViewController {
-
-    var group: Group!
+  
+  var group: Group!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        group = Group(name: "LHL")
-        group.addUser(name: "Matthew")
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toGroupMembersSegue" {
-            if let viewController = segue.destination as? UINavigationController {
-                if let groupMembersVC = viewController.children[0] as? GroupMembersViewController {
-                    groupMembersVC.group = group
-                }
-            }
+    group = Group(name: "LHL")
+    group.addUser(name: "Matthew")
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "toGroupMembersSegue" {
+      if let viewController = segue.destination as? UINavigationController {
+        if let groupMembersVC = viewController.children[0] as? GroupMembersViewController {
+          groupMembersVC.group = group
         }
+      }
     }
-
+  }
+  
 }
