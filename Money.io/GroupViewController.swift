@@ -16,9 +16,7 @@ class GroupViewController: UIViewController {
         super.viewDidLoad()
         
         group = Group(name: "LHL")
-       let user = User(name: "Matthew")
-        
-        group.addUser(user)
+        group.addUser(name: "Matthew")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

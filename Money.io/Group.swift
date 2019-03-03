@@ -9,24 +9,34 @@
 import UIKit
 
 class Group {
-
-    var listOfUsers: [User] = []
-    var name: String
-    let uid: Int
-    static private var groupCount = 0
-    
-    init(name: String) {
-        self.name = name
-        self.uid = Group.groupCount
-        Group.groupCount += 1
+  
+  var listOfUsers: [User] = []
+  var name: String
+  let uid: Int
+  static private var groupCount = 0
+  
+  init(name: String) {
+    self.name = name
+    self.uid = Group.groupCount
+    Group.groupCount += 1
+  }
+  
+  func addUser(name: String) {
+    let user = User(name: name)
+    listOfUsers.append(user)
+  }
+  
+  func editUser(uid: Int, name: String) {
+    for user in listOfUsers {
+      if user.uid == uid {
+        user.name = name
+        break
+      }
     }
-    
-    func addUser(_ user: User) {
-        listOfUsers.append(user)
-    }
-    
-    func deleteUser(at index: Int) {
-        listOfUsers.remove(at: index)
-    }
-    
+  }
+  
+  func deleteUser(at index: Int) {
+    listOfUsers.remove(at: index)
+  }
+  
 }
