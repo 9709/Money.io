@@ -113,6 +113,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="uFF-5i-Jbe" kind="presentation" identifier="toEditMemberSegue" id="Pdf-V7-AaQ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -255,4 +258,7 @@
             <point key="canvasLocation" x="62" y="1634"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pdf-V7-AaQ"/>
+    </inferredMetricsTieBreakers>
 </document>
