@@ -26,6 +26,12 @@ class GroupViewController: UIViewController {
           groupMembersVC.group = group
         }
       }
+    } else if segue.identifier == "toNewTransactionSegue" {
+      if let viewController = segue.destination as? UINavigationController {
+        if let newTransactionVC = viewController.children[0] as? NewTransactionViewController {
+          newTransactionVC.group = group
+        }
+      }
     }
   }
   
