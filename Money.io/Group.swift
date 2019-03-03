@@ -25,5 +25,8 @@ class Group {
         listOfUsers.append(user)
     }
     
+    func deleteUser(at index: Int) {
+        listOfUsers.remove(at: index)
+    }
     
 }

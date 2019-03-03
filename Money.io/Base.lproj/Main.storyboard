@@ -127,12 +127,16 @@
                         <viewLayoutGuide key="safeArea" id="XG5-A3-DGL"/>
                     </view>
                     <navigationItem key="navigationItem" title="Group Members" id="MXa-av-guy">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ccy-T6-9F4">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="ccy-T6-9F4">
                             <connections>
                                 <action selector="cancel:" destination="HZJ-0T-9pM" id="JjC-sR-Coa"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="huJ-qr-Itg"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="huJ-qr-Itg">
+                            <connections>
+                                <segue destination="uFF-5i-Jbe" kind="presentation" identifier="toAddMemberSegue" id="Rb8-QA-hmT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="T9j-Wa-XDG" id="Ihy-Id-5pL"/>
@@ -141,6 +145,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h4A-lW-3wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="920.79999999999995" y="821.67487684729065"/>
+        </scene>
+        <!--Add Member-->
+        <scene sceneID="6AS-Jz-pld">
+            <objects>
+                <viewController id="Mg0-2o-iWE" customClass="NewEditMemberViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kRF-ue-aAb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zsy-OT-GDV">
+                                <rect key="frame" x="37.666666666666657" y="138" width="300" height="50.333333333333343"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9b-w4-X8m">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qHo-8r-1oX">
+                                        <rect key="frame" x="0.0" y="20.333333333333343" width="300" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zsy-OT-GDV" firstAttribute="centerX" secondItem="kRF-ue-aAb" secondAttribute="centerX" id="l45-sk-uZ4"/>
+                            <constraint firstItem="zsy-OT-GDV" firstAttribute="top" secondItem="pVO-S3-4C7" secondAttribute="top" constant="50" id="oHK-8M-BEW"/>
+                            <constraint firstItem="zsy-OT-GDV" firstAttribute="width" secondItem="kRF-ue-aAb" secondAttribute="width" multiplier="0.8" id="t0n-2X-m8b"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pVO-S3-4C7"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Member" id="D7n-gx-r3w">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZPU-EM-M0Z">
+                            <connections>
+                                <action selector="cancel:" destination="Mg0-2o-iWE" id="2gY-M9-fQN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vyp-r9-48F">
+                            <connections>
+                                <action selector="save:" destination="Mg0-2o-iWE" id="Fgl-6X-ACu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textField" destination="qHo-8r-1oX" id="crz-X8-rbg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9u-so-5A1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="920.79999999999995" y="1633.7438423645322"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="D7c-FY-K8h">
@@ -177,6 +235,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Teg-9V-ihA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-23" y="822"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="BLs-nI-Iac">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uFF-5i-Jbe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h78-zK-kJF">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Mg0-2o-iWE" kind="relationship" relationship="rootViewController" id="7eW-ys-epy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mln-yo-1sw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-23" y="1635"/>
         </scene>
     </scenes>
 </document>
