@@ -73,13 +73,74 @@
                     <navigationItem key="navigationItem" title="Group Name" id="vzU-94-uRf">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="8mu-PQ-KeV"/>
-                            <barButtonItem systemItem="edit" id="rS8-no-FQd"/>
+                            <barButtonItem systemItem="edit" id="rS8-no-FQd">
+                                <connections>
+                                    <segue destination="mAo-5C-bUZ" kind="presentation" identifier="toGroupMembersSegue" id="CNd-oq-YhB"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="996" y="22.906403940886701"/>
+        </scene>
+        <!--Group Members-->
+        <scene sceneID="1LW-7z-rzq">
+            <objects>
+                <viewController id="HZJ-0T-9pM" customClass="GroupMembersViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2ul-m3-rbG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T9j-Wa-XDG">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupMemberNameCell" textLabel="dio-nw-jGM" style="IBUITableViewCellStyleDefault" id="P5B-dn-sYa">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P5B-dn-sYa" id="lyq-8P-evf">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dio-nw-jGM">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="T9j-Wa-XDG" firstAttribute="leading" secondItem="XG5-A3-DGL" secondAttribute="leading" id="1Dt-oP-ghF"/>
+                            <constraint firstItem="XG5-A3-DGL" firstAttribute="trailing" secondItem="T9j-Wa-XDG" secondAttribute="trailing" id="7Xu-Z0-Pd7"/>
+                            <constraint firstItem="T9j-Wa-XDG" firstAttribute="top" secondItem="XG5-A3-DGL" secondAttribute="top" id="8aN-5P-3w3"/>
+                            <constraint firstItem="XG5-A3-DGL" firstAttribute="bottom" secondItem="T9j-Wa-XDG" secondAttribute="bottom" id="Pec-Fk-KGH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XG5-A3-DGL"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Group Members" id="MXa-av-guy">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ccy-T6-9F4">
+                            <connections>
+                                <action selector="cancel:" destination="HZJ-0T-9pM" id="JjC-sR-Coa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="huJ-qr-Itg"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="T9j-Wa-XDG" id="Ihy-Id-5pL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h4A-lW-3wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="920.79999999999995" y="821.67487684729065"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="D7c-FY-K8h">
@@ -98,6 +159,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vnA-WA-cdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="62" y="23"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Mvg-gw-9GG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mAo-5C-bUZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="woI-bH-LAh">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HZJ-0T-9pM" kind="relationship" relationship="rootViewController" id="Olw-Vo-kZD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Teg-9V-ihA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-23" y="822"/>
         </scene>
     </scenes>
 </document>

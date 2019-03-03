@@ -10,12 +10,25 @@ import UIKit
 
 class GroupViewController: UIViewController {
 
+    var group: Group!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        group = Group(name: "LHL")
+       let user = User(name: "Matthew")
+        
+        group.addUser(user)
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toGroupMembersSegue" {
+            if let viewController = segue.destination as? UINavigationController {
+                if let groupMembersVC = viewController.children[0] as? GroupMembersViewController {
+                    groupMembersVC.group = group
+                }
+            }
+        }
+    }
 
 }
