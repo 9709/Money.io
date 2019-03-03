@@ -86,6 +86,9 @@ extension GroupMembersViewController: UITableViewDelegate {
 }
 
 extension GroupMembersViewController: NewEditMemberViewControllerDelegate {
+  
+  // MARK: NewEditMemberViewControllerDelegate methods
+  
   func addMember(name: String) {
     group.addUser(name: name)
     tableView.reloadData()

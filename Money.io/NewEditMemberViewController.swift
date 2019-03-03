@@ -23,6 +23,19 @@ class NewEditMemberViewController: UIViewController {
   
   @IBOutlet weak var textField: UITextField!
   
+  // MARK: UIViewController methods
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    if let name = name {
+      textField.text = name
+      navigationItem.title = "Edit Member"
+    } else {
+      navigationItem.title = "Add Member"
+    }
+  }
+  
   // MARK: Actions
   
   @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -41,16 +54,5 @@ class NewEditMemberViewController: UIViewController {
     }
     dismiss(animated: true, completion: nil)
   }
-  
-  // MARK: UIViewController methods
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if let name = name {
-      textField.text = name
-    }
-  }
-  
   
 }

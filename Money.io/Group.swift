@@ -10,16 +10,23 @@ import UIKit
 
 class Group {
   
+  
+  // MARK: Properties
+  
   var listOfUsers: [User] = []
   var name: String
   let uid: Int
   static private var groupCount = 0
+
+  // MARK: Initializers
   
   init(name: String) {
     self.name = name
     self.uid = Group.groupCount
     Group.groupCount += 1
   }
+  
+  // MARK: Group methods
   
   func addUser(name: String) {
     let user = User(name: name)
