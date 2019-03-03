@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		17DA94ED222B6073002E2057 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA94EC222B6073002E2057 /* AppDelegate.swift */; };
-		17DA94EF222B6073002E2057 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA94EE222B6073002E2057 /* ViewController.swift */; };
 		17DA94F2222B6073002E2057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DA94F0222B6073002E2057 /* Main.storyboard */; };
 		17DA94F5222B6073002E2057 /* Money_io.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 17DA94F3222B6073002E2057 /* Money_io.xcdatamodeld */; };
 		17DA94F7222B6074002E2057 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17DA94F6222B6074002E2057 /* Assets.xcassets */; };
 		17DA94FA222B6074002E2057 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DA94F8222B6074002E2057 /* LaunchScreen.storyboard */; };
 		17DA9505222B6074002E2057 /* Money_ioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9504222B6074002E2057 /* Money_ioTests.swift */; };
+		17DA9510222B6160002E2057 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA950F222B6160002E2057 /* GroupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +29,6 @@
 /* Begin PBXFileReference section */
 		17DA94E9222B6073002E2057 /* Money.io.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Money.io.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17DA94EC222B6073002E2057 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		17DA94EE222B6073002E2057 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		17DA94F1222B6073002E2057 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		17DA94F4222B6073002E2057 /* Money_io.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Money_io.xcdatamodel; sourceTree = "<group>"; };
 		17DA94F6222B6074002E2057 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +37,7 @@
 		17DA9500222B6074002E2057 /* Money.ioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Money.ioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17DA9504222B6074002E2057 /* Money_ioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money_ioTests.swift; sourceTree = "<group>"; };
 		17DA9506222B6074002E2057 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17DA950F222B6160002E2057 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				17DA94EC222B6073002E2057 /* AppDelegate.swift */,
-				17DA94EE222B6073002E2057 /* ViewController.swift */,
+				17DA950F222B6160002E2057 /* GroupViewController.swift */,
 				17DA94F0222B6073002E2057 /* Main.storyboard */,
 				17DA94F6222B6074002E2057 /* Assets.xcassets */,
 				17DA94F8222B6074002E2057 /* LaunchScreen.storyboard */,
@@ -200,7 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17DA94EF222B6073002E2057 /* ViewController.swift in Sources */,
+				17DA9510222B6160002E2057 /* GroupViewController.swift in Sources */,
 				17DA94ED222B6073002E2057 /* AppDelegate.swift in Sources */,
 				17DA94F5222B6073002E2057 /* Money_io.xcdatamodeld in Sources */,
 			);

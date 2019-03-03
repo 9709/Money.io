@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GroupViewController.swift
 //  Money.io
 //
 //  Created by Matthew Chan on 2019-03-02.
@@ -8,13 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GroupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        // Do any additional setup after loading the view.
     }
+    
 
 
 }
-
