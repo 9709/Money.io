@@ -20,6 +20,7 @@
 		17DA9518222B6E55002E2057 /* NewEditMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */; };
 		C8FCD143222C814300607F4D /* NewTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD142222C814300607F4D /* NewTransactionViewController.swift */; };
 		C8FCD145222C854800607F4D /* PaidByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD144222C854800607F4D /* PaidByViewController.swift */; };
+		C8FCD147222C956F00607F4D /* SplitBetweenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditMemberViewController.swift; sourceTree = "<group>"; };
 		C8FCD142222C814300607F4D /* NewTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionViewController.swift; sourceTree = "<group>"; };
 		C8FCD144222C854800607F4D /* PaidByViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidByViewController.swift; sourceTree = "<group>"; };
+		C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBetweenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */,
 				C8FCD142222C814300607F4D /* NewTransactionViewController.swift */,
 				C8FCD144222C854800607F4D /* PaidByViewController.swift */,
+				C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */,
 				17DA9513222B6675002E2057 /* User.swift */,
 				17DA9515222B67DA002E2057 /* Group.swift */,
 				17DA94F6222B6074002E2057 /* Assets.xcassets */,
@@ -220,6 +223,7 @@
 			files = (
 				C8FCD145222C854800607F4D /* PaidByViewController.swift in Sources */,
 				17DA9518222B6E55002E2057 /* NewEditMemberViewController.swift in Sources */,
+				C8FCD147222C956F00607F4D /* SplitBetweenViewController.swift in Sources */,
 				17DA9512222B6514002E2057 /* GroupMembersViewController.swift in Sources */,
 				17DA9510222B6160002E2057 /* GroupViewController.swift in Sources */,
 				17DA94ED222B6073002E2057 /* AppDelegate.swift in Sources */,

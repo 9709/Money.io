@@ -46,14 +46,13 @@ class Group {
     listOfUsers.remove(at: index)
   }
   
-  func findUserName(from uid: Int) -> String {
+  func findUser(from uid: Int) -> User? {
     for user in listOfUsers {
       if user.uid == uid {
-        return user.name
+        return user
       }
     }
-    
-    return ""
+    return nil
   }
   
 }

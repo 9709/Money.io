@@ -294,7 +294,7 @@
                                         <rect key="frame" x="0.0" y="70.666666666666657" width="300" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid by: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZQ-qo-Tk2">
                                         <rect key="frame" x="0.0" y="100.66666666666666" width="300" height="20.333333333333329"/>
@@ -302,7 +302,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQe-bq-e3O">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQe-bq-e3O">
                                         <rect key="frame" x="0.0" y="121" width="300" height="30"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
@@ -327,9 +327,21 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Imh-ol-t0V">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Imh-ol-t0V">
                                         <rect key="frame" x="0.0" y="171.33333333333331" width="300" height="30"/>
-                                        <state key="normal" title="Select member"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Select member">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="system" size="15"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <segue destination="m8N-RH-zT0" kind="presentation" identifier="toSplitBetweenSegue" id="V5c-CD-2cW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -356,23 +368,69 @@
                     </navigationItem>
                     <connections>
                         <outlet property="paidByButton" destination="hQe-bq-e3O" id="3QZ-Qh-1cI"/>
+                        <outlet property="splitBetweenButton" destination="Imh-ol-t0V" id="BYv-0a-Lce"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mOc-Rq-p2B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3213.5999999999999" y="22.906403940886701"/>
         </scene>
-        <!--View Controller-->
+        <!--Split Between View Controller-->
         <scene sceneID="9hF-RU-Leu">
             <objects>
-                <viewController id="Awi-iL-mXb" sceneMemberID="viewController">
+                <viewController id="Awi-iL-mXb" customClass="SplitBetweenViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kcO-nK-JPc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-eY-O3M">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemberCell" editingAccessoryType="checkmark" textLabel="j94-TT-9pJ" style="IBUITableViewCellStyleDefault" id="Glb-Qt-1cS">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Glb-Qt-1cS" id="OKg-mT-yNt">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j94-TT-9pJ">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="b8d-0Z-hgF" firstAttribute="trailing" secondItem="Rdy-eY-O3M" secondAttribute="trailing" id="8hE-Ge-K0c"/>
+                            <constraint firstItem="Rdy-eY-O3M" firstAttribute="top" secondItem="b8d-0Z-hgF" secondAttribute="top" id="J4U-sb-hp7"/>
+                            <constraint firstItem="Rdy-eY-O3M" firstAttribute="leading" secondItem="b8d-0Z-hgF" secondAttribute="leading" id="do3-CO-Hm7"/>
+                            <constraint firstItem="b8d-0Z-hgF" firstAttribute="bottom" secondItem="Rdy-eY-O3M" secondAttribute="bottom" id="rjK-u0-ZAF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="b8d-0Z-hgF"/>
                     </view>
-                    <navigationItem key="navigationItem" id="tCf-rX-zwD"/>
+                    <navigationItem key="navigationItem" id="tCf-rX-zwD">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2Gg-zc-PLb">
+                            <connections>
+                                <action selector="cancel:" destination="Awi-iL-mXb" id="Now-5j-DGd"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="NSw-iS-78h">
+                            <connections>
+                                <action selector="save:" destination="Awi-iL-mXb" id="bv7-lI-6WF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="Rdy-eY-O3M" id="O37-eu-mBd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWN-Te-Juy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

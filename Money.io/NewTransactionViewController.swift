@@ -13,8 +13,11 @@ class NewTransactionViewController: UIViewController {
   // MARK: Properties
   
   var group: Group?
+  var paidByMember: User?
+  var splitBetweenMembers: [User]?
   
   @IBOutlet weak var paidByButton: UIButton!
+  @IBOutlet weak var splitBetweenButton: UIButton!
   
   // MARK: UIViewController methods
   
@@ -39,8 +42,17 @@ class NewTransactionViewController: UIViewController {
     if segue.identifier == "toPaidBySegue" {
       if let viewController = segue.destination as? UINavigationController {
         if let paidByVC = viewController.children[0] as? PaidByViewController {
+          paidByVC.user = paidByMember
           paidByVC.group = group
           paidByVC.delegate = self
+        }
+      }
+    } else if segue.identifier == "toSplitBetweenSegue" {
+      if let viewController = segue.destination as? UINavigationController {
+        if let splitBetweenVC = viewController.children[0] as? SplitBetweenViewController {
+          splitBetweenVC.members = splitBetweenMembers
+          splitBetweenVC.group = group
+          splitBetweenVC.delegate = self
         }
       }
     }
@@ -52,12 +64,25 @@ extension NewTransactionViewController: PaidByViewControllerDelegate {
   
   // MARK: PaidByViewControllerDelegate methods
   
-  func updatePaidByMember(uid: Int) {
-    
-    if let name = group?.findUserName(from: uid) {
-      let title = NSAttributedString(string: name)
-      paidByButton.setAttributedTitle(title, for: .normal)
+  func updatePaidByMember(user: User) {
+    let title = NSAttributedString(string: user.name)
+    paidByButton.setAttributedTitle(title, for: .normal)
+    paidByMember = user
+  }
+}
+
+extension NewTransactionViewController: SplitBetweenViewControllerDelegate {
+  
+  // MARK: SplitBetweenViewControllerDelegate methods
+  
+  func updateSplitBetweenMembers(members: [User]) {
+    var allUsersString = ""
+    for member in members {
+      allUsersString.append("\(member.name), ")
     }
-    
+    allUsersString = allUsersString.trimmingCharacters(in: CharacterSet.letters.inverted)
+    let title = NSAttributedString(string: allUsersString)
+    splitBetweenButton.setAttributedTitle(title, for: .normal)
+    splitBetweenMembers = members
   }
 }

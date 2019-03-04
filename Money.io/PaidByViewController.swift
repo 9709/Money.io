@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PaidByViewControllerDelegate {
-  func updatePaidByMember(uid: Int)
+  func updatePaidByMember(user: User)
 }
 
 class PaidByViewController: UIViewController {
@@ -18,7 +18,7 @@ class PaidByViewController: UIViewController {
   // MARK: Properties
   
   var group: Group?
-  var uid: Int?
+  var user: User?
   var delegate: PaidByViewControllerDelegate?
   
   @IBOutlet weak var tableView: UITableView!
@@ -43,8 +43,8 @@ class PaidByViewController: UIViewController {
 
 extension PaidByViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if let uid = group?.listOfUsers[indexPath.row].uid {
-      delegate?.updatePaidByMember(uid: uid)
+    if let user = group?.listOfUsers[indexPath.row] {
+      delegate?.updatePaidByMember(user: user)
     }
     dismiss(animated: true, completion: nil)
   }

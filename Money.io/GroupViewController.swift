@@ -17,6 +17,15 @@ class GroupViewController: UIViewController {
     
     group = Group(name: "LHL")
     group.addUser(name: "Matthew")
+    group.addUser(name: "Jun")
+    group.addUser(name: "Jenny")
+    group.addUser(name: "Josh")
+    group.addUser(name: "Spencer")
+    group.addUser(name: "Jason")
+    group.addUser(name: "Roland")
+    group.addUser(name: "Danny")
+    group.addUser(name: "Sam")
+    group.addUser(name: "Amir")
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
