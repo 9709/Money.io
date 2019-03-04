@@ -14,6 +14,7 @@ class Group {
   // MARK: Properties
   
   var listOfUsers: [User] = []
+  var listOfTransactions: [Transaction] = []
   var name: String
   let uid: Int
   static private var groupCount = 0
@@ -26,7 +27,7 @@ class Group {
     Group.groupCount += 1
   }
   
-  // MARK: Group methods
+  // MARK: Group User methods
   
   func addUser(name: String) {
     let user = User(name: name)
@@ -53,6 +54,12 @@ class Group {
       }
     }
     return nil
+  }
+  
+  // MARK: Group Transaction methods
+  
+  func addTransaction(_ transaction: Transaction) {
+    listOfTransactions.insert(transaction, at: 0)
   }
   
 }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NewTransactionViewControllerDelegate {
+  func addTransaction(_ transaction: Transaction)
+}
+
 class NewTransactionViewController: UIViewController {
   
   // MARK: Properties
@@ -16,6 +20,10 @@ class NewTransactionViewController: UIViewController {
   var paidByMember: User?
   var splitBetweenMembers: [User]?
   
+  var delegate: NewTransactionViewControllerDelegate?
+  
+  @IBOutlet weak var nameTextField: UITextField!
+  @IBOutlet weak var amountTextField: UITextField!
   @IBOutlet weak var paidByButton: UIButton!
   @IBOutlet weak var splitBetweenButton: UIButton!
   
@@ -34,6 +42,14 @@ class NewTransactionViewController: UIViewController {
   }
   
   @IBAction func save(_ sender: UIBarButtonItem) {
+    if let name = nameTextField.text,
+      let amountString = amountTextField.text, let amount = Double(amountString),
+      let paidUser = paidByMember,
+      let splitUsers = splitBetweenMembers {
+      let transaction = Transaction(name: name, amount: amount, paidUser: paidUser, splitUsers: splitUsers)
+      delegate?.addTransaction(transaction)
+    }
+    dismiss(animated: true, completion: nil)
   }
   
   // MARK: Navigation

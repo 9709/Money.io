@@ -10,7 +10,11 @@ import UIKit
 
 class GroupViewController: UIViewController {
   
+  // MARK: Properties
+
   var group: Group!
+  
+  @IBOutlet weak var tableView: UITableView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,6 +30,15 @@ class GroupViewController: UIViewController {
     group.addUser(name: "Danny")
     group.addUser(name: "Sam")
     group.addUser(name: "Amir")
+    
+    group.addTransaction(Transaction(name: "Dinner", amount: 70.00, paidUser: group.listOfUsers[2], splitUsers: [
+      group.listOfUsers[1],
+      group.listOfUsers[2],
+      group.listOfUsers[3],
+      group.listOfUsers[4]
+      ]))
+    
+    tableView.dataSource = self
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,9 +52,42 @@ class GroupViewController: UIViewController {
       if let viewController = segue.destination as? UINavigationController {
         if let newTransactionVC = viewController.children[0] as? NewTransactionViewController {
           newTransactionVC.group = group
+          newTransactionVC.delegate = self
         }
       }
     }
   }
+  
+}
+
+extension GroupViewController: NewTransactionViewControllerDelegate {
+  
+  // MARK: NewTransactionViewControllerDelegate methods
+  
+  func addTransaction(_ transaction: Transaction) {
+    group.addTransaction(transaction)
+    tableView.reloadData()
+  }
+}
+
+extension GroupViewController: UITableViewDataSource {
+  
+  // MARK: UITableViewDataSource methods
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return group.listOfTransactions.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell", for: indexPath) as? TransactionTableViewCell else {
+      return UITableViewCell()
+    }
+    
+    cell.transaction = group.listOfTransactions[indexPath.row]
+    cell.configureCell()
+    
+    return cell
+  }
+  
   
 }
