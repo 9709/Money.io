@@ -1,0 +1,6 @@
+
+Pods/
+
+*.xcworkspace
+
+Money.io/Firebase/GoogleService-Info.plist
