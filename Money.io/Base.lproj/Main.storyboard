@@ -65,6 +65,7 @@
                                             <outlet property="amountLabel" destination="zdX-hr-Cmh" id="k1M-hY-qn1"/>
                                             <outlet property="borrowedLabel" destination="Owu-eR-J9u" id="UWo-dq-Yy5"/>
                                             <outlet property="nameLabel" destination="OoR-P6-GqN" id="tfA-6w-30k"/>
+                                            <segue destination="2db-Ep-bnv" kind="presentation" identifier="toEditTransactionSegue" id="0E4-4b-TK0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -310,7 +311,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-z3-8ZI">
-                                <rect key="frame" x="37.666666666666657" y="88.000000000000014" width="300" height="201.33333333333337"/>
+                                <rect key="frame" x="37.666666666666657" y="148" width="300" height="201.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjT-Qy-hdy">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="20.333333333333332"/>
@@ -319,7 +320,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e3c-nh-uNx">
-                                        <rect key="frame" x="0.0" y="20.333333333333329" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="20.333333333333343" width="300" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -390,7 +391,7 @@
                         <constraints>
                             <constraint firstItem="Le5-z3-8ZI" firstAttribute="width" secondItem="sge-WM-pCs" secondAttribute="width" multiplier="0.8" id="eHT-pO-Ukt"/>
                             <constraint firstItem="Le5-z3-8ZI" firstAttribute="centerX" secondItem="sge-WM-pCs" secondAttribute="centerX" id="ndw-EV-LDO"/>
-                            <constraint firstItem="Le5-z3-8ZI" firstAttribute="top" secondItem="jbB-oC-SUU" secondAttribute="top" id="p9v-fx-elG"/>
+                            <constraint firstItem="Le5-z3-8ZI" firstAttribute="top" secondItem="jbB-oC-SUU" secondAttribute="top" constant="60" id="p9v-fx-elG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jbB-oC-SUU"/>
                     </view>
@@ -585,6 +586,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="0E4-4b-TK0"/>
         <segue reference="Pdf-V7-AaQ"/>
     </inferredMetricsTieBreakers>
 </document>

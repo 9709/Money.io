@@ -10,6 +10,7 @@ import UIKit
 
 protocol NewTransactionViewControllerDelegate {
   func addTransaction(_ transaction: Transaction)
+  func updateTransaction()
 }
 
 class NewTransactionViewController: UIViewController {
@@ -17,6 +18,7 @@ class NewTransactionViewController: UIViewController {
   // MARK: Properties
   
   var group: Group?
+  var transaction: Transaction?
   var paidByMember: User?
   var splitBetweenMembers: [User]?
   
@@ -32,7 +34,26 @@ class NewTransactionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Do any additional setup after loading the view.
+    
+    if let transaction = transaction {
+      nameTextField.text = transaction.name
+      amountTextField.text = String(format: "%.2f", transaction.amount)
+
+      let paidByMember = transaction.paidUser
+      let title = NSAttributedString(string: paidByMember.name)
+      paidByButton.setAttributedTitle(title, for: .normal)
+      
+      let splitBetweenMembers = transaction.splitUsers
+      var allUsersString = ""
+      for member in splitBetweenMembers {
+        allUsersString.append("\(member.name), ")
+      }
+      allUsersString = allUsersString.trimmingCharacters(in: CharacterSet.letters.inverted)
+      let splitTitle = NSAttributedString(string: allUsersString)
+      splitBetweenButton.setAttributedTitle(splitTitle, for: .normal)
+      
+    }
+    
   }
   
   // MARK: Actions
@@ -42,12 +63,28 @@ class NewTransactionViewController: UIViewController {
   }
   
   @IBAction func save(_ sender: UIBarButtonItem) {
-    if let name = nameTextField.text,
-      let amountString = amountTextField.text, let amount = Double(amountString),
-      let paidUser = paidByMember,
-      let splitUsers = splitBetweenMembers {
-      let transaction = Transaction(name: name, amount: amount, paidUser: paidUser, splitUsers: splitUsers)
-      delegate?.addTransaction(transaction)
+    if let transaction = transaction {
+      if let name = nameTextField.text {
+        transaction.name = name
+      }
+      if let amountString = amountTextField.text, let amount = Double(amountString) {
+        transaction.amount = amount
+      }
+      if let paidUser = paidByMember {
+        transaction.paidUser = paidUser
+      }
+      if let splitUsers = splitBetweenMembers {
+        transaction.splitUsers = splitUsers
+      }
+      delegate?.updateTransaction()
+    } else {
+      if let name = nameTextField.text,
+        let amountString = amountTextField.text, let amount = Double(amountString),
+        let paidUser = paidByMember,
+        let splitUsers = splitBetweenMembers {
+        let transaction = Transaction(name: name, amount: amount, paidUser: paidUser, splitUsers: splitUsers)
+        delegate?.addTransaction(transaction)
+      }
     }
     dismiss(animated: true, completion: nil)
   }

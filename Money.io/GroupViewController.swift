@@ -39,6 +39,7 @@ class GroupViewController: UIViewController {
       ]))
     
     tableView.dataSource = self
+    tableView.delegate = self
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,6 +56,18 @@ class GroupViewController: UIViewController {
           newTransactionVC.delegate = self
         }
       }
+    } else if segue.identifier == "toEditTransactionSegue" {
+      if let viewController = segue.destination as? UINavigationController {
+        if let editTransactionVC = viewController.children[0] as? NewTransactionViewController {
+          if let transactionCell = sender as? TransactionTableViewCell,
+            let selectedRow = tableView.indexPath(for: transactionCell)?.row {
+            let transaction = group.listOfTransactions[selectedRow]
+            editTransactionVC.transaction = transaction
+            editTransactionVC.group = group
+            editTransactionVC.delegate = self
+          }
+        }
+      }
     }
   }
   
@@ -68,6 +81,23 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
     group.addTransaction(transaction)
     tableView.reloadData()
   }
+  
+  func updateTransaction() {
+    tableView.reloadData()
+  }
+}
+
+extension GroupViewController: UITableViewDelegate {
+  
+  // MARK: UITableViewDelegate methods
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      group.deleteTransaction(at: indexPath.row)
+      tableView.reloadData()
+    }
+  }
+  
 }
 
 extension GroupViewController: UITableViewDataSource {

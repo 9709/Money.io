@@ -61,5 +61,9 @@ class Group {
   func addTransaction(_ transaction: Transaction) {
     listOfTransactions.insert(transaction, at: 0)
   }
+
+  func deleteTransaction(at index: Int) {
+    listOfTransactions.remove(at: index)
+  }
   
 }
