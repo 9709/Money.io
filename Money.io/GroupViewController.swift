@@ -42,6 +42,8 @@ class GroupViewController: UIViewController {
     tableView.delegate = self
   }
   
+  // MARK: Navigation
+  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "toGroupMembersSegue" {
       if let viewController = segue.destination as? UINavigationController {

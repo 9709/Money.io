@@ -52,6 +52,9 @@ class NewTransactionViewController: UIViewController {
       let splitTitle = NSAttributedString(string: allUsersString)
       splitBetweenButton.setAttributedTitle(splitTitle, for: .normal)
       
+      navigationItem.title = "Edit Transaction"
+    } else {
+      navigationItem.title = "Add Transaction"
     }
     
   }

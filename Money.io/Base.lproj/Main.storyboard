@@ -87,12 +87,16 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="yAi-DT-iJB" firstAttribute="leading" secondItem="dvs-oj-mU9" secondAttribute="leading" id="QVv-2w-luY"/>
                                     <constraint firstItem="dvs-oj-mU9" firstAttribute="top" secondItem="yAi-DT-iJB" secondAttribute="bottom" constant="5" id="aXf-1x-zxS"/>
                                     <constraint firstItem="dvs-oj-mU9" firstAttribute="centerY" secondItem="G2l-69-ejQ" secondAttribute="centerY" id="ezi-sT-oly"/>
                                     <constraint firstItem="dvs-oj-mU9" firstAttribute="centerX" secondItem="G2l-69-ejQ" secondAttribute="centerX" id="jV7-Do-9aE"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="oRB-kd-Yft" appends="YES" id="C5F-dU-Qrg"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -127,6 +131,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="oRB-kd-Yft">
+                    <connections>
+                        <action selector="payBack:" destination="BYZ-38-t0r" id="Nbq-yF-5ka"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="996" y="22.906403940886701"/>
         </scene>
