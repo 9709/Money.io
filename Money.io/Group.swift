@@ -27,6 +27,9 @@ class Group {
     Group.groupCount += 1
   }
   
+    
+    
+    
   // MARK: Group User methods
   
   func addUser(name: String) {
@@ -56,6 +59,9 @@ class Group {
     return nil
   }
   
+    
+    
+    
   // MARK: Group Transaction methods
   
   func addTransaction(_ transaction: Transaction) {

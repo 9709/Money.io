@@ -12,6 +12,7 @@ class User {
     
     var name: String
     let uid: Int
+    var amountOwing: Double = 0
     static private var userCount = 0
     
     
