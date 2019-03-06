@@ -61,10 +61,12 @@
                                                 <constraint firstItem="EG5-RV-bhm" firstAttribute="centerY" secondItem="NGe-tp-hXi" secondAttribute="centerY" id="x7h-49-h7D"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="amountLabel" destination="EG5-RV-bhm" id="8ka-CC-E6z"/>
                                             <outlet property="memberLabel" destination="8Xj-90-agz" id="sZE-VE-343"/>
                                             <outlet property="owingLabel" destination="9QB-5k-ope" id="B4d-II-aeX"/>
+                                            <segue destination="WeK-HO-Zle" kind="presentation" identifier="toPayBackAmountSegue" id="lEq-Ts-Ihv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -98,6 +100,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62d-Bs-qxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3213.5999999999999" y="-774.38423645320199"/>
+        </scene>
+        <!--Pay Back-->
+        <scene sceneID="ZKN-kZ-gt3">
+            <objects>
+                <viewController id="ORd-ia-RK3" customClass="PayBackAmountViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ptu-xG-w99" userLabel="Pay back member label">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rom-GR-ypJ">
+                                <rect key="frame" x="40" y="238.00000000000003" width="295" height="50.333333333333343"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay Jun back:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yer-tu-uq2">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-E5-Ghh">
+                                        <rect key="frame" x="0.0" y="20.333333333333314" width="295" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Rom-GR-ypJ" firstAttribute="top" secondItem="U4Q-nx-t6J" secondAttribute="top" constant="150" id="EB2-UN-fnc"/>
+                            <constraint firstItem="UNi-E5-Ghh" firstAttribute="width" secondItem="ptu-xG-w99" secondAttribute="width" constant="-80" id="g14-mb-ZC9"/>
+                            <constraint firstItem="Rom-GR-ypJ" firstAttribute="centerX" secondItem="ptu-xG-w99" secondAttribute="centerX" id="l9t-jL-aoG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="U4Q-nx-t6J"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pay Back" id="Tr4-f9-PF6" userLabel="Pay Back amount textfield">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="8ni-aw-bge">
+                            <connections>
+                                <action selector="cancel:" destination="ORd-ia-RK3" id="HfE-Dt-2Lf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="TDh-tr-P1F">
+                            <connections>
+                                <action selector="save:" destination="ORd-ia-RK3" id="svS-zP-PMl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="payBackAmountTextfield" destination="UNi-E5-Ghh" id="KwO-7W-5dZ"/>
+                        <outlet property="payBackMemberLabel" destination="Yer-tu-uq2" id="2ds-U8-rVn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TXQ-7A-py7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5640.8000000000002" y="-775.1231527093596"/>
         </scene>
         <!--Group Name-->
         <scene sceneID="tne-QT-ifu">
@@ -175,7 +232,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.20594819082576166" green="0.39416883794110791" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="yAi-DT-iJB" firstAttribute="leading" secondItem="dvs-oj-mU9" secondAttribute="leading" id="QVv-2w-luY"/>
@@ -701,6 +758,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLZ-x5-qZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2271" y="-775"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rrk-p0-fIk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WeK-HO-Zle" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gGU-qo-ea9">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ORd-ia-RK3" kind="relationship" relationship="rootViewController" id="KIo-zX-KN8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zDG-9C-qzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4700" y="-775"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

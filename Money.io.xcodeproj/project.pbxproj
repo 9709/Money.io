@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		172A4D4E222F8AC100C18C97 /* PayBackAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172A4D4D222F8AC100C18C97 /* PayBackAmountViewController.swift */; };
 		17DA94ED222B6073002E2057 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA94EC222B6073002E2057 /* AppDelegate.swift */; };
 		17DA94F2222B6073002E2057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DA94F0222B6073002E2057 /* Main.storyboard */; };
 		17DA94F5222B6073002E2057 /* Money_io.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 17DA94F3222B6073002E2057 /* Money_io.xcdatamodeld */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		172A4D4D222F8AC100C18C97 /* PayBackAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBackAmountViewController.swift; sourceTree = "<group>"; };
 		17DA94E9222B6073002E2057 /* Money.io.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Money.io.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17DA94EC222B6073002E2057 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17DA94F1222B6073002E2057 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				17DA94F0222B6073002E2057 /* Main.storyboard */,
 				17DA950F222B6160002E2057 /* GroupViewController.swift */,
 				17FD46F3222E432E00392D67 /* PayBackViewController.swift */,
+				172A4D4D222F8AC100C18C97 /* PayBackAmountViewController.swift */,
 				17DA9511222B6514002E2057 /* GroupMembersViewController.swift */,
 				17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */,
 				C8FCD142222C814300607F4D /* NewTransactionViewController.swift */,
@@ -255,6 +258,7 @@
 				17EF6A2F222E1F90004534B9 /* Calculations.swift in Sources */,
 				C8FCD14B222CB50900607F4D /* TransactionTableViewCell.swift in Sources */,
 				17DA94F5222B6073002E2057 /* Money_io.xcdatamodeld in Sources */,
+				172A4D4E222F8AC100C18C97 /* PayBackAmountViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

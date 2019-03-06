@@ -66,10 +66,55 @@ class Group {
   
   func addTransaction(_ transaction: Transaction) {
     listOfTransactions.insert(transaction, at: 0)
+    updateOwningAmountPerMember()
   }
 
   func deleteTransaction(at index: Int) {
     listOfTransactions.remove(at: index)
+    updateOwningAmountPerMember()
   }
+
+    
+    
+    // MARK: Sums amount owing for each peron
+
+    func updateOwningAmountPerMember() {
+        self.listOfUsers.forEach({(user: User) -> Void in user.amountOwing = 0})
+        let currentUser: User = GlobalVariables.singleton.currentUser;
+        for transaction in self.listOfTransactions {
+            let amountPerPerson = transaction.amount/Double(transaction.splitUsers.count)
+            if currentUser.uid == transaction.paidUser.uid {
+                for user in transaction.splitUsers {
+                    if user.uid != currentUser.uid {
+                        user.amountOwing -= amountPerPerson
+                    }
+                }
+            } else if transaction.splitUsers.contains(where: { (splitUser) -> Bool in
+                splitUser.uid == currentUser.uid
+            }) {
+                transaction.paidUser.amountOwing += amountPerPerson
+            }
+            
+//            for user in self.listOfUsers {
+//                if transaction.paidUser === GlobalVariables.singleton.currentUser {
+//                    amountPerPerson = (transaction.amount/Double(transaction.splitUsers.count)) * -1.00
+//
+//                    if transaction.splitUsers.contains(where: { (splitUser) -> Bool in
+//                        splitUser.uid == user.uid
+//                    }) {
+//                        Calculations.updateUserDebt(with: amountPerPerson, and: user)
+//                    }
+//                    print(user.name, user.amountOwing)
+//                } else {
+//                    if transaction.splitUsers.contains(where: { (splitUser) -> Bool in
+//                        splitUser.uid == user.uid
+//                    }) {
+//                        Calculations.updateUserDebt(with: amountPerPerson, and: user)
+//                    }
+//                    print(user.name, user.amountOwing)
+//                }
+//            }
+        }
+    }
   
 }

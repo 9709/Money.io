@@ -8,11 +8,18 @@
 
 import UIKit
 
-class PayBackViewController: UIViewController {
+protocol PayBackViewControllerDelegate {
+   func updateTotal()
+}
 
+
+class PayBackViewController: UIViewController {
+    
     // MARK: Properties
     
     var group: Group!
+    
+    var delegate: PayBackViewControllerDelegate?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,7 +30,7 @@ class PayBackViewController: UIViewController {
         tableView.dataSource = self
     }
     
-
+    
     
     
     // MARK: Actions
@@ -32,18 +39,34 @@ class PayBackViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func save(_ sender: UIBarButtonItem) {
+        delegate?.updateTotal()
         dismiss(animated: true, completion: nil)
     }
-
+    
+    
+    // MARK: Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPayBackAmountSegue" {
+            if let viewController = segue.destination as? UINavigationController {
+                if let payBackAmountVC = viewController.children[0] as? PayBackAmountViewController {
+                    if let payBackCell = sender as? PayBackTableViewCell,
+                        let selectedRow = tableView.indexPath(for: payBackCell)?.row {
+                        let user = group.listOfUsers[selectedRow]
+                        payBackAmountVC.user = user
+                        payBackAmountVC.delegate = self
+                    }
+                }
+            }
+        }
+    }
+    
 }
-
-
 
 
 extension PayBackViewController: UITableViewDataSource {
     
     // MARK: UITableViewDataSource methods
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return group.listOfUsers.count
     }
@@ -58,6 +81,11 @@ extension PayBackViewController: UITableViewDataSource {
         
         return cell
     }
-    
+}
 
+
+extension PayBackViewController: PayBackAmountViewControllerDelegate {
+    func payBack() {
+        tableView.reloadData()
+    }
 }

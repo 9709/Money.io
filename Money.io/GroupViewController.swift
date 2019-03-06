@@ -45,7 +45,7 @@ class GroupViewController: UIViewController {
             let uid = user.uid
             if uid == 0 {
                 GlobalVariables.singleton.currentUser = user
-                print((GlobalVariables.singleton.currentUser.name, GlobalVariables.singleton.currentUser.uid))
+                print("Current User: \(GlobalVariables.singleton.currentUser.name)\nUid: \(GlobalVariables.singleton.currentUser.uid)")
             }
         }
         
@@ -84,20 +84,7 @@ class GroupViewController: UIViewController {
             group.listOfUsers[3],
             group.listOfUsers[4]
             ]))
-        
-        
-        for transaction in group.listOfTransactions {
-            let amountPerPerson = transaction.amount/Double(transaction.splitUsers.count)
-            for user in group.listOfUsers {
-                if transaction.splitUsers.contains(where: { (splitUser) -> Bool in
-                    splitUser.uid == user.uid
-                }) {
-                    Calculations.updateUserDebt(with: amountPerPerson, and: user)
-                }
-                print(user.name, user.amountOwing)
-            }
-        }
-        
+            
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -116,7 +103,6 @@ class GroupViewController: UIViewController {
         } else {
             totalOwingLabel.textColor = UIColor.green
             oweStatusLabel.text = "You need back:"
-
         }
     }
     
@@ -157,6 +143,7 @@ class GroupViewController: UIViewController {
             if let viewController = segue.destination as? UINavigationController {
                 if let payBackVC = viewController.children[0] as? PayBackViewController {
                     payBackVC.group = group
+                    payBackVC.delegate = self
                 }
             }
         }
@@ -178,10 +165,17 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
     }
     
     func updateTransaction() {
+        group.updateOwningAmountPerMember()
         tableView.reloadData()
     }
 }
 
+
+extension GroupViewController: PayBackViewControllerDelegate {
+    func updateTotal() {
+        tableView.reloadData()
+    }
+}
 
 
 

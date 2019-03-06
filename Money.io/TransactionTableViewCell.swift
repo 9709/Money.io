@@ -18,46 +18,41 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet weak var borrowedLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     
-    // MARK: UITableViewCell methods
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-    
+
     
     // MARK: TransactionTableViewCell methods
     
     func configureCell() {
         if let transaction = transaction {
             
-            var transactionAmount = transaction.amount
-
             nameLabel.text = transaction.name
             
-            if transaction.paidUser === GlobalVariables.singleton.currentUser {
+            var transactionAmount = transaction.amount
+            let paid = transaction.paidUser.uid == GlobalVariables.singleton.currentUser.uid
+            let split = transaction.splitUsers.contains(where: {(user) -> Bool in user.uid == GlobalVariables.singleton.currentUser.uid})
+            let numSplit = transaction.splitUsers.count
+            let splitAmount = transaction.amount / Double(numSplit)
+            if paid {
                 borrowedLabel.text = "You lent out"
                 borrowedLabel.textColor = UIColor.green
 
-                transactionAmount = transaction.amount * -1.00
+                transactionAmount = split ? -1.00 * transaction.amount + splitAmount : transaction.amount * -1.00
                 amountLabel.text = String(format: "$%.2f", abs(transactionAmount))
                 amountLabel.textColor = UIColor.green
                 
-            } else {
+            } else if split {
                 
                 borrowedLabel.text = "You borrowed"
                 borrowedLabel.textColor = UIColor.red
 
-                amountLabel.text = String(format: "$%.2f", transactionAmount)
+                amountLabel.text = String(format: "$%.2f", splitAmount)
                 amountLabel.textColor = UIColor.red
 
+            } else {
+                borrowedLabel.text = ""
+                
+                amountLabel.text = "Not Involved"
+                amountLabel.textColor = UIColor.gray
             }
         }
     }
