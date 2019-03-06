@@ -17,6 +17,8 @@ class GroupViewController: UIViewController {
     var transaction: Transaction?
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var totalOwingLabel: UILabel!
+    @IBOutlet weak var oweStatusLabel: UILabel!
     
     
     
@@ -76,6 +78,13 @@ class GroupViewController: UIViewController {
             group.listOfUsers[4]
             ]))
         
+        group.addTransaction(Transaction(name: "Birthday", amount: 40.00, paidUser: group.listOfUsers[0], splitUsers: [
+            group.listOfUsers[1],
+            group.listOfUsers[2],
+            group.listOfUsers[3],
+            group.listOfUsers[4]
+            ]))
+        
         
         for transaction in group.listOfTransactions {
             let amountPerPerson = transaction.amount/Double(transaction.splitUsers.count)
@@ -83,7 +92,7 @@ class GroupViewController: UIViewController {
                 if transaction.splitUsers.contains(where: { (splitUser) -> Bool in
                     splitUser.uid == user.uid
                 }) {
-                    Caluclations.updateUserDebt(with: amountPerPerson, and: user)
+                    Calculations.updateUserDebt(with: amountPerPerson, and: user)
                 }
                 print(user.name, user.amountOwing)
             }
@@ -93,6 +102,26 @@ class GroupViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+  
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let sum = Calculations.totalOwing(with: group.listOfUsers)
+        totalOwingLabel.text = String(format: "$%.2f", abs(sum))
+        
+        if sum > 0 {
+            totalOwingLabel.textColor = UIColor.red
+            oweStatusLabel.text = "You owe:"
+        } else {
+            totalOwingLabel.textColor = UIColor.green
+            oweStatusLabel.text = "You need back:"
+
+        }
+    }
+    
+    
+    
     
     
     // MARK: Navigation
@@ -124,13 +153,14 @@ class GroupViewController: UIViewController {
                 }
             }
         }
+        else if segue.identifier == "toPayBackSegue" {
+            if let viewController = segue.destination as? UINavigationController {
+                if let payBackVC = viewController.children[0] as? PayBackViewController {
+                    payBackVC.group = group
+                }
+            }
+        }
     }
-    
-    @IBAction func payBackButton(_ sender: UITapGestureRecognizer) {
-        
-    }
-    
-    
     
 }
 

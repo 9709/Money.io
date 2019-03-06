@@ -8,12 +8,19 @@
 
 import Foundation
 
-var user: User?
-
-class Caluclations {
+class Calculations {
     
     static func updateUserDebt(with amount: Double, and user: User) {
         user.amountOwing += amount
     }
     
+    static func totalOwing(with group: [User]) -> Double {
+        var arrayOfOwing: [Double] = []
+        
+        for user in group {
+            arrayOfOwing.append(user.amountOwing)
+            
+        }
+        return arrayOfOwing.reduce(0, +)
+    }
 }

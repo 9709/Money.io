@@ -13,6 +13,8 @@ protocol NewTransactionViewControllerDelegate {
   func updateTransaction()
 }
 
+
+
 class NewTransactionViewController: UIViewController {
   
   // MARK: Properties
@@ -29,6 +31,9 @@ class NewTransactionViewController: UIViewController {
   @IBOutlet weak var paidByButton: UIButton!
   @IBOutlet weak var splitBetweenButton: UIButton!
   
+    
+    
+    
   // MARK: UIViewController methods
   
   override func viewDidLoad() {
@@ -59,6 +64,10 @@ class NewTransactionViewController: UIViewController {
     
   }
   
+    
+    
+    
+
   // MARK: Actions
   
   @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -92,6 +101,10 @@ class NewTransactionViewController: UIViewController {
     dismiss(animated: true, completion: nil)
   }
   
+    
+    
+    
+    
   // MARK: Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,6 +129,9 @@ class NewTransactionViewController: UIViewController {
   
 }
 
+
+
+
 extension NewTransactionViewController: PaidByViewControllerDelegate {
   
   // MARK: PaidByViewControllerDelegate methods
@@ -126,6 +142,7 @@ extension NewTransactionViewController: PaidByViewControllerDelegate {
     paidByMember = user
   }
 }
+
 
 extension NewTransactionViewController: SplitBetweenViewControllerDelegate {
   
