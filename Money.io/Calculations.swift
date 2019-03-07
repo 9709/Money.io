@@ -14,6 +14,7 @@ class Calculations {
         user.amountOwing += amount
     }
     
+    
     static func totalOwing(with group: [User]) -> Double {
         var arrayOfOwing: [Double] = []
         

@@ -10,7 +10,6 @@ import UIKit
 
 class PayBackTableViewCell: UITableViewCell {
     
-    var group: Group!
     var user: User?
     
     @IBOutlet weak var memberLabel: UILabel!
@@ -20,7 +19,6 @@ class PayBackTableViewCell: UITableViewCell {
     
     
     func configureCell() {
-        let currentUser = GlobalVariables.singleton.currentUser
         if let user = user {
             memberLabel.text = user.name
             amountLabel.text = String(format: "$%.2f", abs(user.amountOwing))
@@ -45,11 +43,6 @@ class PayBackTableViewCell: UITableViewCell {
                 owingLabel.text = ""
                 
                 amountLabel.text = "Not Involved"
-                amountLabel.textColor = UIColor.gray
-            }
-            
-            if user.uid == currentUser?.uid {
-                amountLabel.text = "me"
                 amountLabel.textColor = UIColor.gray
             }
         }

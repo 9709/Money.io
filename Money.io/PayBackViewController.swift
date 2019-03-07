@@ -19,6 +19,7 @@ class PayBackViewController: UIViewController {
     
     var group: Group!
     var user: User?
+    var payBackUsers: [User] = []
     
     var delegate: PayBackViewControllerDelegate?
     
@@ -29,6 +30,13 @@ class PayBackViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for user in group.listOfUsers {
+            if user === GlobalVariables.singleton.currentUser {
+                continue
+            }
+            payBackUsers.append(user)
+        }
         
         tableView.dataSource = self
     }
@@ -54,7 +62,7 @@ class PayBackViewController: UIViewController {
                 if let payBackAmountVC = viewController.children[0] as? PayBackAmountViewController {
                     if let payBackCell = sender as? PayBackTableViewCell,
                         let selectedRow = tableView.indexPath(for: payBackCell)?.row {
-                        let user = group.listOfUsers[selectedRow]
+                        let user = payBackUsers[selectedRow]
                         payBackAmountVC.user = user
                         payBackAmountVC.delegate = self
                     }
@@ -71,7 +79,7 @@ extension PayBackViewController: UITableViewDataSource {
     // MARK: UITableViewDataSource methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return group.listOfUsers.count
+        return payBackUsers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,7 +87,7 @@ extension PayBackViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.user = group.listOfUsers[indexPath.row]
+        cell.user = payBackUsers[indexPath.row]
         cell.configureCell()
         
         return cell

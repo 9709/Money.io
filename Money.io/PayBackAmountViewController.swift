@@ -24,7 +24,6 @@ class PayBackAmountViewController: UIViewController {
     
     // MARK: Properties
     
-    var transaction: Transaction?
     var user: User?
     var memberName: String = ""
     
@@ -66,9 +65,8 @@ class PayBackAmountViewController: UIViewController {
                 }
             } else {
                 if let amountString = payBackAmountTextfield.text, let amount = Double(amountString) {
-                    let negAmount = amount * -1.00
                     if let currentUser = GlobalVariables.singleton.currentUser {
-                        let transaction = Transaction(name: "Took back from: \(memberName)", amount: negAmount, paidUser: currentUser, splitUsers: [user])
+                        let transaction = Transaction(name: "Took back from: \(memberName)", amount: amount, paidUser: user, splitUsers: [currentUser])
                         delegate?.payBackTransaction(transaction)
                     }
                 }
