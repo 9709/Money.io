@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PayBackViewControllerDelegate {
-   func updateTotal()
+    func updateTotal()
 }
 
 
@@ -18,10 +18,13 @@ class PayBackViewController: UIViewController {
     // MARK: Properties
     
     var group: Group!
+    var user: User?
     
     var delegate: PayBackViewControllerDelegate?
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
     
     
     override func viewDidLoad() {
@@ -84,8 +87,12 @@ extension PayBackViewController: UITableViewDataSource {
 }
 
 
+
 extension PayBackViewController: PayBackAmountViewControllerDelegate {
-    func payBack() {
+    
+    func payBackTransaction(_ transaction: Transaction) {
+        group.addTransaction(transaction)
         tableView.reloadData()
+        
     }
 }

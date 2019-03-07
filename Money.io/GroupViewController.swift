@@ -78,19 +78,23 @@ class GroupViewController: UIViewController {
             group.listOfUsers[4]
             ]))
         
+        group.addTransaction(Transaction(name: "Brunch", amount: 100.00, paidUser: group.listOfUsers[1], splitUsers: [
+            group.listOfUsers[0]
+            ]))
+        
         group.addTransaction(Transaction(name: "Birthday", amount: 40.00, paidUser: group.listOfUsers[0], splitUsers: [
             group.listOfUsers[1],
             group.listOfUsers[2],
             group.listOfUsers[3],
             group.listOfUsers[4]
             ]))
-            
+        
         
         tableView.dataSource = self
         tableView.delegate = self
     }
     
-  
+    
     
     
     override func viewDidAppear(_ animated: Bool) {

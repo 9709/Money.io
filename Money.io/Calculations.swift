@@ -23,5 +23,5 @@ class Calculations {
         }
         return arrayOfOwing.reduce(0, +)
     }
-   
+    
 }

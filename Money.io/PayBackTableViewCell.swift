@@ -24,25 +24,30 @@ class PayBackTableViewCell: UITableViewCell {
         if let user = user {
             memberLabel.text = user.name
             amountLabel.text = String(format: "$%.2f", abs(user.amountOwing))
+            let amountOwing = user.amountOwing
             
-            if user.amountOwing > 0 {
+            switch amountOwing {
+            case let x where x > 0:
                 owingLabel.text = "Pay back"
                 owingLabel.textColor = UIColor.red
                 
                 amountLabel.text = String(format: "$%.2f", abs(user.amountOwing))
                 amountLabel.textColor = UIColor.red
-            } else if user.amountOwing == 0 {
-                owingLabel.text = ""
                 
-                amountLabel.text = "Not Involved"
-                amountLabel.textColor = UIColor.gray
-            } else {
+            case let x where x < 0:
                 owingLabel.text = "Need back"
                 owingLabel.textColor = UIColor.green
                 
                 amountLabel.text = String(format: "$%.2f", abs(user.amountOwing))
                 amountLabel.textColor = UIColor.green
+                
+            default:
+                owingLabel.text = ""
+                
+                amountLabel.text = "Not Involved"
+                amountLabel.textColor = UIColor.gray
             }
+            
             if user.uid == currentUser?.uid {
                 amountLabel.text = "me"
                 amountLabel.textColor = UIColor.gray
