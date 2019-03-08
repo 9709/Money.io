@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1713B2F12230EB3700CAE37B /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1713B2C82230E6AF00CAE37B /* NotificationCenter.framework */; };
+		1713B2F42230EB3700CAE37B /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1713B2F32230EB3700CAE37B /* TodayViewController.swift */; };
+		1713B2F72230EB3700CAE37B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1713B2F52230EB3700CAE37B /* MainInterface.storyboard */; };
+		1713B2FB2230EB3700CAE37B /* Money Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1713B2F02230EB3700CAE37B /* Money Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		172A4D4E222F8AC100C18C97 /* PayBackAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172A4D4D222F8AC100C18C97 /* PayBackAmountViewController.swift */; };
 		17DA94ED222B6073002E2057 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA94EC222B6073002E2057 /* AppDelegate.swift */; };
 		17DA94F2222B6073002E2057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DA94F0222B6073002E2057 /* Main.storyboard */; };
@@ -31,6 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1713B2F92230EB3700CAE37B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17DA94E1222B6073002E2057 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1713B2EF2230EB3700CAE37B;
+			remoteInfo = "Money Widget";
+		};
 		17DA9501222B6074002E2057 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 17DA94E1222B6073002E2057 /* Project object */;
@@ -40,8 +51,29 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1713B2D72230E6AF00CAE37B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1713B2FB2230EB3700CAE37B /* Money Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1713B2C82230E6AF00CAE37B /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		1713B2F02230EB3700CAE37B /* Money Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Money Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1713B2F32230EB3700CAE37B /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		1713B2F62230EB3700CAE37B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1713B2F82230EB3700CAE37B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		172A4D4D222F8AC100C18C97 /* PayBackAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBackAmountViewController.swift; sourceTree = "<group>"; };
+		17333E8622321151003CDB89 /* Money Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Money Widget.entitlements"; sourceTree = "<group>"; };
+		17333E87223213C3003CDB89 /* Money.io.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Money.io.entitlements; sourceTree = "<group>"; };
 		17DA94E9222B6073002E2057 /* Money.io.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Money.io.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17DA94EC222B6073002E2057 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17DA94F1222B6073002E2057 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -69,6 +101,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1713B2ED2230EB3700CAE37B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1713B2F12230EB3700CAE37B /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		17DA94E6222B6073002E2057 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,11 +126,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1713B2C72230E6AF00CAE37B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1713B2C82230E6AF00CAE37B /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1713B2F22230EB3700CAE37B /* Money Widget */ = {
+			isa = PBXGroup;
+			children = (
+				17333E8622321151003CDB89 /* Money Widget.entitlements */,
+				1713B2F32230EB3700CAE37B /* TodayViewController.swift */,
+				1713B2F52230EB3700CAE37B /* MainInterface.storyboard */,
+				1713B2F82230EB3700CAE37B /* Info.plist */,
+			);
+			path = "Money Widget";
+			sourceTree = "<group>";
+		};
 		17DA94E0222B6073002E2057 = {
 			isa = PBXGroup;
 			children = (
 				17DA94EB222B6073002E2057 /* Money.io */,
 				17DA9503222B6074002E2057 /* Money.ioTests */,
+				1713B2F22230EB3700CAE37B /* Money Widget */,
+				1713B2C72230E6AF00CAE37B /* Frameworks */,
 				17DA94EA222B6073002E2057 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,6 +161,7 @@
 			children = (
 				17DA94E9222B6073002E2057 /* Money.io.app */,
 				17DA9500222B6074002E2057 /* Money.ioTests.xctest */,
+				1713B2F02230EB3700CAE37B /* Money Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +169,7 @@
 		17DA94EB222B6073002E2057 /* Money.io */ = {
 			isa = PBXGroup;
 			children = (
+				17333E87223213C3003CDB89 /* Money.io.entitlements */,
 				17DA94EC222B6073002E2057 /* AppDelegate.swift */,
 				17DA94F0222B6073002E2057 /* Main.storyboard */,
 				17DA950F222B6160002E2057 /* GroupViewController.swift */,
@@ -144,6 +207,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1713B2EF2230EB3700CAE37B /* Money Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1713B2FC2230EB3700CAE37B /* Build configuration list for PBXNativeTarget "Money Widget" */;
+			buildPhases = (
+				1713B2EC2230EB3700CAE37B /* Sources */,
+				1713B2ED2230EB3700CAE37B /* Frameworks */,
+				1713B2EE2230EB3700CAE37B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Money Widget";
+			productName = "Money Widget";
+			productReference = 1713B2F02230EB3700CAE37B /* Money Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		17DA94E8222B6073002E2057 /* Money.io */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 17DA9509222B6074002E2057 /* Build configuration list for PBXNativeTarget "Money.io" */;
@@ -151,10 +231,12 @@
 				17DA94E5222B6073002E2057 /* Sources */,
 				17DA94E6222B6073002E2057 /* Frameworks */,
 				17DA94E7222B6073002E2057 /* Resources */,
+				1713B2D72230E6AF00CAE37B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1713B2FA2230EB3700CAE37B /* PBXTargetDependency */,
 			);
 			name = Money.io;
 			productName = Money.io;
@@ -189,8 +271,21 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Matthew Chan";
 				TargetAttributes = {
+					1713B2EF2230EB3700CAE37B = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					17DA94E8222B6073002E2057 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					17DA94FF222B6074002E2057 = {
 						CreatedOnToolsVersion = 10.1;
@@ -213,11 +308,20 @@
 			targets = (
 				17DA94E8222B6073002E2057 /* Money.io */,
 				17DA94FF222B6074002E2057 /* Money.ioTests */,
+				1713B2EF2230EB3700CAE37B /* Money Widget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1713B2EE2230EB3700CAE37B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1713B2F72230EB3700CAE37B /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		17DA94E7222B6073002E2057 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +342,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1713B2EC2230EB3700CAE37B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1713B2F42230EB3700CAE37B /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		17DA94E5222B6073002E2057 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -273,6 +385,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1713B2FA2230EB3700CAE37B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1713B2EF2230EB3700CAE37B /* Money Widget */;
+			targetProxy = 1713B2F92230EB3700CAE37B /* PBXContainerItemProxy */;
+		};
 		17DA9502222B6074002E2057 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 17DA94E8222B6073002E2057 /* Money.io */;
@@ -281,6 +398,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1713B2F52230EB3700CAE37B /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1713B2F62230EB3700CAE37B /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		17DA94F0222B6073002E2057 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -300,6 +425,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1713B2FD2230EB3700CAE37B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Money Widget/Money Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X3GKR9NFG3;
+				INFOPLIST_FILE = "Money Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MatthewChan.Money-io.Money-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1713B2FE2230EB3700CAE37B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Money Widget/Money Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X3GKR9NFG3;
+				INFOPLIST_FILE = "Money Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MatthewChan.Money-io.Money-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		17DA9507222B6074002E2057 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -419,7 +584,9 @@
 		17DA950A222B6074002E2057 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Money.io/Money.io.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X3GKR9NFG3;
 				INFOPLIST_FILE = Money.io/Info.plist;
@@ -437,7 +604,9 @@
 		17DA950B222B6074002E2057 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Money.io/Money.io.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X3GKR9NFG3;
 				INFOPLIST_FILE = Money.io/Info.plist;
@@ -497,6 +666,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1713B2FC2230EB3700CAE37B /* Build configuration list for PBXNativeTarget "Money Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1713B2FD2230EB3700CAE37B /* Debug */,
+				1713B2FE2230EB3700CAE37B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		17DA94E4222B6073002E2057 /* Build configuration list for PBXProject "Money.io" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

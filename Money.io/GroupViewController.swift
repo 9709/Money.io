@@ -17,7 +17,7 @@ class GroupViewController: UIViewController {
     var transaction: Transaction?
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var totalOwingLabel: UILabel!
+    @IBOutlet weak var totalOwingAmountLabel: UILabel!
     @IBOutlet weak var oweStatusLabel: UILabel!
     
     
@@ -99,15 +99,26 @@ class GroupViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         let sum = Calculations.totalOwing(with: group.listOfUsers)
-        totalOwingLabel.text = String(format: "$%.2f", abs(sum))
+        totalOwingAmountLabel.text = String(format: "$%.2f", abs(sum))
         
         if sum > 0 {
-            totalOwingLabel.textColor = UIColor.red
+            totalOwingAmountLabel.textColor = UIColor.red
+            
             oweStatusLabel.text = "You owe:"
+            let oweStatus = oweStatusLabel.text
+            
+            UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(oweStatus, forKey: "owe")
         } else {
-            totalOwingLabel.textColor = UIColor.green
+            totalOwingAmountLabel.textColor = UIColor.green
+
             oweStatusLabel.text = "You need back:"
+            let oweStatus = oweStatusLabel.text
+            
+            UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(oweStatus, forKey: "owe")
         }
+    
+        let stringSum = totalOwingAmountLabel.text
+        UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(stringSum, forKey: "sum")
     }
     
     
