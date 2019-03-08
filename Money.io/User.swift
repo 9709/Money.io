@@ -15,7 +15,8 @@ struct User {
   var name: String
   var uid: String?
   var groups: [Group]?
-  
+  var amountOwing: Double = 0
+
   // MARK: Initializers
   
   init(name: String) {
@@ -28,3 +29,4 @@ struct User {
     groups?.append(group)
   }
 }
+

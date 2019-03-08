@@ -12,7 +12,11 @@ protocol NewEditMemberViewControllerDelegate {
   func addMember(name: String)
 }
 
+
+
+
 class NewEditMemberViewController: UIViewController {
+
   
   // MARK: Properties
   
@@ -37,7 +41,6 @@ class NewEditMemberViewController: UIViewController {
     if let name = textField.text {
       delegate?.addMember(name: name)
     }
-    dismiss(animated: true, completion: nil)
   }
-  
+    
 }

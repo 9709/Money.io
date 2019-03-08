@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 struct Group {
   
   
@@ -38,10 +39,32 @@ struct Group {
   
   mutating func addTransaction(_ transaction: Transaction) {
     listOfTransactions.insert(transaction, at: 0)
+    updateOwningAmountPerMember()
   }
 
   mutating func deleteTransaction(at index: Int) {
     listOfTransactions.remove(at: index)
+    updateOwningAmountPerMember()
+  }
+  
+  
+  func updateOwningAmountPerMember() {
+//    self.listOfUsers.forEach({(user: User) -> Void in user.amountOwing = 0})
+//    let currentUser: User = GlobalVariables.singleton.currentUser;
+//    for transaction in self.listOfTransactions {
+//      let amountPerPerson = transaction.amount/Double(transaction.splitUsers.count)
+//      if currentUser.uid == transaction.paidUser.uid {
+//        for user in transaction.splitUsers {
+//          if user.uid != currentUser.uid {
+//            user.amountOwing -= amountPerPerson
+//          }
+//        }
+//      } else if transaction.splitUsers.contains(where: { (splitUser) -> Bool in
+//        splitUser.uid == currentUser.uid
+//      }) {
+//        transaction.paidUser.amountOwing += amountPerPerson
+//      }
+//    }
   }
   
 }

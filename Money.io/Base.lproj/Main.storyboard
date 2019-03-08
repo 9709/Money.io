@@ -71,7 +71,154 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MY6-KW-tOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="-1357"/>
+            <point key="canvasLocation" x="988" y="-2365"/>
+        </scene>
+        <!--Pay Back-->
+        <scene sceneID="CaS-6U-UKW">
+            <objects>
+                <viewController id="Hkg-oQ-7e0" customClass="PayBackViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GSb-6G-hbO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hHP-rc-UPZ">
+                                <rect key="frame" x="0.0" y="22" width="375" height="690"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayBackCell" rowHeight="69" id="JxD-pu-byd" customClass="PayBackTableViewCell" customModule="Money_io" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="69"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JxD-pu-byd" id="NGe-tp-hXi">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="68.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99999.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EG5-RV-bhm" userLabel="Amount Label">
+                                                    <rect key="frame" x="248.66666666666666" y="18.666666666666671" width="118.33333333333334" height="31.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rXl-n0-1s8">
+                                                    <rect key="frame" x="8" y="7.9999999999999964" width="217" height="52.666666666666657"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Member 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Xj-90-agz" userLabel="Member Label">
+                                                            <rect key="frame" x="0.0" y="0.0" width="217" height="37"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Owing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9QB-5k-ope" userLabel="Owing/Lending Label">
+                                                            <rect key="frame" x="0.0" y="37" width="217" height="15.666666666666664"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rXl-n0-1s8" firstAttribute="top" secondItem="NGe-tp-hXi" secondAttribute="top" constant="8" id="BT3-RR-YBj"/>
+                                                <constraint firstAttribute="trailing" secondItem="8Xj-90-agz" secondAttribute="trailing" constant="150" id="cYE-9r-61H"/>
+                                                <constraint firstItem="rXl-n0-1s8" firstAttribute="leading" secondItem="NGe-tp-hXi" secondAttribute="leading" constant="8" id="jIY-Tf-47t"/>
+                                                <constraint firstAttribute="bottom" secondItem="rXl-n0-1s8" secondAttribute="bottom" constant="8" id="oWx-rd-mq4"/>
+                                                <constraint firstAttribute="trailing" secondItem="EG5-RV-bhm" secondAttribute="trailing" constant="8" id="w4g-xq-0Gc"/>
+                                                <constraint firstItem="EG5-RV-bhm" firstAttribute="centerY" secondItem="NGe-tp-hXi" secondAttribute="centerY" id="x7h-49-h7D"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="EG5-RV-bhm" id="8ka-CC-E6z"/>
+                                            <outlet property="memberLabel" destination="8Xj-90-agz" id="sZE-VE-343"/>
+                                            <outlet property="owingLabel" destination="9QB-5k-ope" id="B4d-II-aeX"/>
+                                            <segue destination="WeK-HO-Zle" kind="presentation" identifier="toPayBackAmountSegue" id="lEq-Ts-Ihv"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YKZ-mG-WkH" firstAttribute="trailing" secondItem="hHP-rc-UPZ" secondAttribute="trailing" id="79R-Kf-OqA"/>
+                            <constraint firstItem="hHP-rc-UPZ" firstAttribute="top" secondItem="YKZ-mG-WkH" secondAttribute="top" id="FAb-JW-O43"/>
+                            <constraint firstItem="hHP-rc-UPZ" firstAttribute="leading" secondItem="YKZ-mG-WkH" secondAttribute="leading" id="SAy-ZR-b1k"/>
+                            <constraint firstItem="YKZ-mG-WkH" firstAttribute="bottom" secondItem="hHP-rc-UPZ" secondAttribute="bottom" id="cCf-EA-Sai"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YKZ-mG-WkH"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pay Back" id="obj-63-tim">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="7Iv-rk-SWF">
+                            <connections>
+                                <action selector="cancel:" destination="Hkg-oQ-7e0" id="OsW-7w-HO7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="cwX-kC-ybx">
+                            <connections>
+                                <action selector="save:" destination="Hkg-oQ-7e0" id="3nO-w4-9xZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="hHP-rc-UPZ" id="yUe-YV-fZm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="62d-Bs-qxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3214" y="-794"/>
+        </scene>
+        <!--Pay Back-->
+        <scene sceneID="ZKN-kZ-gt3">
+            <objects>
+                <viewController id="ORd-ia-RK3" customClass="PayBackAmountViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ptu-xG-w99" userLabel="Pay back member label">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rom-GR-ypJ">
+                                <rect key="frame" x="40" y="238.00000000000003" width="295" height="50.333333333333343"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay Jun back:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yer-tu-uq2">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-E5-Ghh">
+                                        <rect key="frame" x="0.0" y="20.333333333333314" width="295" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Rom-GR-ypJ" firstAttribute="top" secondItem="U4Q-nx-t6J" secondAttribute="top" constant="150" id="EB2-UN-fnc"/>
+                            <constraint firstItem="UNi-E5-Ghh" firstAttribute="width" secondItem="ptu-xG-w99" secondAttribute="width" constant="-80" id="g14-mb-ZC9"/>
+                            <constraint firstItem="Rom-GR-ypJ" firstAttribute="centerX" secondItem="ptu-xG-w99" secondAttribute="centerX" id="l9t-jL-aoG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="U4Q-nx-t6J"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pay Back" id="Tr4-f9-PF6" userLabel="Pay Back amount textfield">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="8ni-aw-bge">
+                            <connections>
+                                <action selector="cancel:" destination="ORd-ia-RK3" id="HfE-Dt-2Lf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="TDh-tr-P1F">
+                            <connections>
+                                <action selector="save:" destination="ORd-ia-RK3" id="svS-zP-PMl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="payBackAmountTextfield" destination="UNi-E5-Ghh" id="KwO-7W-5dZ"/>
+                        <outlet property="payBackMemberLabel" destination="Yer-tu-uq2" id="2ds-U8-rVn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TXQ-7A-py7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5640.8000000000002" y="-775.1231527093596"/>
         </scene>
         <!--Group Name-->
         <scene sceneID="tne-QT-ifu">
@@ -85,30 +232,30 @@
                                 <rect key="frame" x="0.0" y="406" width="375" height="406"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionCell" id="Of1-Ap-Nny" customClass="TransactionTableViewCell" customModule="Money_io" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionCell" rowHeight="54" id="Of1-Ap-Nny" customClass="TransactionTableViewCell" customModule="Money_io" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Of1-Ap-Nny" id="A6D-Xa-6N2">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="53.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$15.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdX-hr-Cmh">
-                                                    <rect key="frame" x="284" y="6.3333333333333339" width="83" height="31.333333333333329"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$99999.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdX-hr-Cmh">
+                                                    <rect key="frame" x="232.66666666666663" y="11.333333333333334" width="134.33333333333337" height="31.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Umx-h6-5Wf">
-                                                    <rect key="frame" x="8.0000000000000071" y="8.0000000000000018" width="124.66666666666669" height="27.666666666666671"/>
+                                                    <rect key="frame" x="8" y="8" width="217" height="37.666666666666664"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Transaction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OoR-P6-GqN">
-                                                            <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="12"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="Transaction" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OoR-P6-GqN">
+                                                            <rect key="frame" x="0.0" y="0.0" width="217" height="22"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="You borrowed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owu-eR-J9u">
-                                                            <rect key="frame" x="0.0" y="12" width="124.66666666666667" height="15.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="22" width="217" height="15.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -118,6 +265,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="zdX-hr-Cmh" firstAttribute="centerY" secondItem="A6D-Xa-6N2" secondAttribute="centerY" id="0wz-Tl-4gz"/>
+                                                <constraint firstAttribute="trailing" secondItem="OoR-P6-GqN" secondAttribute="trailing" constant="150" id="5vA-SY-7hC"/>
                                                 <constraint firstAttribute="bottom" secondItem="Umx-h6-5Wf" secondAttribute="bottom" constant="8" id="9SF-xV-Q6L"/>
                                                 <constraint firstItem="Umx-h6-5Wf" firstAttribute="leading" secondItem="A6D-Xa-6N2" secondAttribute="leading" constant="8" id="PaR-wj-IVC"/>
                                                 <constraint firstItem="Umx-h6-5Wf" firstAttribute="top" secondItem="A6D-Xa-6N2" secondAttribute="top" constant="8" id="S3d-9h-gCA"/>
@@ -136,20 +284,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G2l-69-ejQ">
                                 <rect key="frame" x="0.0" y="88" width="375" height="318"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$9999.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvs-oj-mU9">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$9999.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvs-oj-mU9" userLabel="Total amount owing label">
                                         <rect key="frame" x="32" y="120.33333333333334" width="311.33333333333331" height="77.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="65"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You owe:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAi-DT-iJB">
-                                        <rect key="frame" x="32" y="94.333333333333343" width="69" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You owe:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAi-DT-iJB" userLabel="Owe Status Lable">
+                                        <rect key="frame" x="32" y="91.333333333333343" width="79" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="yAi-DT-iJB" firstAttribute="leading" secondItem="dvs-oj-mU9" secondAttribute="leading" id="QVv-2w-luY"/>
@@ -190,13 +337,15 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="oweStatusLabel" destination="yAi-DT-iJB" id="uBE-uG-8SP"/>
                         <outlet property="tableView" destination="ZAV-LP-Hnb" id="Uc8-z8-qTy"/>
+                        <outlet property="totalOwingLabel" destination="dvs-oj-mU9" id="jqB-tE-ixm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="oRB-kd-Yft">
                     <connections>
-                        <action selector="payBack:" destination="BYZ-38-t0r" id="Nbq-yF-5ka"/>
+                        <segue destination="WDF-ZT-tMF" kind="presentation" identifier="toPayBackSegue" id="440-rn-lpB"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -426,7 +575,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MA3-T9-2gg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3212" y="-713.79310344827593"/>
+            <point key="canvasLocation" x="3212" y="-1689"/>
         </scene>
         <!--New Transaction-->
         <scene sceneID="Y7t-bn-SCv">
@@ -726,7 +875,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KIK-6g-Uwh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="62" y="-1357"/>
+            <point key="canvasLocation" x="54" y="-2365"/>
         </scene>
         <!--Your Groups-->
         <scene sceneID="OMQ-8V-4HY">
@@ -774,7 +923,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEt-pX-yoQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="-682.01970443349751"/>
+            <point key="canvasLocation" x="996" y="-1689"/>
         </scene>
         <!--Signed Out View Controller-->
         <scene sceneID="zgg-Ni-Vzk">
@@ -815,7 +964,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="39T-hh-Qhi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-922" y="-1357"/>
+            <point key="canvasLocation" x="-930" y="-2365"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="13w-CD-0SM">
@@ -833,7 +982,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zZG-JQ-hd7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61.600000000000001" y="-682.01970443349751"/>
+            <point key="canvasLocation" x="54" y="-1689"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tjT-9X-pj7">
@@ -851,11 +1000,47 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ny1-j8-lz1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2269.5999999999999" y="-714.53201970443354"/>
+            <point key="canvasLocation" x="2270" y="-1689"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zKn-v9-YDg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WDF-ZT-tMF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8IV-6L-66I">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Hkg-oQ-7e0" kind="relationship" relationship="rootViewController" id="rTd-tN-Q5i"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XLZ-x5-qZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2270" y="-775"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rrk-p0-fIk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WeK-HO-Zle" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gGU-qo-ea9">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ORd-ia-RK3" kind="relationship" relationship="rootViewController" id="KIo-zX-KN8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zDG-9C-qzh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4700" y="-775"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3IF-rh-0pT"/>
+        <segue reference="A1D-7y-ZhH"/>
         <segue reference="0E4-4b-TK0"/>
         <segue reference="Pdf-V7-AaQ"/>
     </inferredMetricsTieBreakers>

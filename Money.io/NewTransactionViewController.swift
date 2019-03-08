@@ -13,6 +13,8 @@ protocol NewTransactionViewControllerDelegate {
   func updateTransaction()
 }
 
+
+
 class NewTransactionViewController: UIViewController {
   
   // MARK: Properties
@@ -29,6 +31,9 @@ class NewTransactionViewController: UIViewController {
   @IBOutlet weak var paidByButton: UIButton!
   @IBOutlet weak var splitBetweenButton: UIButton!
   
+  
+  
+  
   // MARK: UIViewController methods
   
   override func viewDidLoad() {
@@ -38,7 +43,7 @@ class NewTransactionViewController: UIViewController {
     if let transaction = transaction {
       nameTextField.text = transaction.name
       amountTextField.text = String(format: "%.2f", transaction.amount)
-
+      
       let paidByMember = transaction.paidUser
       let title = NSAttributedString(string: paidByMember.name)
       paidByButton.setAttributedTitle(title, for: .normal)
@@ -88,10 +93,9 @@ class NewTransactionViewController: UIViewController {
         let transaction = Transaction(name: name, amount: amount, paidUser: paidUser, splitUsers: splitUsers)
         delegate?.addTransaction(transaction)
       }
+      dismiss(animated: true, completion: nil)
     }
-    dismiss(animated: true, completion: nil)
   }
-  
   // MARK: Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,6 +120,9 @@ class NewTransactionViewController: UIViewController {
   
 }
 
+
+
+
 extension NewTransactionViewController: PaidByViewControllerDelegate {
   
   // MARK: PaidByViewControllerDelegate methods
@@ -126,6 +133,7 @@ extension NewTransactionViewController: PaidByViewControllerDelegate {
     paidByMember = user
   }
 }
+
 
 extension NewTransactionViewController: SplitBetweenViewControllerDelegate {
   
