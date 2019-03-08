@@ -66,7 +66,7 @@ class NewTransactionViewController: UIViewController {
   }
   
   @IBAction func save(_ sender: UIBarButtonItem) {
-    if let transaction = transaction {
+    if var transaction = transaction {
       if let name = nameTextField.text {
         transaction.name = name
       }

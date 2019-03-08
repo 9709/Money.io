@@ -78,12 +78,12 @@ extension SplitBetweenViewController: UITableViewDataSource {
     if let members = members {
       for index in 0..<members.count {
         if let user = group?.listOfUsers[indexPath.row] {
-          if members[index] === user {
+//          if members[index] === user {
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
             cell.accessoryType = .checkmark
             self.members?.remove(at: index)
             break
-          }
+//          }
         }
       }
     }

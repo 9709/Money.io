@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Group {
+struct Group {
   
   
   // MARK: Properties
@@ -16,53 +16,31 @@ class Group {
   var listOfUsers: [User] = []
   var listOfTransactions: [Transaction] = []
   var name: String
-  let uid: Int
-  static private var groupCount = 0
+  var uid: String?
 
   // MARK: Initializers
   
   init(name: String) {
     self.name = name
-    self.uid = Group.groupCount
-    Group.groupCount += 1
   }
   
   // MARK: Group User methods
   
-  func addUser(name: String) {
-    let user = User(name: name)
+  mutating func addUser(_ user: User) {
     listOfUsers.append(user)
   }
   
-  func editUser(uid: Int, name: String) {
-    for user in listOfUsers {
-      if user.uid == uid {
-        user.name = name
-        break
-      }
-    }
-  }
-  
-  func deleteUser(at index: Int) {
+  mutating func deleteUser(at index: Int) {
     listOfUsers.remove(at: index)
-  }
-  
-  func findUser(from uid: Int) -> User? {
-    for user in listOfUsers {
-      if user.uid == uid {
-        return user
-      }
-    }
-    return nil
   }
   
   // MARK: Group Transaction methods
   
-  func addTransaction(_ transaction: Transaction) {
+  mutating func addTransaction(_ transaction: Transaction) {
     listOfTransactions.insert(transaction, at: 0)
   }
 
-  func deleteTransaction(at index: Int) {
+  mutating func deleteTransaction(at index: Int) {
     listOfTransactions.remove(at: index)
   }
   

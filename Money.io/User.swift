@@ -8,17 +8,23 @@
 
 import UIKit
 
-class User {
-    
-    var name: String
-    let uid: Int
-    static private var userCount = 0
-    
-    
-    init(name: String) {
-        self.name = name
-        self.uid = User.userCount
-        User.userCount += 1
-    }
-
+struct User {
+  
+  // MARK: Propeerties
+  
+  var name: String
+  var uid: String?
+  var groups: [Group]?
+  
+  // MARK: Initializers
+  
+  init(name: String) {
+    self.name = name
+  }
+  
+  // MARK: User methods
+  
+  mutating func addGroup(_ group: Group) {
+    groups?.append(group)
+  }
 }

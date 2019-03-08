@@ -20,23 +20,6 @@ class GroupViewController: UIViewController {
     super.viewDidLoad()
     
     group = Group(name: "LHL")
-    group.addUser(name: "Matthew")
-    group.addUser(name: "Jun")
-    group.addUser(name: "Jenny")
-    group.addUser(name: "Josh")
-    group.addUser(name: "Spencer")
-    group.addUser(name: "Jason")
-    group.addUser(name: "Roland")
-    group.addUser(name: "Danny")
-    group.addUser(name: "Sam")
-    group.addUser(name: "Amir")
-    
-    group.addTransaction(Transaction(name: "Dinner", amount: 70.00, paidUser: group.listOfUsers[2], splitUsers: [
-      group.listOfUsers[1],
-      group.listOfUsers[2],
-      group.listOfUsers[3],
-      group.listOfUsers[4]
-      ]))
     
     tableView.dataSource = self
     tableView.delegate = self

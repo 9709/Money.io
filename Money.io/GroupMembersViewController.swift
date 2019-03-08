@@ -47,7 +47,6 @@ class GroupMembersViewController: UIViewController {
             let selectedIndexPath = tableView.indexPath(for: cell) {
             let user = group.listOfUsers[selectedIndexPath.row]
             editMemberVC.name = user.name
-            editMemberVC.uid = user.uid
             editMemberVC.delegate = self
           }
       }
@@ -90,12 +89,7 @@ extension GroupMembersViewController: NewEditMemberViewControllerDelegate {
   // MARK: NewEditMemberViewControllerDelegate methods
   
   func addMember(name: String) {
-    group.addUser(name: name)
-    tableView.reloadData()
-  }
-  
-  func editMember(uid: Int, name: String) {
-    group.editUser(uid: uid, name: name)
+
     tableView.reloadData()
   }
 }

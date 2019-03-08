@@ -7,6 +7,8 @@ target 'Money.io' do
 
   # Pods for Money.io
   pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseUI'
 
   target 'Money.ioTests' do
     inherit! :search_paths
