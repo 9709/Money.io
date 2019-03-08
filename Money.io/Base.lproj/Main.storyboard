@@ -470,24 +470,6 @@
             <point key="canvasLocation" x="996" y="1634"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="D7c-FY-K8h">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="G3Z-dY-DHf" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t25-Xg-3K8">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Tjb-zD-Bp9"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vnA-WA-cdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="62" y="23"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="Mvg-gw-9GG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mAo-5C-bUZ" sceneMemberID="viewController">
@@ -896,6 +878,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="toGroupViewSegue" id="fMm-mL-s3U"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

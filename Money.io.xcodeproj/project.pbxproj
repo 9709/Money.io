@@ -24,13 +24,12 @@
 		17EF6A2F222E1F90004534B9 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF6A2E222E1F90004534B9 /* Calculations.swift */; };
 		17FD46F4222E432E00392D67 /* PayBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD46F3222E432E00392D67 /* PayBackViewController.swift */; };
 		17FD46F6222E4D8C00392D67 /* PayBackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */; };
-		C8FB95342231E74900864A11 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB95332231E74900864A11 /* Data.swift */; };
+		C8FB95362232033D00864A11 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8FB95352232033D00864A11 /* GoogleService-Info.plist */; };
 		C8FCD143222C814300607F4D /* NewTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD142222C814300607F4D /* NewTransactionViewController.swift */; };
 		C8FCD145222C854800607F4D /* PaidByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD144222C854800607F4D /* PaidByViewController.swift */; };
 		C8FCD147222C956F00607F4D /* SplitBetweenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */; };
 		C8FCD149222CB0A400607F4D /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD148222CB0A400607F4D /* Transaction.swift */; };
 		C8FCD14B222CB50900607F4D /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */; };
-		C8FCD150222DE80B00607F4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8FCD14F222DE80B00607F4D /* GoogleService-Info.plist */; };
 		C8FCD15C222F34FC00607F4D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD15B222F34FC00607F4D /* DataManager.swift */; };
 		C8FCD15E222F688A00607F4D /* User+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD15D222F688A00607F4D /* User+Firebase.swift */; };
 		C8FCD160222F925200607F4D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD15F222F925200607F4D /* LoginViewController.swift */; };
@@ -79,13 +78,12 @@
 		95B5659D3665D921E0E739B6 /* Pods_Money_ioTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Money_ioTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A75BC46CB096BF68BAE73EE7 /* Pods_Money_io.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Money_io.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84FDDFD5A88454A5BCF9603 /* Pods-Money.ioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Money.ioTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Money.ioTests/Pods-Money.ioTests.release.xcconfig"; sourceTree = "<group>"; };
-		C8FB95332231E74900864A11 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		C8FB95352232033D00864A11 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C8FCD142222C814300607F4D /* NewTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionViewController.swift; sourceTree = "<group>"; };
 		C8FCD144222C854800607F4D /* PaidByViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidByViewController.swift; sourceTree = "<group>"; };
 		C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBetweenViewController.swift; sourceTree = "<group>"; };
 		C8FCD148222CB0A400607F4D /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
-		C8FCD14F222DE80B00607F4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C8FCD15B222F34FC00607F4D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		C8FCD15D222F688A00607F4D /* User+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Firebase.swift"; sourceTree = "<group>"; };
 		C8FCD15F222F925200607F4D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -141,29 +139,15 @@
 		17DA94EB222B6073002E2057 /* Money.io */ = {
 			isa = PBXGroup;
 			children = (
-				C8FEB13B2230793000349FC4 /* UserAuthentication */,
-				C8FCD14E222DE79600607F4D /* DataManager */,
-				17DA94EC222B6073002E2057 /* AppDelegate.swift */,
-				C8FB95332231E74900864A11 /* Data.swift */,
-				17DA94F0222B6073002E2057 /* Main.storyboard */,
-				C8FEB137223070AF00349FC4 /* MainViewController.swift */,
-				C8FEB13F2230C4A100349FC4 /* AddGroupViewController.swift */,
-				17DA950F222B6160002E2057 /* GroupViewController.swift */,
-				17FD46F3222E432E00392D67 /* PayBackViewController.swift */,
-				172A4D4D222F8AC100C18C97 /* PayBackAmountViewController.swift */,
-				17DA9511222B6514002E2057 /* GroupMembersViewController.swift */,
-				17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */,
-				C8FCD142222C814300607F4D /* NewTransactionViewController.swift */,
-				C8FCD144222C854800607F4D /* PaidByViewController.swift */,
-				C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */,
+				C8FEB13B2230793000349FC4 /* User Authentication */,
+				C8FCD14E222DE79600607F4D /* Data Manager */,
+				C86C975022320805003924E5 /* Data Models */,
+				C86C97512232083C003924E5 /* View Controllers */,
+				C86C975222320890003924E5 /* Views */,
 				17EF6A2C222DF16A004534B9 /* GlobalVariables.swift */,
-				17DA9513222B6675002E2057 /* User.swift */,
+				17DA94EC222B6073002E2057 /* AppDelegate.swift */,
+				17DA94F0222B6073002E2057 /* Main.storyboard */,
 				17EF6A2E222E1F90004534B9 /* Calculations.swift */,
-				17DA9515222B67DA002E2057 /* Group.swift */,
-				C8FCD148222CB0A400607F4D /* Transaction.swift */,
-				C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */,
-				C8FEB139223076B000349FC4 /* GroupTableViewCell.swift */,
-				17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */,
 				17DA94F6222B6074002E2057 /* Assets.xcassets */,
 				17DA94F8222B6074002E2057 /* LaunchScreen.storyboard */,
 				17DA94FB222B6074002E2057 /* Info.plist */,
@@ -190,25 +174,62 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C8FCD14E222DE79600607F4D /* DataManager */ = {
+		C86C975022320805003924E5 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				C8FCD14F222DE80B00607F4D /* GoogleService-Info.plist */,
-				C8FCD15B222F34FC00607F4D /* DataManager.swift */,
+				17DA9513222B6675002E2057 /* User.swift */,
+				17DA9515222B67DA002E2057 /* Group.swift */,
+				C8FCD148222CB0A400607F4D /* Transaction.swift */,
 			);
-			path = DataManager;
+			path = "Data Models";
 			sourceTree = "<group>";
 		};
-		C8FEB13B2230793000349FC4 /* UserAuthentication */ = {
+		C86C97512232083C003924E5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C8FEB137223070AF00349FC4 /* MainViewController.swift */,
+				C8FEB135223043B900349FC4 /* SignedOutViewController.swift */,
+				C8FCD15F222F925200607F4D /* LoginViewController.swift */,
+				C8FEB13F2230C4A100349FC4 /* AddGroupViewController.swift */,
+				17DA950F222B6160002E2057 /* GroupViewController.swift */,
+				17FD46F3222E432E00392D67 /* PayBackViewController.swift */,
+				172A4D4D222F8AC100C18C97 /* PayBackAmountViewController.swift */,
+				17DA9511222B6514002E2057 /* GroupMembersViewController.swift */,
+				17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */,
+				C8FCD142222C814300607F4D /* NewTransactionViewController.swift */,
+				C8FCD144222C854800607F4D /* PaidByViewController.swift */,
+				C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		C86C975222320890003924E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */,
+				C8FEB139223076B000349FC4 /* GroupTableViewCell.swift */,
+				17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C8FCD14E222DE79600607F4D /* Data Manager */ = {
+			isa = PBXGroup;
+			children = (
+				C8FCD15B222F34FC00607F4D /* DataManager.swift */,
+				C8FB95352232033D00864A11 /* GoogleService-Info.plist */,
+			);
+			path = "Data Manager";
+			sourceTree = "<group>";
+		};
+		C8FEB13B2230793000349FC4 /* User Authentication */ = {
 			isa = PBXGroup;
 			children = (
 				C8FEB13D2230797700349FC4 /* UserAuthentication.swift */,
 				C8FCD15D222F688A00607F4D /* User+Firebase.swift */,
 				C8FEB1412230C77100349FC4 /* Group+Firebase.swift */,
-				C8FCD15F222F925200607F4D /* LoginViewController.swift */,
-				C8FEB135223043B900349FC4 /* SignedOutViewController.swift */,
 			);
-			path = UserAuthentication;
+			path = "User Authentication";
 			sourceTree = "<group>";
 		};
 		CFEC11D35A65C668502DBE45 /* Pods */ = {
@@ -308,7 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17DA94FA222B6074002E2057 /* LaunchScreen.storyboard in Resources */,
-				C8FCD150222DE80B00607F4D /* GoogleService-Info.plist in Resources */,
+				C8FB95362232033D00864A11 /* GoogleService-Info.plist in Resources */,
 				17DA94F7222B6074002E2057 /* Assets.xcassets in Resources */,
 				17DA94F2222B6073002E2057 /* Main.storyboard in Resources */,
 			);
@@ -480,7 +501,6 @@
 				C8FCD143222C814300607F4D /* NewTransactionViewController.swift in Sources */,
 				C8FEB13E2230797700349FC4 /* UserAuthentication.swift in Sources */,
 				C8FEB136223043B900349FC4 /* SignedOutViewController.swift in Sources */,
-				C8FB95342231E74900864A11 /* Data.swift in Sources */,
 				17EF6A2D222DF16A004534B9 /* GlobalVariables.swift in Sources */,
 				17DA9516222B67DA002E2057 /* Group.swift in Sources */,
 				17DA9514222B6675002E2057 /* User.swift in Sources */,

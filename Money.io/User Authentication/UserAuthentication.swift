@@ -26,6 +26,8 @@ class UserAuthentication {
   // MARK: UserAuthentication methods
   
   static func createNewUser(_ name: String, email: String, password: String, completion: @escaping () -> Void) {
+    signOutUser()
+    
     Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
       guard let authResult = authResult else {
         print("Error: \(error.debugDescription)")
@@ -43,12 +45,24 @@ class UserAuthentication {
   }
   
   static func signInUser(withEmail email: String, password: String, completion: @escaping () -> Void) {
+    signOutUser()
+    
     Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
       guard let authDataResult = authDataResult else {
         print("Error: \(error.debugDescription)")
         return
       }
       completion()
+    }
+  }
+  
+  static func signOutUser() {
+    if Auth.auth().currentUser != nil {
+      do {
+        try Auth.auth().signOut()
+      } catch let error {
+        print("Error: \(error)")
+      }
     }
   }
   

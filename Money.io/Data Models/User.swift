@@ -12,8 +12,9 @@ struct User {
   
   // MARK: Propeerties
   
-  var name: String
   var uid: String?
+  
+  var name: String
   var groups: [Group]?
   var amountOwing: Double = 0
 
@@ -26,7 +27,11 @@ struct User {
   // MARK: User methods
   
   mutating func addGroup(_ group: Group) {
-    groups?.append(group)
+    if groups != nil {
+      groups?.append(group)
+    } else {
+      groups = [group]
+    }
   }
 }
 

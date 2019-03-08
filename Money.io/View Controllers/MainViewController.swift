@@ -35,8 +35,22 @@ class MainViewController: UIViewController {
         let addGroupVC = navigationVC.topViewController as? AddGroupViewController {
         addGroupVC.delegate = self
       }
+    } else if segue.identifier == "toGroupViewSegue" {
+      if let groupViewVC = segue.destination as? GroupViewController,
+        let groupCell = sender as? GroupTableViewCell,
+        let currentUser = currentUser, let groups = currentUser.groups,
+        let selectedIndexPath = tableView.indexPath(for: groupCell) {
+        groupViewVC.group = groups[selectedIndexPath.row]
+        groupViewVC.delegate = self
+      }
     }
   }
+}
+
+extension MainViewController: GroupViewControllerDelegate {
+  
+  // MARK: GroupViewControllerDelegate methods
+  
 }
 
 extension MainViewController: AddGroupViewControllerDelegate {

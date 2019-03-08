@@ -16,7 +16,7 @@ extension Group {
   var documentRef: DocumentReference? {
     get {
       if let uid = uid {
-        return Firestore.firestore().collection("User").document(uid)
+        return Firestore.firestore().collection("Group").document(uid)
       } else {
         return nil
       }

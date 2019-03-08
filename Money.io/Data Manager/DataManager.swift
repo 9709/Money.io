@@ -55,10 +55,9 @@ class DataManager {
             let dispatchQueue = DispatchQueue(label: "second")
             
             dispatchQueue.async {
-            
               for groupUID in groupUIDs {
                 dispatchGroup.enter()
-                  DataManager.getGroup(uid: groupUID) { group in
+                  getGroup(uid: groupUID) { group in
                     if let group = group {
                       groups.append(group)
                     }
@@ -67,11 +66,13 @@ class DataManager {
                 dispatchGroup.wait()
               }
             }
+            
             dispatchGroup.notify(queue: dispatchQueue, execute: {
               user.groups = groups
               completion(user)
             })
-      
+          } else {
+            completion(user)
           }
         } else {
           completion(nil)
@@ -112,6 +113,15 @@ class DataManager {
       } else {
         transaction.updateData(["groups": [groupRef.documentID]], forDocument: currentUserRef)
       }
+      
+      // Add document listener for realtime updates
+//      groupRef.addSnapshotListener({ (documentSnapshot, error) in
+//        if let document = documentSnapshot, document.exists {
+//          
+//        } else {
+//          
+//        }
+//      })
       
       let semaphore = DispatchSemaphore(value: 0)
       UserAuthentication.getCurrentUser(completion: { (currentUser) in

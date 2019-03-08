@@ -11,13 +11,14 @@ import UIKit
 
 struct Group {
   
-  
   // MARK: Properties
+  
+  var uid: String?
+  
+  var name: String
   
   var listOfUsers: [User] = []
   var listOfTransactions: [Transaction] = []
-  var name: String
-  var uid: String?
 
   // MARK: Initializers
   

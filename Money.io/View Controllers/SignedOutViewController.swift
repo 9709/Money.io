@@ -1,5 +1,4 @@
 import UIKit
-import FirebaseUI
 
 class SignedOutViewController: UIViewController {
   
