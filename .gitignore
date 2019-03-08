@@ -3,4 +3,4 @@ Pods/
 
 *.xcworkspace
 
-Money.io/Firebase/GoogleService-Info.plist
+Money.io/*/GoogleService-Info.plist
