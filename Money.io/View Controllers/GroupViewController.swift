@@ -16,36 +16,25 @@ class GroupViewController: UIViewController {
   
   // MARK: Properties
   
+  var currentUser: User?
+  
   var group: Group?
   var user: User?
   var delegate: GroupViewControllerDelegate?
-  var transaction: Transaction?
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var totalOwingLabel: UILabel!
   @IBOutlet weak var oweStatusLabel: UILabel!
   
-  
+  // MARK: UIViewController methods
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Setting currentUser
-    //        for user in group.listOfUsers {
-    //            let uid = user.uid
-    //            if uid == 0 {
-    //                GlobalVariables.singleton.currentUser = user
-    //                print("Current User: \(GlobalVariables.singleton.currentUser.name)\nUid: \(GlobalVariables.singleton.currentUser.uid)")
-    //            }
-    //        }
     
     navigationItem.title = group?.name
     tableView.dataSource = self
     tableView.delegate = self
   }
-  
-  
-  
   
   override func viewDidAppear(_ animated: Bool) {
     if let group = group {
@@ -62,40 +51,35 @@ class GroupViewController: UIViewController {
     }
   }
   
-  
-  
-  
-  
   // MARK: Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "toGroupMembersSegue" {
       if let viewController = segue.destination as? UINavigationController {
-        if let groupMembersVC = viewController.children[0] as? GroupMembersViewController {
+        if let groupMembersVC = viewController.topViewController as? GroupMembersViewController {
           groupMembersVC.group = group
         }
       }
     } else if segue.identifier == "toNewTransactionSegue" {
       if let viewController = segue.destination as? UINavigationController {
-        if let newTransactionVC = viewController.children[0] as? NewTransactionViewController {
+        if let newTransactionVC = viewController.topViewController as? NewTransactionViewController {
           newTransactionVC.group = group
           newTransactionVC.delegate = self
         }
       }
     } else if segue.identifier == "toEditTransactionSegue" {
       if let viewController = segue.destination as? UINavigationController {
-        if let editTransactionVC = viewController.children[0] as? NewTransactionViewController {
+        if let editTransactionVC = viewController.topViewController as? NewTransactionViewController {
           if let transactionCell = sender as? TransactionTableViewCell,
             let selectedRow = tableView.indexPath(for: transactionCell)?.row {
             let transaction = group?.listOfTransactions[selectedRow]
-            editTransactionVC.transaction = transaction
+//            editTransactionVC.transaction = transaction
             editTransactionVC.group = group
             editTransactionVC.delegate = self
           }
         }
       }
-    }
-    else if segue.identifier == "toPayBackSegue" {
+    } else if segue.identifier == "toPayBackSegue" {
       if let viewController = segue.destination as? UINavigationController {
         if let payBackVC = viewController.children[0] as? PayBackViewController {
           payBackVC.group = group
@@ -107,17 +91,16 @@ class GroupViewController: UIViewController {
   
 }
 
-
-
-
-
 extension GroupViewController: NewTransactionViewControllerDelegate {
   
   // MARK: NewTransactionViewControllerDelegate methods
   
-  func addTransaction(_ transaction: Transaction) {
-    group?.addTransaction(transaction)
-    tableView.reloadData()
+  func createTransaction(name: String, details: [String: Double]) {
+    group?.createTransaction(name: name, details: details) { [weak self] in
+      OperationQueue.main.addOperation {
+        self?.tableView.reloadData()
+      }
+    }
   }
   
   func updateTransaction() {
@@ -126,14 +109,14 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
   }
 }
 
-
 extension GroupViewController: PayBackViewControllerDelegate {
+  
+  // MARK: PayBackViewControllerDelegate methods
+  
   func updateTotal() {
     tableView.reloadData()
   }
 }
-
-
 
 extension GroupViewController: UITableViewDelegate {
   
@@ -147,9 +130,6 @@ extension GroupViewController: UITableViewDelegate {
   }
   
 }
-
-
-
 
 extension GroupViewController: UITableViewDataSource {
   
@@ -167,6 +147,7 @@ extension GroupViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     
+    cell.currentUser = currentUser
     cell.transaction = group?.listOfTransactions[indexPath.row]
     cell.configureCell()
     

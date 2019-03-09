@@ -59,15 +59,15 @@ class PayBackAmountViewController: UIViewController {
             if user.amountOwing > 0 {
                 if let amountString = payBackAmountTextfield.text, let amount = Double(amountString) {
                     if let currentUser = GlobalVariables.singleton.currentUser {
-                        let transaction = Transaction(name: "Paid back: \(memberName)", amount: amount, paidUser: currentUser, splitUsers: [user])
-                        delegate?.payBackTransaction(transaction)
+//                        let transaction = Transaction(name: "Paid back: \(memberName)", amount: amount, paidUser: currentUser, splitUsers: [user])
+//                        delegate?.payBackTransaction(transaction)
                     }
                 }
             } else {
                 if let amountString = payBackAmountTextfield.text, let amount = Double(amountString) {
                     if let currentUser = GlobalVariables.singleton.currentUser {
-                        let transaction = Transaction(name: "Took back from: \(memberName)", amount: amount, paidUser: user, splitUsers: [currentUser])
-                        delegate?.payBackTransaction(transaction)
+//                        let transaction = Transaction(name: "Took back from: \(memberName)", amount: amount, paidUser: user, splitUsers: [currentUser])
+//                        delegate?.payBackTransaction(transaction)
                     }
                 }
             }

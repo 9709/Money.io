@@ -1,18 +1,10 @@
-//
-//  GroupMembersViewController.swift
-//  Money.io
-//
-//  Created by Matthew Chan on 2019-03-02.
-//  Copyright © 2019 Matthew Chan. All rights reserved.
-//
-
 import UIKit
 
 class GroupMembersViewController: UIViewController {
     
     // MARK: Properties
     
-    var group: Group!
+    var group: Group?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -59,12 +51,15 @@ extension GroupMembersViewController: UITableViewDataSource {
     // MARK: UITableViewDataSource methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      if let group = group {
         return group.listOfUsers.count
+      }
+      return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupMemberNameCell", for: indexPath)
-        cell.textLabel?.text = group.listOfUsers[indexPath.row].name
+        cell.textLabel?.text = group?.listOfUsers[indexPath.row].name
         return cell
     }
     
@@ -76,7 +71,7 @@ extension GroupMembersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            group.deleteUser(at: indexPath.row)
+            group?.deleteUser(at: indexPath.row)
             tableView.reloadData()
         }
     }
@@ -86,9 +81,14 @@ extension GroupMembersViewController: NewEditMemberViewControllerDelegate {
   
   // MARK: NewEditMemberViewControllerDelegate methods
   
-  func addMember(name: String) {
-
-    tableView.reloadData()
+  func addMember(email: String) {
+    if let group = group {
+      group.addUser(email: email) { [weak self] in
+        OperationQueue.main.addOperation {
+          self?.tableView.reloadData()
+        }
+      }
+    }
   }
 }
 

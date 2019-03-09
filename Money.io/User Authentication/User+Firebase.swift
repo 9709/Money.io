@@ -7,14 +7,12 @@ extension User {
   
   var documentRef: DocumentReference? {
     get {
-      if let uid = uid {
-        return Firestore.firestore().collection("User").document(uid)
-      } else {
-        return nil
-      }
+      return Firestore.firestore().collection("User").document(uid)
     }
     set(documentRef) {
-      uid = documentRef?.documentID
+      if let documentID = documentRef?.documentID {
+        uid = documentID
+      }
     }
   }
   var dictionary: [String: Any] {

@@ -9,12 +9,11 @@
 import UIKit
 
 
-struct Group {
+class Group {
   
   // MARK: Properties
   
-  var uid: String?
-  
+  var uid: String
   var name: String
   
   var listOfUsers: [User] = []
@@ -22,28 +21,36 @@ struct Group {
 
   // MARK: Initializers
   
-  init(name: String) {
+  init(uid: String, name: String) {
+    self.uid = uid
     self.name = name
   }
   
   // MARK: Group User methods
   
-  mutating func addUser(_ user: User) {
-    listOfUsers.append(user)
+  func addUser(email: String, completion: @escaping () -> Void) {
+    DataManager.addUser(email: email, to: self) { [weak self] (user) in
+      if let user = user {
+        self?.listOfUsers.append(user)
+        completion()
+      }
+    }
   }
   
-  mutating func deleteUser(at index: Int) {
+  func deleteUser(at index: Int) {
     listOfUsers.remove(at: index)
   }
   
   // MARK: Group Transaction methods
   
-  mutating func addTransaction(_ transaction: Transaction) {
-    listOfTransactions.insert(transaction, at: 0)
-    updateOwningAmountPerMember()
+  func createTransaction(name: String, details: [String: Double], completion: @escaping () -> Void) {
+    DataManager.createTransaction(name: name, details: details, to: self) { [weak self] transaction in
+      self?.listOfTransactions.insert(transaction, at: 0)
+      completion()
+    }
   }
 
-  mutating func deleteTransaction(at index: Int) {
+  func deleteTransaction(at index: Int) {
     listOfTransactions.remove(at: index)
     updateOwningAmountPerMember()
   }

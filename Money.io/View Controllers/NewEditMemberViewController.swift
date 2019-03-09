@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NewEditMemberViewControllerDelegate {
-  func addMember(name: String)
+  func addMember(email: String)
 }
 
 
@@ -20,7 +20,6 @@ class NewEditMemberViewController: UIViewController {
   
   // MARK: Properties
   
-  var name: String?
   var delegate: NewEditMemberViewControllerDelegate?
   
   @IBOutlet weak var textField: UITextField!
@@ -38,8 +37,9 @@ class NewEditMemberViewController: UIViewController {
   }
   
   @IBAction func save(_ sender: UIBarButtonItem) {
-    if let name = textField.text {
-      delegate?.addMember(name: name)
+    if let email = textField.text {
+      delegate?.addMember(email: email)
+      dismiss(animated: true, completion: nil)
     }
   }
     

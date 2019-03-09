@@ -99,7 +99,7 @@ extension PayBackViewController: UITableViewDataSource {
 extension PayBackViewController: PayBackAmountViewControllerDelegate {
     
     func payBackTransaction(_ transaction: Transaction) {
-        group.addTransaction(transaction)
+//        group.addTransaction(transaction)
         tableView.reloadData()
         
     }

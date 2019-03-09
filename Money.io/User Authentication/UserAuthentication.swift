@@ -34,12 +34,14 @@ class UserAuthentication {
         return
       }
       
-      guard let uid = Auth.auth().currentUser?.uid else {
+      guard let uid = Auth.auth().currentUser?.uid,
+        let email = Auth.auth().currentUser?.email else {
         print("Could not get the uid of the current user")
         return
       }
       
-      DataManager.createUser(uid: uid, name: name)
+      
+      DataManager.createUser(uid: uid, name: name, email: email)
       completion()
     }
   }

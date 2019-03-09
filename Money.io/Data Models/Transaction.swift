@@ -1,21 +1,22 @@
-//
-//  Transaction.swift
-//  Money.io
-//
-//  Created by Jun Oh on 2019-03-03.
-//  Copyright © 2019 Matthew Chan. All rights reserved.
-//
-
 import UIKit
 
 struct Transaction {
   
   // MARK: Properties
   
+  var uid: String
   var name: String
-  var amount: Double
-  var paidUser: User
-  var splitUsers: [User]
   
+  var userIDPaidAmount: [String: Double]
+  
+  // MARK: Transaction methods
+  
+  func userAmount(user: User) -> Double? {
+    if userIDPaidAmount.keys.contains(user.uid) {
+      return userIDPaidAmount[user.uid]
+    } else {
+      return nil
+    }
+  }
 }
 

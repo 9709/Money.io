@@ -14,6 +14,10 @@ class MainViewController: UIViewController {
     super.viewDidLoad()
     
     tableView.dataSource = self
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     
     UserAuthentication.getCurrentUser { [weak self] currentUser in
       if let currentUser = currentUser {
@@ -25,6 +29,13 @@ class MainViewController: UIViewController {
         self?.performSegue(withIdentifier: "toSignedOutSegue", sender: self)
       }
     }
+  }
+  
+  // MARK: Actions
+  
+  @IBAction func signOut(_ sender: UIBarButtonItem) {
+    UserAuthentication.signOutUser()
+    performSegue(withIdentifier: "toSignedOutSegue", sender: self)
   }
   
   // MARK: Navigation
@@ -41,6 +52,7 @@ class MainViewController: UIViewController {
         let currentUser = currentUser, let groups = currentUser.groups,
         let selectedIndexPath = tableView.indexPath(for: groupCell) {
         groupViewVC.group = groups[selectedIndexPath.row]
+        groupViewVC.currentUser = currentUser
         groupViewVC.delegate = self
       }
     }
@@ -51,14 +63,15 @@ extension MainViewController: GroupViewControllerDelegate {
   
   // MARK: GroupViewControllerDelegate methods
   
+  
+  
 }
 
 extension MainViewController: AddGroupViewControllerDelegate {
-  func addNewGroup(name: String) {
-    DataManager.createGroup(name: name) { [weak self] group in
+  func createGroup(name: String) {
+    currentUser?.createGroup(name: name) {
       OperationQueue.main.addOperation {
-        self?.currentUser?.addGroup(group)
-        self?.tableView.reloadData()
+        self.tableView.reloadData()
       }
     }
   }

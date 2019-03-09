@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddGroupViewControllerDelegate {
-  func addNewGroup(name: String)
+  func createGroup(name: String)
 }
 
 class AddGroupViewController: UIViewController {
@@ -35,7 +35,7 @@ class AddGroupViewController: UIViewController {
   
   @IBAction func save(_ sender: UIBarButtonItem) {
     if let name = nameTextField.text {
-      delegate?.addNewGroup(name: name)
+      delegate?.createGroup(name: name)
       dismiss(animated: true, completion: nil)
     }
   }

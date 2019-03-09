@@ -8,30 +8,38 @@
 
 import UIKit
 
-struct User {
+class User {
   
-  // MARK: Propeerties
+  // MARK: Properties
   
-  var uid: String?
-  
+  var uid: String
   var name: String
+  
+  var email: String?
   var groups: [Group]?
   var amountOwing: Double = 0
 
   // MARK: Initializers
   
-  init(name: String) {
+  init(uid: String, name: String) {
+    self.uid = uid
     self.name = name
   }
   
   // MARK: User methods
   
-  mutating func addGroup(_ group: Group) {
-    if groups != nil {
-      groups?.append(group)
-    } else {
-      groups = [group]
+  func createGroup(name: String, completion: @escaping () -> Void) {
+    DataManager.createGroup(name: name) { [weak self] (group) in
+      if let group = group {
+        if self?.groups != nil {
+          self?.groups?.append(group)
+        } else {
+          self?.groups = [group]
+        }
+        completion()
+      }
     }
+    
   }
 }
 

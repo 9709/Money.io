@@ -15,14 +15,12 @@ extension Group {
   
   var documentRef: DocumentReference? {
     get {
-      if let uid = uid {
-        return Firestore.firestore().collection("Group").document(uid)
-      } else {
-        return nil
-      }
+      return Firestore.firestore().collection("Group").document(uid)
     }
     set(documentRef) {
-      uid = documentRef?.documentID
+      if let documentID = documentRef?.documentID {
+        uid = documentID
+      }
     }
   }
   
