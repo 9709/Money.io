@@ -37,11 +37,12 @@ class GroupViewController: UIViewController {
   }
   
   override func viewDidAppear(_ animated: Bool) {
-    if let group = group {
-      let sum = Calculations.totalOwing(with: group.listOfUsers)
+    if let group = group, let currentUser = currentUser {
+      
+      let sum = group.groupPaidAmountForUser(currentUser)
       totalOwingLabel.text = String(format: "$%.2f", abs(sum))
       
-      if sum > 0 {
+      if sum < 0 {
         totalOwingLabel.textColor = UIColor.red
         oweStatusLabel.text = "You owe:"
       } else {
@@ -73,7 +74,7 @@ class GroupViewController: UIViewController {
           if let transactionCell = sender as? TransactionTableViewCell,
             let selectedRow = tableView.indexPath(for: transactionCell)?.row {
             let transaction = group?.listOfTransactions[selectedRow]
-//            editTransactionVC.transaction = transaction
+            editTransactionVC.transaction = transaction
             editTransactionVC.group = group
             editTransactionVC.delegate = self
           }
@@ -81,8 +82,9 @@ class GroupViewController: UIViewController {
       }
     } else if segue.identifier == "toPayBackSegue" {
       if let viewController = segue.destination as? UINavigationController {
-        if let payBackVC = viewController.children[0] as? PayBackViewController {
+        if let payBackVC = viewController.topViewController as? PayBackViewController {
           payBackVC.group = group
+          payBackVC.currentUser = currentUser
           payBackVC.delegate = self
         }
       }
@@ -95,17 +97,20 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
   
   // MARK: NewTransactionViewControllerDelegate methods
   
-  func createTransaction(name: String, details: [String: Double]) {
-    group?.createTransaction(name: name, details: details) { [weak self] in
+  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double]) {
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers) { [weak self] in
       OperationQueue.main.addOperation {
         self?.tableView.reloadData()
       }
     }
   }
   
-  func updateTransaction() {
-    group?.updateOwningAmountPerMember()
-    tableView.reloadData()
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double]) {
+    group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers) { [weak self] in
+      OperationQueue.main.addOperation {
+        self?.tableView.reloadData()
+      }
+    }
   }
 }
 
@@ -113,8 +118,13 @@ extension GroupViewController: PayBackViewControllerDelegate {
   
   // MARK: PayBackViewControllerDelegate methods
   
-  func updateTotal() {
-    tableView.reloadData()
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], completion: @escaping () -> Void) {
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers) { [weak self] in
+      OperationQueue.main.addOperation {
+        self?.tableView.reloadData()
+        completion()
+      }
+    }
   }
 }
 

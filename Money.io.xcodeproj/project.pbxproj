@@ -21,7 +21,6 @@
 		17DA9516222B67DA002E2057 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9515222B67DA002E2057 /* Group.swift */; };
 		17DA9518222B6E55002E2057 /* NewEditMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */; };
 		17EF6A2D222DF16A004534B9 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF6A2C222DF16A004534B9 /* GlobalVariables.swift */; };
-		17EF6A2F222E1F90004534B9 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF6A2E222E1F90004534B9 /* Calculations.swift */; };
 		17FD46F4222E432E00392D67 /* PayBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD46F3222E432E00392D67 /* PayBackViewController.swift */; };
 		17FD46F6222E4D8C00392D67 /* PayBackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */; };
 		C85713D922330CAB00053656 /* DataManager+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85713D822330CAB00053656 /* DataManager+Group.swift */; };
@@ -71,7 +70,6 @@
 		17DA9515222B67DA002E2057 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditMemberViewController.swift; sourceTree = "<group>"; };
 		17EF6A2C222DF16A004534B9 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
-		17EF6A2E222E1F90004534B9 /* Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		17FD46F3222E432E00392D67 /* PayBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBackViewController.swift; sourceTree = "<group>"; };
 		17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBackTableViewCell.swift; sourceTree = "<group>"; };
 		697D240AFE1EE64DBB84C268 /* Pods-Money.io.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Money.io.release.xcconfig"; path = "Pods/Target Support Files/Pods-Money.io/Pods-Money.io.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				17EF6A2C222DF16A004534B9 /* GlobalVariables.swift */,
 				17DA94EC222B6073002E2057 /* AppDelegate.swift */,
 				17DA94F0222B6073002E2057 /* Main.storyboard */,
-				17EF6A2E222E1F90004534B9 /* Calculations.swift */,
 				17DA94F6222B6074002E2057 /* Assets.xcassets */,
 				17DA94F8222B6074002E2057 /* LaunchScreen.storyboard */,
 				17DA94FB222B6074002E2057 /* Info.plist */,
@@ -508,7 +505,6 @@
 				17EF6A2D222DF16A004534B9 /* GlobalVariables.swift in Sources */,
 				17DA9516222B67DA002E2057 /* Group.swift in Sources */,
 				17DA9514222B6675002E2057 /* User.swift in Sources */,
-				17EF6A2F222E1F90004534B9 /* Calculations.swift in Sources */,
 				C8FCD14B222CB50900607F4D /* TransactionTableViewCell.swift in Sources */,
 				C8FCD15C222F34FC00607F4D /* DataManager.swift in Sources */,
 				C8FCD15E222F688A00607F4D /* User+Firebase.swift in Sources */,

@@ -151,11 +151,6 @@
                                 <action selector="cancel:" destination="Hkg-oQ-7e0" id="OsW-7w-HO7"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="cwX-kC-ybx">
-                            <connections>
-                                <action selector="save:" destination="Hkg-oQ-7e0" id="3nO-w4-9xZ"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="hHP-rc-UPZ" id="yUe-YV-fZm"/>

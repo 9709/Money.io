@@ -4,10 +4,16 @@ extension DataManager {
   
   // MARK: Transaction related methods
   
-  static func createTransaction(name: String, details: [String: Double], to group: Group, completion: @escaping (Transaction) -> Void) {
-    let transactionRef = db.collection("Group").document(group.uid).collection("Transactions").addDocument(data: ["name": name, "details": details])
+  static func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], to group: Group, completion: @escaping (Transaction) -> Void) {
+    let transactionRef = db.collection("Group").document(group.uid).collection("Transactions").addDocument(data: ["name": name, "paidUsers": paidUsers, "splitUsers": splitUsers])
     let uid = transactionRef.documentID
-    let transaction = Transaction(uid: uid, name: name, userIDPaidAmount: details)
+    let transaction = Transaction(uid: uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers)
+    completion(transaction)
+  }
+  
+  static func updateTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], to group: Group, completion: @escaping (Transaction) -> Void) {
+    db.collection("Group").document(group.uid).collection("Transactions").document(uid).updateData(["name": name, "paidUsers": paidUsers, "splitUsers": splitUsers])
+    let transaction = Transaction(uid: uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers)
     completion(transaction)
   }
   
@@ -20,8 +26,9 @@ extension DataManager {
         var transactions: [Transaction] = []
         for transactionDocument in querySnapshot!.documents {
           if let name = transactionDocument.data()["name"] as? String,
-            let details = transactionDocument.data()["details"] as? [String: Double] {
-            transactions.insert(Transaction(uid: transactionDocument.documentID, name: name, userIDPaidAmount: details), at: 0)
+            let paidUsers = transactionDocument.data()["paidUsers"] as? [String: Double],
+            let splitUsers = transactionDocument.data()["splitUsers"] as? [String: Double] {
+            transactions.insert(Transaction(uid: transactionDocument.documentID, name: name, paidUsers: paidUsers, splitUsers: splitUsers), at: 0)
           }
         }
         completion(transactions)

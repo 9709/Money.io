@@ -9,70 +9,75 @@
 import UIKit
 
 protocol PayBackAmountViewControllerDelegate {
-    func payBackTransaction(_ transaction: Transaction)
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double])
 }
 
 
 
 class PayBackAmountViewController: UIViewController {
+  
+  @IBOutlet weak var payBackMemberLabel: UILabel!
+  @IBOutlet weak var payBackAmountTextfield: UITextField!
+  
+  
+  
+  
+  // MARK: Properties
+  
+  var user: User?
+  var currentUser: User?
+  var group: Group?
+  var memberName: String = ""
+  
+  var delegate: PayBackAmountViewControllerDelegate?
+  
+  
+  
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    @IBOutlet weak var payBackMemberLabel: UILabel!
-    @IBOutlet weak var payBackAmountTextfield: UITextField!
-    
-    
-    
-    
-    // MARK: Properties
-    
-    var user: User?
-    var memberName: String = ""
-    
-    var delegate: PayBackAmountViewControllerDelegate?
-    
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if let user = user {
-            memberName = user.name
-            if user.amountOwing > 0 {
-                payBackMemberLabel.text = "Pay \(memberName) back:"
-            } else {
-                payBackMemberLabel.text = "Taking back from \(memberName) :"
-            }
+    if let user = user, let currentUser = currentUser, let group = group {
+      memberName = user.name
+      let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
+      if amountOwing > 0 {
+        payBackMemberLabel.text = "Pay \(memberName) back:"
+      } else {
+        payBackMemberLabel.text = "Taking back from \(memberName) :"
+      }
+    }
+  }
+  
+  
+  
+  
+  // MARK: Action
+  
+  @IBAction func cancel(_ sender: UIBarButtonItem) {
+    dismiss(animated: true, completion: nil)
+  }
+  
+  @IBAction func save(_ sender: UIBarButtonItem) {
+    if let user = user, let currentUser = currentUser, let group = group {
+      let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
+      if amountOwing > 0 {
+        if let amountString = payBackAmountTextfield.text, let amount = Double(amountString) {
+          let name = "Paid back: \(memberName)"
+          let paidUsers = [currentUser.uid: amount]
+          let splitUsers = [user.uid: amount]
+          delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers)
+          dismiss(animated: true, completion: nil)
         }
-    }
-    
-    
-    
-    
-    // MARK: Action
-    
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func save(_ sender: UIBarButtonItem) {
-        if let user = user {
-            if user.amountOwing > 0 {
-                if let amountString = payBackAmountTextfield.text, let amount = Double(amountString) {
-                    if let currentUser = GlobalVariables.singleton.currentUser {
-//                        let transaction = Transaction(name: "Paid back: \(memberName)", amount: amount, paidUser: currentUser, splitUsers: [user])
-//                        delegate?.payBackTransaction(transaction)
-                    }
-                }
-            } else {
-                if let amountString = payBackAmountTextfield.text, let amount = Double(amountString) {
-                    if let currentUser = GlobalVariables.singleton.currentUser {
-//                        let transaction = Transaction(name: "Took back from: \(memberName)", amount: amount, paidUser: user, splitUsers: [currentUser])
-//                        delegate?.payBackTransaction(transaction)
-                    }
-                }
-            }
-            dismiss(animated: true, completion: nil)
+      } else {
+        if let amountString = payBackAmountTextfield.text, let amount = Double(amountString) {
+          let name = "Took back from: \(memberName)"
+          let paidUsers = [user.uid: amount]
+          let splitUsers = [currentUser.uid: amount]
+          delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers)
+          dismiss(animated: true, completion: nil)
         }
+      }
     }
-    
+  }
+  
 }

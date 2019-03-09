@@ -17,7 +17,6 @@ class User {
   
   var email: String?
   var groups: [Group]?
-  var amountOwing: Double = 0
 
   // MARK: Initializers
   
