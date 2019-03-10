@@ -1,26 +1,11 @@
-//
-//  GroupViewController.swift
-//  Money.io
-//
-//  Created by Matthew Chan on 2019-03-02.
-//  Copyright © 2019 Matthew Chan. All rights reserved.
-//
-
 import UIKit
-
-protocol GroupViewControllerDelegate {
-  
-}
 
 class GroupViewController: UIViewController {
   
   // MARK: Properties
   
-  var currentUser: User?
-  
+  var currentUser = GlobalVariables.singleton.currentUser
   var group: Group?
-  var user: User?
-  var delegate: GroupViewControllerDelegate?
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var totalOwingLabel: UILabel!
@@ -36,48 +21,59 @@ class GroupViewController: UIViewController {
     tableView.delegate = self
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    if let group = group, let currentUser = currentUser {
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if let group = group {
       
-      let sum = group.groupPaidAmountForUser(currentUser)
-      totalOwingLabel.text = String(format: "$%.2f", abs(sum))
-      
-      if sum < 0 {
-        totalOwingLabel.textColor = UIColor.red
-        oweStatusLabel.text = "You owe:"
-      } else {
-        totalOwingLabel.textColor = UIColor.green
-        oweStatusLabel.text = "You need back:"
+      DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
+        if let group = group, let currentUser = self?.currentUser {
+          GlobalVariables.singleton.currentGroup = group
+          self?.group = group
+          
+          OperationQueue.main.addOperation {
+            self?.tableView.reloadData()
+            
+            let sum = group.groupOwingAmountForUser(currentUser)
+            self?.totalOwingLabel.text = String(format: "$%.2f", abs(sum))
+            
+            if sum > 0 {
+              self?.totalOwingLabel.textColor = .red
+              self?.oweStatusLabel.text = "You owe:"
+            } else {
+              self?.totalOwingLabel.textColor = .green
+              self?.oweStatusLabel.text = "You need back:"
+            }
+          }
+        
+        } else {
+          // NOTE: Alert users that group information could not be fetched
+          self?.navigationController?.popViewController(animated: true)
+        }
       }
+    } else {
+      
+      // NOTE: Alert users that group information could not be fetched
+      navigationController?.popViewController(animated: true)
     }
   }
   
   // MARK: Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "toGroupMembersSegue" {
-      if let viewController = segue.destination as? UINavigationController {
-        if let groupMembersVC = viewController.topViewController as? GroupMembersViewController {
-          groupMembersVC.group = group
-        }
-      }
-    } else if segue.identifier == "toNewTransactionSegue" {
-      if let viewController = segue.destination as? UINavigationController {
-        if let newTransactionVC = viewController.topViewController as? NewTransactionViewController {
-          newTransactionVC.group = group
-          newTransactionVC.delegate = self
-        }
+    if segue.identifier == "toNewTransactionSegue" {
+      if let viewController = segue.destination as? UINavigationController,
+        let newTransactionVC = viewController.topViewController as? NewTransactionViewController {
+        newTransactionVC.delegate = self
       }
     } else if segue.identifier == "toEditTransactionSegue" {
-      if let viewController = segue.destination as? UINavigationController {
-        if let editTransactionVC = viewController.topViewController as? NewTransactionViewController {
-          if let transactionCell = sender as? TransactionTableViewCell,
-            let selectedRow = tableView.indexPath(for: transactionCell)?.row {
-            let transaction = group?.listOfTransactions[selectedRow]
-            editTransactionVC.transaction = transaction
-            editTransactionVC.group = group
-            editTransactionVC.delegate = self
-          }
+      if let viewController = segue.destination as? UINavigationController,
+        let editTransactionVC = viewController.topViewController as? NewTransactionViewController {
+        if let transactionCell = sender as? TransactionTableViewCell,
+          let selectedRow = tableView.indexPath(for: transactionCell)?.row {
+          let transaction = group?.listOfTransactions[selectedRow]
+          editTransactionVC.transaction = transaction
+          editTransactionVC.delegate = self
         }
       }
     } else if segue.identifier == "toPayBackSegue" {
@@ -97,18 +93,26 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
   
   // MARK: NewTransactionViewControllerDelegate methods
   
-  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double]) {
-    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers) { [weak self] in
-      OperationQueue.main.addOperation {
-        self?.tableView.reloadData()
+  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+      if success {
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+        }
+      } else {
+        // NOTE: Alert user for unsuccessful creation of transaction
       }
     }
   }
   
-  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double]) {
-    group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers) { [weak self] in
-      OperationQueue.main.addOperation {
-        self?.tableView.reloadData()
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
+    group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+      if success {
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+        }
+      } else {
+        // NOTE: Alert user for unsuccessful creation of transaction
       }
     }
   }
@@ -118,11 +122,15 @@ extension GroupViewController: PayBackViewControllerDelegate {
   
   // MARK: PayBackViewControllerDelegate methods
   
-  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], completion: @escaping () -> Void) {
-    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers) { [weak self] in
-      OperationQueue.main.addOperation {
-        self?.tableView.reloadData()
-        completion()
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+      if success {
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+          completion(true)
+        }
+      } else {
+        completion(false)
       }
     }
   }
@@ -157,7 +165,6 @@ extension GroupViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     
-    cell.currentUser = currentUser
     cell.transaction = group?.listOfTransactions[indexPath.row]
     cell.configureCell()
     

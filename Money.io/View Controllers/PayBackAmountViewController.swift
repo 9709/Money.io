@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PayBackAmountViewControllerDelegate {
-  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double])
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double])
 }
 
 
@@ -25,8 +25,8 @@ class PayBackAmountViewController: UIViewController {
   // MARK: Properties
   
   var user: User?
-  var currentUser: User?
-  var group: Group?
+  var group = GlobalVariables.singleton.currentGroup
+  var currentUser = GlobalVariables.singleton.currentUser
   var memberName: String = ""
   
   var delegate: PayBackAmountViewControllerDelegate?
@@ -65,7 +65,8 @@ class PayBackAmountViewController: UIViewController {
           let name = "Paid back: \(memberName)"
           let paidUsers = [currentUser.uid: amount]
           let splitUsers = [user.uid: amount]
-          delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers)
+          let owingAmountPerUser = [currentUser.uid: 0 - amount, user.uid: amount]
+          delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser)
           dismiss(animated: true, completion: nil)
         }
       } else {
@@ -73,7 +74,8 @@ class PayBackAmountViewController: UIViewController {
           let name = "Took back from: \(memberName)"
           let paidUsers = [user.uid: amount]
           let splitUsers = [currentUser.uid: amount]
-          delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers)
+          let owingAmountPerUser = [currentUser.uid: amount, user.uid: 0 - amount]
+          delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser)
           dismiss(animated: true, completion: nil)
         }
       }

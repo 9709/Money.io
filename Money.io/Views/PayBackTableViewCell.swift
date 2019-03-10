@@ -23,6 +23,8 @@ class PayBackTableViewCell: UITableViewCell {
   // MARK: PayBackTableViewCell methods
   
   func configureCell() {
+    currentUser = GlobalVariables.singleton.currentUser
+    group = GlobalVariables.singleton.currentGroup
     if let user = user, let currentUser = currentUser, let group = group {
       memberLabel.text = user.name
       let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
@@ -30,25 +32,36 @@ class PayBackTableViewCell: UITableViewCell {
       switch amountOwing {
       case let x where x > 0:
         owingLabel.text = "Pay back"
-        owingLabel.textColor = UIColor.red
+        owingLabel.textColor = .red
         
         amountLabel.text = String(format: "$%.2f", abs(amountOwing))
-        amountLabel.textColor = UIColor.red
+        amountLabel.textColor = .red
         
       case let x where x < 0:
         owingLabel.text = "Need back"
-        owingLabel.textColor = UIColor.green
+        owingLabel.textColor = .green
         
         amountLabel.text = String(format: "$%.2f", abs(amountOwing))
-        amountLabel.textColor = UIColor.green
+        amountLabel.textColor = .green
         
       default:
         owingLabel.text = ""
         
         amountLabel.text = "Not Involved"
-        amountLabel.textColor = UIColor.gray
+        amountLabel.textColor = .gray
       }
     }
+  }
+  
+  override func prepareForReuse() {
+    group = nil
+    currentUser = nil
+    user = nil
+    memberLabel.text = ""
+    owingLabel.text = ""
+    owingLabel.textColor = .black
+    amountLabel.text = ""
+    amountLabel.textColor = .black
   }
   
 }

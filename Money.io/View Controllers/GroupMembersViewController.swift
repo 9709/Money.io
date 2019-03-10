@@ -4,7 +4,7 @@ class GroupMembersViewController: UIViewController {
   
   // MARK: Properties
   
-  var group: Group?
+  var group = GlobalVariables.singleton.currentGroup
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -33,10 +33,9 @@ class GroupMembersViewController: UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "toAddMemberSegue" {
-      if let viewController = segue.destination as? UINavigationController {
-        if let addMemberVC = viewController.children[0] as? NewEditMemberViewController {
-          addMemberVC.delegate = self
-        }
+      if let viewController = segue.destination as? UINavigationController,
+        let addMemberVC = viewController.topViewController as? NewEditMemberViewController {
+        addMemberVC.delegate = self
       }
     }
   }
@@ -60,6 +59,7 @@ extension GroupMembersViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "GroupMemberNameCell", for: indexPath)
     cell.textLabel?.text = group?.listOfUsers[indexPath.row].name
+    cell.detailTextLabel?.text = group?.listOfUsers[indexPath.row].email
     return cell
   }
   
@@ -83,9 +83,13 @@ extension GroupMembersViewController: NewEditMemberViewControllerDelegate {
   
   func addMember(email: String) {
     if let group = group {
-      group.addUser(email: email) { [weak self] in
-        OperationQueue.main.addOperation {
-          self?.tableView.reloadData()
+      group.addUser(email: email) { (success: Bool) in
+        if success {
+          OperationQueue.main.addOperation {
+            self.tableView.reloadData()
+          }
+        } else {
+          // NOTE: Alert user for unsuccessful addition of user
         }
       }
     }

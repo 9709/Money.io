@@ -7,12 +7,15 @@ struct Transaction {
   var uid: String
   var name: String
   
-  var paidUsers: [String: Double]
-  var splitUsers: [String: Double]
+  var paidAmountPerUser: [String: Double]
+  var splitAmountPerUser: [String: Double]
+  var owingAmountPerUser: [String: Double]
+  
+  var createdTimestamp: Date
   
   var totalAmount: Double {
     var totalAmount: Double = 0
-    for amount in paidUsers {
+    for amount in paidAmountPerUser {
       totalAmount += amount.value
     }
     return totalAmount
@@ -20,34 +23,19 @@ struct Transaction {
   
   // MARK: Transaction methods
   
-  func userAmount(user: User) -> Double? {
-    if !paidUsers.keys.contains(user.uid) && !splitUsers.keys.contains(user.uid) {
-      return nil
-    }
-    
-    var amount: Double = 0
-    if paidUsers.keys.contains(user.uid), let paidAmount = paidUsers[user.uid] {
-      amount += paidAmount
-    }
-    if splitUsers.keys.contains(user.uid), let splitAmount = splitUsers[user.uid]{
-      amount -= splitAmount
-    }
-    
-    return amount
-  }
-  
   func determineUserOwingAmount() -> [(String, String, Double)] {
     var paidUserUIDs: [String: Double] = [:]
     var owingUserUIDs: [String: Double] = [:]
     
     var fullTransactionDetails: [String: Double] = [:]
-    for user in paidUsers {
+    
+    for user in paidAmountPerUser {
       fullTransactionDetails[user.key] = user.value
-      if !splitUsers.keys.contains(user.key) {
+      if !splitAmountPerUser.keys.contains(user.key) {
         paidUserUIDs[user.key] = user.value
       }
     }
-    for user in splitUsers {
+    for user in splitAmountPerUser {
       if fullTransactionDetails.keys.contains(user.key), let oldAmount = fullTransactionDetails[user.key] {
         fullTransactionDetails[user.key] = oldAmount - user.value
         if let newAmount = fullTransactionDetails[user.key] {

@@ -11,9 +11,9 @@ class SignedOutViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    UserAuthentication.getCurrentUser { [weak self] (currentUser) in
+    UserAuthentication.getCurrentUser { (currentUser: User?, groups: [Group]) in
       if currentUser != nil {
-        self?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
       }
     }
   }

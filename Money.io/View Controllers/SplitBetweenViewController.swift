@@ -20,7 +20,7 @@ class SplitBetweenViewController: UIViewController {
   
   // MARK: Properties
   
-  var group: Group?
+  var group = GlobalVariables.singleton.currentGroup
   var users: [User]?
   var paid: Bool?
   var delegate: SplitBetweenViewControllerDelegate?

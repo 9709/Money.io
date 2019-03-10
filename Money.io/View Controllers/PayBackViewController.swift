@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PayBackViewControllerDelegate {
-  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], completion: @escaping () -> Void)
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void)
 }
 
 
@@ -17,8 +17,8 @@ class PayBackViewController: UIViewController {
   
   // MARK: Properties
   
-  var group: Group?
-  var currentUser: User?
+  var group = GlobalVariables.singleton.currentGroup
+  var currentUser = GlobalVariables.singleton.currentUser
   var user: User?
   var payBackUsers: [User] = []
   
@@ -27,7 +27,7 @@ class PayBackViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   
   
-  
+  // MARK: UIViewController methods
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -63,8 +63,6 @@ class PayBackViewController: UIViewController {
           let selectedRow = tableView.indexPath(for: payBackCell)?.row {
           let user = payBackUsers[selectedRow]
           payBackAmountVC.user = user
-          payBackAmountVC.currentUser = currentUser
-          payBackAmountVC.group = group
           payBackAmountVC.delegate = self
         }
       }
@@ -87,8 +85,6 @@ extension PayBackViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     
-    cell.group = group
-    cell.currentUser = currentUser
     cell.user = payBackUsers[indexPath.row]
     cell.configureCell()
     
@@ -100,10 +96,14 @@ extension PayBackViewController: UITableViewDataSource {
 
 extension PayBackViewController: PayBackAmountViewControllerDelegate {
   
-  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double]) {
-    delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers) { [weak self] in
-      OperationQueue.main.addOperation {
-        self?.tableView.reloadData()
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
+    delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (_ success: Bool) in
+      if success {
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+        }
+      } else {
+        // NOTE: Alert user for unsuccessful creation of payback
       }
     }
   }

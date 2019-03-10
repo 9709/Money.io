@@ -5,6 +5,7 @@ class MainViewController: UIViewController {
   // MARK: Properties
   
   var currentUser: User?
+  var groups: [Group]?
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -19,9 +20,12 @@ class MainViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    UserAuthentication.getCurrentUser { [weak self] currentUser in
+    UserAuthentication.getCurrentUser { [weak self] (currentUser: User?, groups: [Group]) in
       if let currentUser = currentUser {
         self?.currentUser = currentUser
+        GlobalVariables.singleton.currentUser = currentUser
+        
+        self?.groups = groups
         OperationQueue.main.addOperation {
           self?.tableView.reloadData()
         }
@@ -35,6 +39,7 @@ class MainViewController: UIViewController {
   
   @IBAction func signOut(_ sender: UIBarButtonItem) {
     UserAuthentication.signOutUser()
+    GlobalVariables.singleton.currentUser = nil
     performSegue(withIdentifier: "toSignedOutSegue", sender: self)
   }
   
@@ -49,29 +54,28 @@ class MainViewController: UIViewController {
     } else if segue.identifier == "toGroupViewSegue" {
       if let groupViewVC = segue.destination as? GroupViewController,
         let groupCell = sender as? GroupTableViewCell,
-        let currentUser = currentUser, let groups = currentUser.groups,
+        let groups = groups,
         let selectedIndexPath = tableView.indexPath(for: groupCell) {
         groupViewVC.group = groups[selectedIndexPath.row]
-        groupViewVC.currentUser = currentUser
-        groupViewVC.delegate = self
       }
     }
   }
 }
 
-extension MainViewController: GroupViewControllerDelegate {
-  
-  // MARK: GroupViewControllerDelegate methods
-  
-  
-  
-}
-
 extension MainViewController: AddGroupViewControllerDelegate {
+  
+  // MARK: AddGroupViewControllerDelegate methods
+  
   func createGroup(name: String) {
-    currentUser?.createGroup(name: name) {
-      OperationQueue.main.addOperation {
-        self.tableView.reloadData()
+    DataManager.createGroup(name: name) { (group: Group?) in
+      if let group = group {
+        self.groups?.append(group)
+        
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+        }
+      } else {
+        // NOTE: Alert the user for unsuccessful creation of group
       }
     }
   }
@@ -82,7 +86,7 @@ extension MainViewController: UITableViewDataSource {
   // MARK: UITableViewDataSource methods
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let currentUser = currentUser, let groups = currentUser.groups {
+    if let groups = groups {
       return groups.count
     }
     return 0
@@ -93,7 +97,7 @@ extension MainViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     
-    cell.group = currentUser?.groups?[indexPath.row]
+    cell.group = groups?[indexPath.row]
     cell.configureCell()
     
     return cell

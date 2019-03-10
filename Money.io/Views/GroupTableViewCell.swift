@@ -4,24 +4,50 @@ class GroupTableViewCell: UITableViewCell {
   
   // MARK: Properties
   
+  var currentUser: User?
   var group: Group?
   
-  // MARK: UITableViewCell methods
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-  }
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var borrowedLabel: UILabel!
+  @IBOutlet weak var amountLabel: UILabel!
   
   // MARK: GroupTableViewCell methods
   
   func configureCell() {
-    textLabel?.text = group?.name
+    currentUser = GlobalVariables.singleton.currentUser
+    if let group = group, let currentUser = currentUser {
+      nameLabel.text = group.name
+      
+      if let owingAmount = group.listOfOwingAmounts[currentUser.uid] {
+        if owingAmount > 0 {
+          borrowedLabel.text = "You borrowed"
+          borrowedLabel.textColor = .red
+          
+          amountLabel.text = String(format: "$%.2f", abs(owingAmount))
+          amountLabel.textColor = .red
+        } else if owingAmount < 0 {
+          borrowedLabel.text = "You lent out"
+          borrowedLabel.textColor = .green
+          
+          amountLabel.text = String(format: "$%.2f", abs(owingAmount))
+          amountLabel.textColor = .green
+        } else {
+          borrowedLabel.text = ""
+          
+          amountLabel.text = "Not Involved"
+          amountLabel.textColor = .gray
+        }
+      }
+    }
+  }
+  
+  override func prepareForReuse() {
+    currentUser = nil
+    group = nil
+    nameLabel.text = ""
+    borrowedLabel.text = ""
+    borrowedLabel.textColor = .black
+    amountLabel.text = ""
+    amountLabel.textColor = .black
   }
 }

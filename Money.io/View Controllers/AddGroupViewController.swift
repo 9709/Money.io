@@ -1,11 +1,3 @@
-//
-//  AddGroupViewController.swift
-//  Money.io
-//
-//  Created by Jun Oh on 2019-03-06.
-//  Copyright © 2019 Matthew Chan. All rights reserved.
-//
-
 import UIKit
 
 protocol AddGroupViewControllerDelegate {
@@ -37,6 +29,8 @@ class AddGroupViewController: UIViewController {
     if let name = nameTextField.text {
       delegate?.createGroup(name: name)
       dismiss(animated: true, completion: nil)
+    } else {
+      // NOTE: Alert the user for missing name of the new group
     }
   }
 }

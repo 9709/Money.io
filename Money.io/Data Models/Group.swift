@@ -16,6 +16,7 @@ class Group {
   var uid: String
   var name: String
   
+  var listOfOwingAmounts: [String: Double] = [:]
   var listOfUsers: [User] = []
   var listOfTransactions: [Transaction] = []
 
@@ -28,11 +29,14 @@ class Group {
   
   // MARK: Group User methods
   
-  func addUser(email: String, completion: @escaping () -> Void) {
-    DataManager.addUser(email: email, to: self) { [weak self] (user) in
+  func addUser(email: String, completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.addUser(email: email, to: self) { (user) in
       if let user = user {
-        self?.listOfUsers.append(user)
-        completion()
+        self.listOfUsers.append(user)
+        self.listOfOwingAmounts[user.uid] = 0
+        completion(true)
+      } else {
+        completion(false)
       }
     }
   }
@@ -52,22 +56,30 @@ class Group {
   
   // MARK: Group Transaction methods
   
-  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], completion: @escaping () -> Void) {
-    DataManager.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, to: self) { [weak self] transaction in
-      self?.listOfTransactions.insert(transaction, at: 0)
-      completion()
+  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, to: self) { (transaction: Transaction?) in
+      if let transaction = transaction {
+        self.listOfTransactions.insert(transaction, at: 0)
+        completion(true)
+      } else {
+        completion(false)
+      }
+      
     }
   }
   
-  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], completion: @escaping () -> Void) {
-    DataManager.updateTransaction(uid: transaction.uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, to: self) { [weak self] transaction in
-      if let transactionList = self?.listOfTransactions {
-        for index in 0..<transactionList.count {
-          if transactionList[index].uid == transaction.uid {
-            self?.listOfTransactions[index] = transaction
-            completion()
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.updateTransaction(uid: transaction.uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, to: self) { (transaction: Transaction?) in
+      if let transaction = transaction {
+        for index in 0..<self.listOfTransactions.count {
+          if self.listOfTransactions[index].uid == transaction.uid {
+            self.listOfTransactions[index] = transaction
+            completion(true)
           }
         }
+        completion(false)
+      } else {
+        completion(false)
       }
     }
   }
@@ -77,17 +89,14 @@ class Group {
     updateOwningAmountPerMember()
   }
   
-  func groupPaidAmountForUser(_ user: User) -> Double {
-    var amount: Double = 0
+  func groupOwingAmountForUser(_ user: User) -> Double {
+    var totalOwingAmount: Double = 0
     for transaction in self.listOfTransactions {
-      if transaction.paidUsers.keys.contains(user.uid), let paidAmount = transaction.paidUsers[user.uid] {
-        amount += paidAmount
-      }
-      if transaction.splitUsers.keys.contains(user.uid), let owingAmount = transaction.splitUsers[user.uid] {
-        amount -= owingAmount
+      if transaction.owingAmountPerUser.keys.contains(user.uid), let owingAmount = transaction.owingAmountPerUser[user.uid] {
+        totalOwingAmount += owingAmount
       }
     }
-    return amount
+    return totalOwingAmount
   }
   
   func owingAmountForUser(_ user: User, owingToUser: User) -> Double {

@@ -1,11 +1,3 @@
-//
-//  NewEditMemberViewController.swift
-//  Money.io
-//
-//  Created by Matthew Chan on 2019-03-02.
-//  Copyright © 2019 Matthew Chan. All rights reserved.
-//
-
 import UIKit
 
 protocol NewEditMemberViewControllerDelegate {
@@ -40,6 +32,8 @@ class NewEditMemberViewController: UIViewController {
     if let email = textField.text {
       delegate?.addMember(email: email)
       dismiss(animated: true, completion: nil)
+    } else {
+      // NOTE: Alert the user for missing email of the new user
     }
   }
     

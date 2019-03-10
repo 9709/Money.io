@@ -24,29 +24,30 @@ class TransactionTableViewCell: UITableViewCell {
   // MARK: TransactionTableViewCell methods
   
   func configureCell() {
+    currentUser = GlobalVariables.singleton.currentUser
     if let transaction = transaction, let currentUser = currentUser {
       
       nameLabel.text = transaction.name
       
-      if let userAmount = transaction.userAmount(user: currentUser) {
-        if userAmount < 0 {
+      if let userAmount = transaction.owingAmountPerUser[currentUser.uid] {
+        if userAmount > 0 {
           borrowedLabel.text = "You borrowed"
-          borrowedLabel.textColor = UIColor.red
+          borrowedLabel.textColor = .red
           
           amountLabel.text = String(format: "$%.2f", abs(userAmount))
-          amountLabel.textColor = UIColor.red
+          amountLabel.textColor = .red
         } else {
           borrowedLabel.text = "You lent out"
-          borrowedLabel.textColor = UIColor.green
+          borrowedLabel.textColor = .green
           
           amountLabel.text = String(format: "$%.2f", abs(userAmount))
-          amountLabel.textColor = UIColor.green
+          amountLabel.textColor = .green
         }
       } else {
         borrowedLabel.text = ""
         
         amountLabel.text = "Not Involved"
-        amountLabel.textColor = UIColor.gray
+        amountLabel.textColor = .gray
       }
 //        if transaction.name.contains("Paid back:") {
 //          borrowedLabel.text = ""
@@ -63,6 +64,16 @@ class TransactionTableViewCell: UITableViewCell {
 //        }
       
     }
+  }
+  
+  override func prepareForReuse() {
+    currentUser = nil
+    transaction = nil
+    nameLabel.text = ""
+    borrowedLabel.text = ""
+    borrowedLabel.textColor = .black
+    amountLabel.text = ""
+    amountLabel.textColor = .black
   }
   
 }

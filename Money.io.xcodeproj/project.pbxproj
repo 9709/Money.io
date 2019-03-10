@@ -31,14 +31,12 @@
 		C8FCD149222CB0A400607F4D /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD148222CB0A400607F4D /* Transaction.swift */; };
 		C8FCD14B222CB50900607F4D /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */; };
 		C8FCD15C222F34FC00607F4D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD15B222F34FC00607F4D /* DataManager.swift */; };
-		C8FCD15E222F688A00607F4D /* User+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD15D222F688A00607F4D /* User+Firebase.swift */; };
 		C8FCD160222F925200607F4D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD15F222F925200607F4D /* LoginViewController.swift */; };
 		C8FEB136223043B900349FC4 /* SignedOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEB135223043B900349FC4 /* SignedOutViewController.swift */; };
 		C8FEB138223070AF00349FC4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEB137223070AF00349FC4 /* MainViewController.swift */; };
 		C8FEB13A223076B000349FC4 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEB139223076B000349FC4 /* GroupTableViewCell.swift */; };
 		C8FEB13E2230797700349FC4 /* UserAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEB13D2230797700349FC4 /* UserAuthentication.swift */; };
 		C8FEB1402230C4A100349FC4 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEB13F2230C4A100349FC4 /* AddGroupViewController.swift */; };
-		C8FEB1422230C77100349FC4 /* Group+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEB1412230C77100349FC4 /* Group+Firebase.swift */; };
 		D47D6683393A1948176AF0CA /* Pods_Money_io.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A75BC46CB096BF68BAE73EE7 /* Pods_Money_io.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,14 +83,12 @@
 		C8FCD148222CB0A400607F4D /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		C8FCD15B222F34FC00607F4D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		C8FCD15D222F688A00607F4D /* User+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Firebase.swift"; sourceTree = "<group>"; };
 		C8FCD15F222F925200607F4D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C8FEB135223043B900349FC4 /* SignedOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOutViewController.swift; sourceTree = "<group>"; };
 		C8FEB137223070AF00349FC4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C8FEB139223076B000349FC4 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		C8FEB13D2230797700349FC4 /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
 		C8FEB13F2230C4A100349FC4 /* AddGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
-		C8FEB1412230C77100349FC4 /* Group+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+Firebase.swift"; sourceTree = "<group>"; };
 		D9AB1B6EB2CEDBA707BAFB88 /* Pods-Money.ioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Money.ioTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Money.ioTests/Pods-Money.ioTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,8 +200,8 @@
 		C86C975222320890003924E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */,
 				C8FEB139223076B000349FC4 /* GroupTableViewCell.swift */,
+				C8FCD14A222CB50900607F4D /* TransactionTableViewCell.swift */,
 				17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */,
 			);
 			path = Views;
@@ -226,8 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				C8FEB13D2230797700349FC4 /* UserAuthentication.swift */,
-				C8FCD15D222F688A00607F4D /* User+Firebase.swift */,
-				C8FEB1412230C77100349FC4 /* Group+Firebase.swift */,
 			);
 			path = "User Authentication";
 			sourceTree = "<group>";
@@ -486,7 +480,6 @@
 			files = (
 				C8FCD149222CB0A400607F4D /* Transaction.swift in Sources */,
 				17FD46F4222E432E00392D67 /* PayBackViewController.swift in Sources */,
-				C8FEB1422230C77100349FC4 /* Group+Firebase.swift in Sources */,
 				17FD46F6222E4D8C00392D67 /* PayBackTableViewCell.swift in Sources */,
 				17DA9518222B6E55002E2057 /* NewEditMemberViewController.swift in Sources */,
 				C85713DB22330CB900053656 /* DataManager+Transaction.swift in Sources */,
@@ -507,7 +500,6 @@
 				17DA9514222B6675002E2057 /* User.swift in Sources */,
 				C8FCD14B222CB50900607F4D /* TransactionTableViewCell.swift in Sources */,
 				C8FCD15C222F34FC00607F4D /* DataManager.swift in Sources */,
-				C8FCD15E222F688A00607F4D /* User+Firebase.swift in Sources */,
 				17DA94F5222B6073002E2057 /* Money_io.xcdatamodeld in Sources */,
 				172A4D4E222F8AC100C18C97 /* PayBackAmountViewController.swift in Sources */,
 			);
