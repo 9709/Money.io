@@ -80,7 +80,7 @@ class Group {
     
     func updateOwningAmountPerMember() {
         self.listOfUsers.forEach({(user: User) -> Void in user.amountOwing = 0})
-        let currentUser: User = GlobalVariables.singleton.currentUser;
+        let currentUser: User = GlobalVariables.singleton.currentUser
         for transaction in self.listOfTransactions {
             let amountPerPerson = transaction.amount/Double(transaction.splitUsers.count)
             if currentUser.uid == transaction.paidUser.uid {

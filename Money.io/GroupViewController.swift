@@ -41,14 +41,15 @@ class GroupViewController: UIViewController {
         
         
         // Setting currentUser
-        for user in group.listOfUsers {
-            let uid = user.uid
-            if uid == 0 {
-                GlobalVariables.singleton.currentUser = user
-                print("Current User: \(GlobalVariables.singleton.currentUser.name)\nUid: \(GlobalVariables.singleton.currentUser.uid)")
-            }
-        }
-        
+//        for user in group.listOfUsers {
+//            let uid = user.uid
+//            if uid == 0 {
+//                GlobalVariables.singleton.currentUser = user
+//                print("Current User: \(GlobalVariables.singleton.currentUser.name)\nUid: \(GlobalVariables.singleton.currentUser.uid)")
+//            }
+//        }
+
+        GlobalVariables.singleton.currentUser = group.listOfUsers[0]
         // MARK: HARDCODE TRANSACTION
         group.addTransaction(Transaction(name: "Breakfast", amount: 40.00, paidUser: group.listOfUsers[2], splitUsers: [
             group.listOfUsers[1],
@@ -92,6 +93,7 @@ class GroupViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
     }
     
     
@@ -140,6 +142,14 @@ class GroupViewController: UIViewController {
                     newTransactionVC.group = group
                     newTransactionVC.delegate = self
                 }
+                // Siri Shortcut to NewTransactionViewController
+                let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.newTransaction")
+                activity.title = "Create new transaction"
+                activity.isEligibleForSearch = true
+                activity.isEligibleForPrediction = true
+                
+                self.userActivity = activity
+                self.userActivity?.becomeCurrent()
             }
         } else if segue.identifier == "toEditTransactionSegue" {
             if let viewController = segue.destination as? UINavigationController {
@@ -161,6 +171,14 @@ class GroupViewController: UIViewController {
                     payBackVC.delegate = self
                 }
             }
+            // Siri Shortcut to PayBackViewController
+            let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.payBack")
+            activity.title = "Who do I owe?"
+            activity.isEligibleForSearch = true
+            activity.isEligibleForPrediction = true
+            
+            self.userActivity = activity
+            self.userActivity?.becomeCurrent()
         }
     }
     

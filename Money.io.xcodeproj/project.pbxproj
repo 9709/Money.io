@@ -25,6 +25,17 @@
 		17DA9518222B6E55002E2057 /* NewEditMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */; };
 		17EF6A2D222DF16A004534B9 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF6A2C222DF16A004534B9 /* GlobalVariables.swift */; };
 		17EF6A2F222E1F90004534B9 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF6A2E222E1F90004534B9 /* Calculations.swift */; };
+		17F7A9782233C07D00360B68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 17F7A9772233C07D00360B68 /* Intents.intentdefinition */; };
+		17F7A9802233C73900360B68 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F7A97F2233C73900360B68 /* IntentHandler.swift */; };
+		17F7A9842233C73900360B68 /* TransactionIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 17F7A97D2233C73900360B68 /* TransactionIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		17F7A9882233C79300360B68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 17F7A9772233C07D00360B68 /* Intents.intentdefinition */; };
+		17F7A98B2233CF8700360B68 /* NewTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD142222C814300607F4D /* NewTransactionViewController.swift */; };
+		17F7A98C2233D03100360B68 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9515222B67DA002E2057 /* Group.swift */; };
+		17F7A98D2233D03700360B68 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA9513222B6675002E2057 /* User.swift */; };
+		17F7A98E2233D04400360B68 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD148222CB0A400607F4D /* Transaction.swift */; };
+		17F7A98F2233D0E400360B68 /* PaidByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD144222C854800607F4D /* PaidByViewController.swift */; };
+		17F7A9902233D0E800360B68 /* SplitBetweenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD146222C956F00607F4D /* SplitBetweenViewController.swift */; };
+		17F7A99122346E4800360B68 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EF6A2C222DF16A004534B9 /* GlobalVariables.swift */; };
 		17FD46F4222E432E00392D67 /* PayBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD46F3222E432E00392D67 /* PayBackViewController.swift */; };
 		17FD46F6222E4D8C00392D67 /* PayBackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */; };
 		C8FCD143222C814300607F4D /* NewTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCD142222C814300607F4D /* NewTransactionViewController.swift */; };
@@ -49,6 +60,13 @@
 			remoteGlobalIDString = 17DA94E8222B6073002E2057;
 			remoteInfo = Money.io;
 		};
+		17F7A9822233C73900360B68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17DA94E1222B6073002E2057 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17F7A97C2233C73900360B68;
+			remoteInfo = TransactionIntents;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +77,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				1713B2FB2230EB3700CAE37B /* Money Widget.appex in Embed App Extensions */,
+				17F7A9842233C73900360B68 /* TransactionIntents.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +110,11 @@
 		17DA9517222B6E55002E2057 /* NewEditMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditMemberViewController.swift; sourceTree = "<group>"; };
 		17EF6A2C222DF16A004534B9 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		17EF6A2E222E1F90004534B9 /* Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
+		17F7A9772233C07D00360B68 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
+		17F7A97D2233C73900360B68 /* TransactionIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TransactionIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		17F7A97F2233C73900360B68 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		17F7A9812233C73900360B68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17F7A9892233CE9C00360B68 /* TransactionIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TransactionIntents.entitlements; sourceTree = "<group>"; };
 		17FD46F3222E432E00392D67 /* PayBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBackViewController.swift; sourceTree = "<group>"; };
 		17FD46F5222E4D8C00392D67 /* PayBackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBackTableViewCell.swift; sourceTree = "<group>"; };
 		C8FCD142222C814300607F4D /* NewTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +141,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		17DA94FD222B6074002E2057 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17F7A97A2233C73900360B68 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -151,6 +182,7 @@
 				17DA94EB222B6073002E2057 /* Money.io */,
 				17DA9503222B6074002E2057 /* Money.ioTests */,
 				1713B2F22230EB3700CAE37B /* Money Widget */,
+				17F7A97E2233C73900360B68 /* TransactionIntents */,
 				1713B2C72230E6AF00CAE37B /* Frameworks */,
 				17DA94EA222B6073002E2057 /* Products */,
 			);
@@ -162,6 +194,7 @@
 				17DA94E9222B6073002E2057 /* Money.io.app */,
 				17DA9500222B6074002E2057 /* Money.ioTests.xctest */,
 				1713B2F02230EB3700CAE37B /* Money Widget.appex */,
+				17F7A97D2233C73900360B68 /* TransactionIntents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,6 +224,7 @@
 				17DA94F8222B6074002E2057 /* LaunchScreen.storyboard */,
 				17DA94FB222B6074002E2057 /* Info.plist */,
 				17DA94F3222B6073002E2057 /* Money_io.xcdatamodeld */,
+				17F7A9772233C07D00360B68 /* Intents.intentdefinition */,
 			);
 			path = Money.io;
 			sourceTree = "<group>";
@@ -202,6 +236,16 @@
 				17DA9506222B6074002E2057 /* Info.plist */,
 			);
 			path = Money.ioTests;
+			sourceTree = "<group>";
+		};
+		17F7A97E2233C73900360B68 /* TransactionIntents */ = {
+			isa = PBXGroup;
+			children = (
+				17F7A9892233CE9C00360B68 /* TransactionIntents.entitlements */,
+				17F7A97F2233C73900360B68 /* IntentHandler.swift */,
+				17F7A9812233C73900360B68 /* Info.plist */,
+			);
+			path = TransactionIntents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +281,7 @@
 			);
 			dependencies = (
 				1713B2FA2230EB3700CAE37B /* PBXTargetDependency */,
+				17F7A9832233C73900360B68 /* PBXTargetDependency */,
 			);
 			name = Money.io;
 			productName = Money.io;
@@ -260,6 +305,23 @@
 			productName = Money.ioTests;
 			productReference = 17DA9500222B6074002E2057 /* Money.ioTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		17F7A97C2233C73900360B68 /* TransactionIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17F7A9852233C73900360B68 /* Build configuration list for PBXNativeTarget "TransactionIntents" */;
+			buildPhases = (
+				17F7A9792233C73900360B68 /* Sources */,
+				17F7A97A2233C73900360B68 /* Frameworks */,
+				17F7A97B2233C73900360B68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TransactionIntents;
+			productName = TransactionIntents;
+			productReference = 17F7A97D2233C73900360B68 /* TransactionIntents.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -291,6 +353,14 @@
 						CreatedOnToolsVersion = 10.1;
 						TestTargetID = 17DA94E8222B6073002E2057;
 					};
+					17F7A97C2233C73900360B68 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
+					};
 				};
 			};
 			buildConfigurationList = 17DA94E4222B6073002E2057 /* Build configuration list for PBXProject "Money.io" */;
@@ -309,6 +379,7 @@
 				17DA94E8222B6073002E2057 /* Money.io */,
 				17DA94FF222B6074002E2057 /* Money.ioTests */,
 				1713B2EF2230EB3700CAE37B /* Money Widget */,
+				17F7A97C2233C73900360B68 /* TransactionIntents */,
 			);
 		};
 /* End PBXProject section */
@@ -333,6 +404,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		17DA94FE222B6074002E2057 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17F7A97B2233C73900360B68 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,6 +444,7 @@
 				C8FCD143222C814300607F4D /* NewTransactionViewController.swift in Sources */,
 				17EF6A2D222DF16A004534B9 /* GlobalVariables.swift in Sources */,
 				17DA9516222B67DA002E2057 /* Group.swift in Sources */,
+				17F7A9782233C07D00360B68 /* Intents.intentdefinition in Sources */,
 				17DA9514222B6675002E2057 /* User.swift in Sources */,
 				17EF6A2F222E1F90004534B9 /* Calculations.swift in Sources */,
 				C8FCD14B222CB50900607F4D /* TransactionTableViewCell.swift in Sources */,
@@ -382,6 +461,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		17F7A9792233C73900360B68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17F7A9902233D0E800360B68 /* SplitBetweenViewController.swift in Sources */,
+				17F7A9882233C79300360B68 /* Intents.intentdefinition in Sources */,
+				17F7A9802233C73900360B68 /* IntentHandler.swift in Sources */,
+				17F7A99122346E4800360B68 /* GlobalVariables.swift in Sources */,
+				17F7A98E2233D04400360B68 /* Transaction.swift in Sources */,
+				17F7A98B2233CF8700360B68 /* NewTransactionViewController.swift in Sources */,
+				17F7A98F2233D0E400360B68 /* PaidByViewController.swift in Sources */,
+				17F7A98D2233D03700360B68 /* User.swift in Sources */,
+				17F7A98C2233D03100360B68 /* Group.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -394,6 +489,11 @@
 			isa = PBXTargetDependency;
 			target = 17DA94E8222B6073002E2057 /* Money.io */;
 			targetProxy = 17DA9501222B6074002E2057 /* PBXContainerItemProxy */;
+		};
+		17F7A9832233C73900360B68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17F7A97C2233C73900360B68 /* TransactionIntents */;
+			targetProxy = 17F7A9822233C73900360B68 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -663,6 +763,44 @@
 			};
 			name = Release;
 		};
+		17F7A9862233C73900360B68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X3GKR9NFG3;
+				INFOPLIST_FILE = TransactionIntents/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MatthewChan.Money-io.TransactionIntents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		17F7A9872233C73900360B68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X3GKR9NFG3;
+				INFOPLIST_FILE = TransactionIntents/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MatthewChan.Money-io.TransactionIntents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -698,6 +836,15 @@
 			buildConfigurations = (
 				17DA950D222B6074002E2057 /* Debug */,
 				17DA950E222B6074002E2057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17F7A9852233C73900360B68 /* Build configuration list for PBXNativeTarget "TransactionIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17F7A9862233C73900360B68 /* Debug */,
+				17F7A9872233C73900360B68 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Intents
 
 protocol NewTransactionViewControllerDelegate {
     func addTransaction(_ transaction: Transaction)
@@ -39,7 +40,6 @@ class NewTransactionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         if let transaction = transaction {
             nameTextField.text = transaction.name
             amountTextField.text = String(format: "%.2f", transaction.amount)
@@ -61,7 +61,7 @@ class NewTransactionViewController: UIViewController {
         } else {
             navigationItem.title = "Add Transaction"
         }
-        
+
     }
     
     
@@ -96,6 +96,7 @@ class NewTransactionViewController: UIViewController {
                 let splitUsers = splitBetweenMembers {
                 let transaction = Transaction(name: name, amount: amount, paidUser: paidUser, splitUsers: splitUsers)
                 delegate?.addTransaction(transaction)
+                INInteraction(intent: CreateNewTransactionIntent(), response: nil).donate(completion: nil)  // Donate intent to SiriKit
             }
         }
         dismiss(animated: true, completion: nil)

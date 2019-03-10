@@ -43,6 +43,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "initialViewController")
+
+        self.window?.rootViewController = initialViewController
+//        self.window?.makeKeyAndVisible()
+        
+        if(userActivity.activityType == "com.MatthewChan.Money-io.shortcut.newTransaction") {
+            if let vc = window?.rootViewController as? UINavigationController,
+                let actualVC = vc.topViewController as? GroupViewController {
+                let _ = actualVC.view
+                actualVC.performSegue(withIdentifier: "toNewTransactionSegue", sender: nil)
+            }
+        } else if(userActivity.activityType == "com.MatthewChan.Money-io.shortcut.payBack") {
+            if let vc = window?.rootViewController as? UINavigationController,
+                let actualVC = vc.topViewController as? GroupViewController {
+                let _ = actualVC.view
+                actualVC.performSegue(withIdentifier: "toPayBackSegue", sender: nil)
+            }
+        }
+        return false
+    }
 
     // MARK: - Core Data stack
 

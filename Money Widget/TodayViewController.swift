@@ -13,12 +13,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var owingLable: UILabel!
     @IBOutlet weak var sumLabel: UILabel!
+   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         if let owe = UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "owe") {
@@ -36,6 +40,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
     }
     
+    
+    
+    
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         
@@ -46,6 +53,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.newData)
     }
     
+    
+    
+    // MARK: Expand widget "Show More"
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         let expanded = activeDisplayMode == .expanded
