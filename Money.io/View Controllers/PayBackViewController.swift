@@ -107,14 +107,15 @@ extension PayBackViewController: UITableViewDataSource {
 
 extension PayBackViewController: PayBackAmountViewControllerDelegate {
   
-  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
     delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (_ success: Bool) in
       if success {
         OperationQueue.main.addOperation {
           self.tableView.reloadData()
+          completion(success)
         }
       } else {
-        // NOTE: Alert user for unsuccessful creation of payback
+        completion(success)
       }
     }
   }
