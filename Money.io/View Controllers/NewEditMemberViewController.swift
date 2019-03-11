@@ -43,6 +43,8 @@ class NewEditMemberViewController: UIViewController {
     }
   }
   
+  // MARK: Private helper methods
+  
   private func showSpinner() {
     let spinner = UIActivityIndicatorView(style: .gray)
     spinner.translatesAutoresizingMaskIntoConstraints = false

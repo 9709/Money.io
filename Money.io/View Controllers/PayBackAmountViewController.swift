@@ -89,8 +89,6 @@ class PayBackAmountViewController: UIViewController {
       }
     }
     showSpinner()
-    
-    
   }
   
   // MARK: Private helper methods

@@ -71,16 +71,17 @@ extension MainViewController: AddGroupViewControllerDelegate {
   
   // MARK: AddGroupViewControllerDelegate methods
   
-  func createGroup(name: String) {
+  func createGroup(name: String, completion: @escaping (_ success: Bool) -> Void) {
     DataManager.createGroup(name: name) { (group: Group?) in
       if let group = group {
         self.groups?.append(group)
         
         OperationQueue.main.addOperation {
           self.tableView.reloadData()
+          completion(true)
         }
       } else {
-        // NOTE: Alert the user for unsuccessful creation of group
+        completion(false)
       }
     }
   }
