@@ -4,7 +4,7 @@ class GroupViewController: UIViewController {
   
   // MARK: Properties
   
-  var currentUser = GlobalVariables.singleton.currentUser
+  var currentUser: User?
   var group: Group?
   
   @IBOutlet weak var tableView: UITableView!
@@ -16,6 +16,7 @@ class GroupViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    currentUser = GlobalVariables.singleton.currentUser
     navigationItem.title = group?.name
     tableView.dataSource = self
     tableView.delegate = self
@@ -59,6 +60,11 @@ class GroupViewController: UIViewController {
       // NOTE: Alert users that group information could not be fetched
       navigationController?.popViewController(animated: true)
     }
+  }
+  
+  deinit {
+    group = nil
+    currentUser = nil
   }
   
   // MARK: Navigation
@@ -114,26 +120,28 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
   
   // MARK: NewTransactionViewControllerDelegate methods
   
-  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
+  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
     group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
       if success {
         OperationQueue.main.addOperation {
           self.tableView.reloadData()
+          completion(success)
         }
       } else {
-        // NOTE: Alert user for unsuccessful creation of transaction
+        completion(success)
       }
     }
   }
   
-  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
     group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
       if success {
         OperationQueue.main.addOperation {
           self.tableView.reloadData()
+          completion(success)
         }
       } else {
-        // NOTE: Alert user for unsuccessful creation of transaction
+        completion(success)
       }
     }
   }

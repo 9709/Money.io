@@ -19,6 +19,10 @@ class AddGroupViewController: UIViewController {
     
   }
   
+  deinit {
+    delegate = nil
+  }
+  
   // MARK: Actions
   
   @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -26,7 +30,7 @@ class AddGroupViewController: UIViewController {
   }
   
   @IBAction func save(_ sender: UIBarButtonItem) {
-    if let name = nameTextField.text {
+    if let name = nameTextField.text, name != "" {
       delegate?.createGroup(name: name)
       dismiss(animated: true, completion: nil)
     } else {

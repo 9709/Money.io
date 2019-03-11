@@ -17,8 +17,8 @@ class PayBackViewController: UIViewController {
   
   // MARK: Properties
   
-  var group = GlobalVariables.singleton.currentGroup
-  var currentUser = GlobalVariables.singleton.currentUser
+  var group: Group?
+  var currentUser: User?
   var user: User?
   var payBackUsers: [User] = []
   
@@ -32,6 +32,9 @@ class PayBackViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    group = GlobalVariables.singleton.currentGroup
+    currentUser = GlobalVariables.singleton.currentUser
+    
     if let group = group, let currentUser = currentUser {
       for user in group.listOfUsers {
         if user.uid == currentUser.uid {
@@ -42,6 +45,14 @@ class PayBackViewController: UIViewController {
     }
     
     tableView.dataSource = self
+  }
+  
+  deinit {
+    group = nil
+    currentUser = nil
+    user = nil
+    payBackUsers = []
+    delegate = nil
   }
   
   

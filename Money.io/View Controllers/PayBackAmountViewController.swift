@@ -25,8 +25,8 @@ class PayBackAmountViewController: UIViewController {
   // MARK: Properties
   
   var user: User?
-  var group = GlobalVariables.singleton.currentGroup
-  var currentUser = GlobalVariables.singleton.currentUser
+  var group: Group?
+  var currentUser: User?
   var memberName: String = ""
   
   var delegate: PayBackAmountViewControllerDelegate?
@@ -37,6 +37,8 @@ class PayBackAmountViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    group = GlobalVariables.singleton.currentGroup
+    currentUser = GlobalVariables.singleton.currentUser
     if let user = user, let currentUser = currentUser, let group = group {
       memberName = user.name
       let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
@@ -46,6 +48,13 @@ class PayBackAmountViewController: UIViewController {
         payBackMemberLabel.text = "Taking back from \(memberName) :"
       }
     }
+  }
+  
+  deinit {
+    group = nil
+    currentUser = nil
+    user = nil
+    delegate = nil
   }
   
   

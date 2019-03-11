@@ -20,7 +20,7 @@ class SplitBetweenViewController: UIViewController {
   
   // MARK: Properties
   
-  var group = GlobalVariables.singleton.currentGroup
+  var group: Group?
   var users: [User]?
   var paid: Bool?
   var delegate: SplitBetweenViewControllerDelegate?
@@ -32,9 +32,16 @@ class SplitBetweenViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
+    group = GlobalVariables.singleton.currentGroup
     tableView.dataSource = self
     tableView.delegate = self
+  }
+  
+  deinit {
+    group = nil
+    users = nil
+    paid = nil
+    delegate = nil
   }
   
   

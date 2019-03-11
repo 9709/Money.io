@@ -9,8 +9,8 @@
 import UIKit
 
 protocol NewTransactionViewControllerDelegate {
-  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double])
-  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double])
+  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void)
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void)
 }
 
 
@@ -19,7 +19,7 @@ class NewTransactionViewController: UIViewController {
   
   // MARK: Properties
   
-  var group = GlobalVariables.singleton.currentGroup
+  var group: Group?
   
   var paidByUsers: [User]?
   var splitBetweenUsers: [User]?
@@ -38,7 +38,7 @@ class NewTransactionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
+    group = GlobalVariables.singleton.currentGroup
     if let transaction = transaction {
       nameTextField.text = transaction.name
       amountTextField.text = String(format: "%.2f", transaction.totalAmount)
@@ -56,6 +56,14 @@ class NewTransactionViewController: UIViewController {
       navigationItem.title = "Add Transaction"
     }
     
+  }
+  
+  deinit {
+    group = nil
+    paidByUsers = nil
+    splitBetweenUsers = nil
+    transaction = nil
+    delegate = nil
   }
   
   // MARK: Actions
@@ -141,9 +149,17 @@ class NewTransactionViewController: UIViewController {
       if name != transaction.name ||
         paidUserUIDAndAmount != transaction.paidAmountPerUser ||
         splitUserUIDAndAmount != transaction.splitAmountPerUser {
-        delegate?.updateTransaction(transaction, name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser)
+        delegate?.updateTransaction(transaction, name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser) { (success: Bool) in
+          if success {
+            self.dismiss(animated: true, completion: nil)
+          } else {
+            // NOTE: Alert the user for the unsuccessful creation of transaction
+          }
+        }
+        showSpinner()
+      } else {
+        dismiss(animated: true, completion: nil)
       }
-      dismiss(animated: true, completion: nil)
     } else {
       if let name = nameTextField.text,
         let amountString = amountTextField.text, let amount = Double(amountString),
@@ -176,8 +192,15 @@ class NewTransactionViewController: UIViewController {
           }
         }
         
-        delegate?.createTransaction(name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser)
-        dismiss(animated: true, completion: nil)
+        // Delegate will dissmiss the view
+        delegate?.createTransaction(name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser) { (success: Bool) in
+          if success {
+            self.dismiss(animated: true, completion: nil)
+          } else {
+            // NOTE: Alert the user for the unsuccessful creation of transaction
+          }
+        }
+        showSpinner()
       } else {
         // NOTE: Alert user for empty name, amount, paid users, or split users
       }
@@ -215,6 +238,15 @@ class NewTransactionViewController: UIViewController {
     }
     allUsersString = allUsersString.trimmingCharacters(in: CharacterSet.letters.inverted)
     return allUsersString
+  }
+  
+  private func showSpinner() {
+    let spinner = UIActivityIndicatorView(style: .gray)
+    spinner.translatesAutoresizingMaskIntoConstraints = false
+    spinner.startAnimating()
+    view.addSubview(spinner)
+    spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
   }
   
 }

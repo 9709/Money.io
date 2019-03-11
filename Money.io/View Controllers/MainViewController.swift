@@ -35,6 +35,11 @@ class MainViewController: UIViewController {
     }
   }
   
+  deinit {
+    currentUser = nil
+    groups = nil
+  }
+  
   // MARK: Actions
   
   @IBAction func signOut(_ sender: UIBarButtonItem) {

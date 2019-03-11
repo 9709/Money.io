@@ -28,6 +28,10 @@ class LoginViewController: UIViewController {
             }
         }
     }
+  
+  deinit {
+    newAccount = nil
+  }
     
     // MARK: Actions
     

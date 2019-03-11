@@ -4,7 +4,7 @@ class GroupMembersViewController: UIViewController {
   
   // MARK: Properties
   
-  var group = GlobalVariables.singleton.currentGroup
+  var group: Group?
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -13,10 +13,14 @@ class GroupMembersViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    group = GlobalVariables.singleton.currentGroup
     tableView.dataSource = self
     tableView.delegate = self
   }
   
+  deinit {
+    group = nil
+  }
   
   
   
@@ -83,15 +87,16 @@ extension GroupMembersViewController: NewEditMemberViewControllerDelegate {
   
   // MARK: NewEditMemberViewControllerDelegate methods
   
-  func addMember(email: String) {
+  func addMember(email: String, completion: @escaping (_ success: Bool) -> Void) {
     if let group = group {
       group.addUser(email: email) { (success: Bool) in
         if success {
           OperationQueue.main.addOperation {
             self.tableView.reloadData()
+            completion(success)
           }
         } else {
-          // NOTE: Alert user for unsuccessful addition of user
+          completion(success)
         }
       }
     }
