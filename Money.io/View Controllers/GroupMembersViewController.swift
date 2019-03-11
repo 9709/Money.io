@@ -58,6 +58,8 @@ extension GroupMembersViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "GroupMemberNameCell", for: indexPath)
+    let font = UIFont.systemFont(ofSize: 20)
+    cell.textLabel?.font = font
     cell.textLabel?.text = group?.listOfUsers[indexPath.row].name
     cell.detailTextLabel?.text = group?.listOfUsers[indexPath.row].email
     return cell

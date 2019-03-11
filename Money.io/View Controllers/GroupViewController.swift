@@ -44,6 +44,9 @@ class GroupViewController: UIViewController {
               self?.totalOwingLabel.textColor = .green
               self?.oweStatusLabel.text = "You need back:"
             }
+            
+            let stringSum = self?.totalOwingLabel.text
+            UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(stringSum, forKey: "sum")
           }
         
         } else {
@@ -65,6 +68,15 @@ class GroupViewController: UIViewController {
       if let viewController = segue.destination as? UINavigationController,
         let newTransactionVC = viewController.topViewController as? NewTransactionViewController {
         newTransactionVC.delegate = self
+
+        // Siri Shortcut to NewTransactionViewController
+        let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.newTransaction")
+        activity.title = "Create new transaction"
+        activity.isEligibleForSearch = true
+        activity.isEligibleForPrediction = true
+        
+        self.userActivity = activity
+        self.userActivity?.becomeCurrent()
       }
     } else if segue.identifier == "toEditTransactionSegue" {
       if let viewController = segue.destination as? UINavigationController,
@@ -82,6 +94,15 @@ class GroupViewController: UIViewController {
           payBackVC.group = group
           payBackVC.currentUser = currentUser
           payBackVC.delegate = self
+
+          // Siri Shortcut to PayBackViewController
+          let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.payBack")
+          activity.title = "Who do I owe?"
+          activity.isEligibleForSearch = true
+          activity.isEligibleForPrediction = true
+          
+          self.userActivity = activity
+          self.userActivity?.becomeCurrent()
         }
       }
     }
