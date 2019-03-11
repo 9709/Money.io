@@ -15,6 +15,8 @@ class Group {
   
   var uid: String
   var name: String
+    var isDefault: Bool?
+
   
   var listOfOwingAmounts: [String: Double] = [:]
   var listOfUsers: [User] = []
@@ -22,7 +24,7 @@ class Group {
 
   // MARK: Initializers
   
-  init(uid: String, name: String) {
+    init(uid: String, name: String) {
     self.uid = uid
     self.name = name
   }

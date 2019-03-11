@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     super.viewDidLoad()
     
     tableView.dataSource = self
+    tableView.delegate = self
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +85,7 @@ extension MainViewController: AddGroupViewControllerDelegate {
 extension MainViewController: UITableViewDataSource {
   
   // MARK: UITableViewDataSource methods
-  
+    
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let groups = groups {
       return groups.count
@@ -103,5 +104,37 @@ extension MainViewController: UITableViewDataSource {
     return cell
   }
   
-  
+    
+    
+}
+
+extension MainViewController: UITableViewDelegate {
+    
+    
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let pin = setDefault(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [pin])
+    }
+    
+    func setDefault(at indexPath: IndexPath) -> UIContextualAction {
+        let groups = self.groups?[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: "Default") { (action, view, completion) in
+            if let groups = groups {
+                if self.groups != nil {
+                    for group in self.groups! {
+                        group.isDefault = false
+                    }
+                }
+                groups.isDefault = !groups.isDefault!
+                completion(true)
+            }
+        }
+//        action.image = UIImage(named: "Pin")
+        action.backgroundColor = UIColor.orange
+//        action.backgroundColor = groups.isImportant ? UIColor.orange : UIColor.gray
+        
+        return action
+    }
+    
 }
