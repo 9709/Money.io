@@ -121,6 +121,8 @@ class GroupViewController: UIViewController {
   // MARK: Private helper methods
   
   private func updateTotalOwingAmountLabel() {
+    let darkGreen = UIColor(red:0, green:0.80, blue:0, alpha:1.0)
+
     guard let group = group, let currentUser = currentUser else {
       print("Cannot update owing amount without valid current user or valid group")
       return
@@ -132,7 +134,7 @@ class GroupViewController: UIViewController {
       totalOwingLabel.textColor = .red
       oweStatusLabel.text = "You owe:"
     } else {
-      totalOwingLabel.textColor = .green
+      totalOwingLabel.textColor = darkGreen
       oweStatusLabel.text = "You need back:"
     }
     
@@ -293,3 +295,4 @@ extension GroupViewController: UITableViewDataSource {
   }
   
 }
+

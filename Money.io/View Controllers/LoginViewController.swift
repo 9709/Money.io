@@ -17,6 +17,8 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    passwordTextField.delegate = self
+
     if let newAccount = newAccount {
       if newAccount {
         saveButton.title = "Create"
@@ -79,7 +81,7 @@ class LoginViewController: UIViewController {
   @IBAction func cancel(_ sender: UIBarButtonItem) {
     dismiss(animated: true, completion: nil)
   }
-  
+    
   // MARK: Private helper methods
   
   private func showSpinner() {
@@ -90,4 +92,12 @@ class LoginViewController: UIViewController {
     spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
   }
+}
+
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        passwordTextField.resignFirstResponder()
+        return true
+    }
 }
