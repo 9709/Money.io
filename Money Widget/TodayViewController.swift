@@ -25,16 +25,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     
     override func viewDidAppear(_ animated: Bool) {
-        if let owe = UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "owe") {
-            owingLable.text = owe as? String
-        }
-        if let sum = UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "sum") {
-            if owingLable.text!.contains("You owe:") {
+    
+        if let userTotalOwing = UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "userTotalOwing") as? Double {
+            if userTotalOwing > 0 {
+                owingLable.text = "You owe:"
                 sumLabel.textColor = UIColor.red
-                sumLabel.text = sum as? String
+                sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
             } else {
+                owingLable.text = "You need back:"
                 sumLabel.textColor = UIColor.green
-                sumLabel.text = sum as? String
+                sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
             }
         }
         

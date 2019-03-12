@@ -40,6 +40,8 @@ class MainViewController: UIViewController {
                 if self?.groups != nil && groups.count > 0 {
                     self?.groups![0].isDefault = true
                     self?.defaultGroup = self?.groups![0]
+                    let userTotalOwing = self?.defaultGroup!.listOfOwingAmounts[currentUser.uid]
+                    UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
                 }
                 OperationQueue.main.addOperation {
                     self?.tableView.reloadData()
@@ -52,7 +54,7 @@ class MainViewController: UIViewController {
     }
     
     // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
-
+    
     func siriShortcutNewTransaction() {
         checkForCurrentUser {
             guard let storyboard = self.storyboard else {
@@ -180,7 +182,11 @@ extension MainViewController: UITableViewDelegate {
                         group.isDefault = false
                     }
                 }
-                groups.isDefault = !groups.isDefault!
+                groups.isDefault = true
+                if let currentUser = self.currentUser {
+                    let userTotalOwing = groups.listOfOwingAmounts[currentUser.uid]
+                    UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+                }
                 completion(true)
             }
         }
