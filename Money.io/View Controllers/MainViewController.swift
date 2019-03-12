@@ -27,34 +27,6 @@ class MainViewController: UIViewController {
     
   }
   
-  // MARK: Private helper methods
-  
-  private func checkForCurrentUser(completion: @escaping () -> Void) {
-    UserAuthentication.getCurrentUser { [weak self] (currentUser: User?, groups: [Group], defaultGroup: Group?) in
-      if let currentUser = currentUser {
-        self?.currentUser = currentUser
-        GlobalVariables.singleton.currentUser = currentUser
-        
-        self?.groups = groups
-        
-        
-        if let defaultGroup = defaultGroup {
-          self?.currentUser?.defaultGroup = defaultGroup
-          let userTotalOwing = self?.currentUser?.defaultGroup?.listOfOwingAmounts[currentUser.uid]
-          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
-        }
-        
-        OperationQueue.main.addOperation {
-          self?.tableView.reloadData()
-          completion()
-        }
-      } else {
-        self?.performSegue(withIdentifier: "toSignedOutSegue", sender: self)
-      }
-    }
-  }
-  
-  
   deinit {
     currentUser = nil
     groups = nil
@@ -120,6 +92,54 @@ class MainViewController: UIViewController {
       }
     }
   }
+  
+  // MARK: Private helper methods
+  
+  private func checkForCurrentUser(completion: @escaping () -> Void) {
+    UserAuthentication.getCurrentUser { [weak self] (currentUser: User?, groups: [Group], defaultGroup: Group?) in
+      if let currentUser = currentUser {
+        self?.currentUser = currentUser
+        GlobalVariables.singleton.currentUser = currentUser
+        
+        self?.groups = groups
+        
+        
+        if let defaultGroup = defaultGroup {
+          self?.currentUser?.defaultGroup = defaultGroup
+          let userTotalOwing = self?.currentUser?.defaultGroup?.listOfOwingAmounts[currentUser.uid]
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+        }
+        
+        OperationQueue.main.addOperation {
+          self?.tableView.reloadData()
+          completion()
+        }
+      } else {
+        self?.performSegue(withIdentifier: "toSignedOutSegue", sender: self)
+      }
+    }
+  }
+  
+  private func sortGroups() {
+    
+    if groups != nil {
+      groups = groups!.sorted(by: { (former, latter) -> Bool in
+        if former.name < latter.name {
+          return true
+        } else {
+          return false
+        }
+      })
+      
+      for index in 0..<groups!.count {
+        if groups?[index].uid == currentUser?.defaultGroup?.uid {
+          let defaultGroup = groups?.remove(at: index)
+          groups?.insert(defaultGroup!, at: 0)
+          break
+        }
+      }
+    }
+  }
 }
 
 extension MainViewController: AddGroupViewControllerDelegate {
@@ -141,7 +161,10 @@ extension MainViewController: AddGroupViewControllerDelegate {
     }
   }
   
+  
 }
+
+
 extension MainViewController: UITableViewDataSource {
   
   // MARK: UITableViewDataSource methods
@@ -192,6 +215,7 @@ extension MainViewController: UITableViewDelegate {
       DataManager.setDefaultGroup(groupToSetDefault, for: currentUser) { (success: Bool) in
         if success {
           self.currentUser?.defaultGroup = groupToSetDefault
+          self.sortGroups()
           let userTotalOwing = groupToSetDefault.listOfOwingAmounts[currentUser.uid]
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
           

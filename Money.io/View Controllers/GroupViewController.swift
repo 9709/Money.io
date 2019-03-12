@@ -120,7 +120,7 @@ class GroupViewController: UIViewController {
     
     if let defaultGroup = currentUser.defaultGroup {
       if group.uid == defaultGroup.uid {
-        let userTotalOwing = group.listOfOwingAmounts[currentUser.uid]
+        let userTotalOwing = group.groupOwingAmountForUser(currentUser)
         UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
       }
     }
