@@ -19,31 +19,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mdY-4Y-1MZ">
-                                <rect key="frame" x="77" y="13" width="166" height="84"/>
+                                <rect key="frame" x="77" y="8.5" width="166" height="93"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfT-cx-HO5">
-                                        <rect key="frame" x="0.0" y="0.0" width="166" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfT-cx-HO5">
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="50"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCd-Bm-27h" userLabel="Owing label">
-                                        <rect key="frame" x="0.0" y="20.5" width="166" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxm-dK-uwt" userLabel="Sum label">
-                                        <rect key="frame" x="0.0" y="41" width="166" height="43"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxm-dK-uwt" userLabel="Sum label">
+                                        <rect key="frame" x="0.0" y="50" width="166" height="43"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wa-t1-dJl">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wa-t1-dJl">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="launchAppButton:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="2bm-Er-9E5"/>
                                 </connections>
@@ -51,8 +44,12 @@
                         </subviews>
                         <color key="backgroundColor" red="0.12549019607843137" green="0.32549019607843138" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="trailing" secondItem="4wa-t1-dJl" secondAttribute="trailing" id="12g-8R-IDw"/>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="bottom" secondItem="4wa-t1-dJl" secondAttribute="bottom" id="AkW-fu-GMa"/>
                             <constraint firstItem="mdY-4Y-1MZ" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="Z1u-48-8Cj"/>
+                            <constraint firstItem="4wa-t1-dJl" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="dpw-O5-OjH"/>
                             <constraint firstItem="mdY-4Y-1MZ" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="eug-Qm-UPA"/>
+                            <constraint firstItem="4wa-t1-dJl" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="r9r-Mw-64L"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
@@ -61,7 +58,6 @@
                     <size key="freeformSize" width="320" height="110"/>
                     <connections>
                         <outlet property="groupNameLabel" destination="lfT-cx-HO5" id="jO6-Lw-YLn"/>
-                        <outlet property="owingLable" destination="FCd-Bm-27h" id="AjM-sg-mpR"/>
                         <outlet property="sumLabel" destination="yxm-dK-uwt" id="Egh-ZE-6Ir"/>
                     </connections>
                 </viewController>

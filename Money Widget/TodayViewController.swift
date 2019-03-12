@@ -12,7 +12,7 @@ import NotificationCenter
 class TodayViewController: UIViewController, NCWidgetProviding {
   
   @IBOutlet weak var groupNameLabel: UILabel!
-  @IBOutlet weak var owingLable: UILabel!
+//  @IBOutlet weak var owingLable: UILabel!
   @IBOutlet weak var sumLabel: UILabel!
   
   
@@ -31,11 +31,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     if let userTotalOwing = UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "userTotalOwing") as? Double {
       if userTotalOwing > 0 {
-        owingLable.text = "You owe:"
+//        owingLable.text = "You owe:"
         sumLabel.textColor = .red
         sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
       } else {
-        owingLable.text = "You need back:"
+//        owingLable.text = "You need back:"
         sumLabel.textColor = .green
         sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
       }
