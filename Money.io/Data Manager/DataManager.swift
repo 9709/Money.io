@@ -104,18 +104,31 @@ class DataManager {
     }
   }
   
-  static func getCurrentUser(uid: String, completion: @escaping (_ currentUser: User?, _ groups: [Group]) -> Void) {
+  
+  
+  static func setDefaultGroup(_ group: Group, for user: User, completion: @escaping (_ success: Bool) -> Void) {
+    db.collection("User").document(user.uid).updateData(["defaultGroup": group.uid]) { (error) in
+      if let error = error {
+        print("Error: \(error)")
+        completion(false)
+      } else {
+        completion(true)
+      }
+    }
+  }
+  
+  static func getCurrentUser(uid: String, completion: @escaping (_ currentUser: User?, _ groups: [Group], _ defaultGroup: Group?) -> Void) {
     db.collection("User").document(uid).getDocument { (documentSnapshot, error) in
       guard let document = documentSnapshot, document.exists else {
         print("Document does not exist")
-        completion(nil, [])
+        completion(nil, [], nil)
         return
       }
       
       let data = document.data()
       guard let name = data?["name"] as? String,
         let email = data?["email"] as? String else {
-          completion(nil, [])
+          completion(nil, [], nil)
           return
       }
       
@@ -124,7 +137,9 @@ class DataManager {
       
       if let groups = data?["groups"] as? [String: [String: Any]] {
         var userGroups: [Group] = []
+        
         for (groupUID, details) in groups {
+          
           if let groupName = details["name"] as? String,
             let owingAmount = details["owingAmount"] as? Double {
             let group = Group(uid: groupUID, name: groupName)
@@ -133,9 +148,30 @@ class DataManager {
             userGroups.append(group)
           }
         }
-        completion(user, userGroups)
+        
+        userGroups = userGroups.sorted(by: { (former, latter) -> Bool in
+          if former.name < latter.name {
+            return true
+          } else {
+            return false
+          }
+        })
+        
+        if let defaultGroupUID = data?["defaultGroup"] as? String {
+          for index in 0..<userGroups.count {
+            if userGroups[index].uid == defaultGroupUID {
+              let defaultGroup = userGroups.remove(at: index)
+              userGroups.insert(defaultGroup, at: 0)
+              user.defaultGroup = userGroups[0]
+              break
+            }
+          }
+          completion(user, userGroups, userGroups[0])
+        } else {
+          completion(user, userGroups, nil)
+        }
       } else {
-        completion(user, [])
+        completion(user, [], nil)
       }
       
     }

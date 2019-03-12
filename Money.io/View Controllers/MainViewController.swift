@@ -1,200 +1,262 @@
 import UIKit
 
 class MainViewController: UIViewController {
+  
+  // MARK: Properties
+  
+  var currentUser: User?
+  var groups: [Group]?
+  
+  @IBOutlet weak var tableView: UITableView!
+  
+  lazy var refreshControl: UIRefreshControl = {
+    let refreshControl = UIRefreshControl()
     
-    // MARK: Properties
+    refreshControl.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
     
-    var currentUser: User?
-    var groups: [Group]?
-    var defaultGroup: Group?
+    return refreshControl
+  }()
+  
+  // MARK: Refresh Control methods
+  
+  @objc func refreshTable(_ refreshControl: UIRefreshControl) {
+    checkForCurrentUser {
+      refreshControl.endRefreshing()
+    }
+  }
+  
+  // MARK: UIViewController methods
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    @IBOutlet weak var tableView: UITableView!
+    tableView.dataSource = self
+    tableView.delegate = self
     
-    // MARK: UIViewController methods
+    tableView.addSubview(refreshControl)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    checkForCurrentUser() {
+      return
+    }
+    
+  }
+  
+  deinit {
+    currentUser = nil
+    groups = nil
+  }
+  
+  // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
+  
+  func siriShortcutNewTransaction() {
+    checkForCurrentUser {
+      guard let storyboard = self.storyboard else {
+        return
+      }
+      guard let groupVC = storyboard.instantiateViewController(withIdentifier: "groupViewController") as? GroupViewController else {
+        return
+      }
+      
+      groupVC.group = self.currentUser?.defaultGroup
+      
+      self.navigationController?.show(groupVC, sender: nil)
+      groupVC.siriShortcutNewTransaction()
+    }
+  }
+  
+  
+  func siriShortcutPayBack() {
+    checkForCurrentUser {
+      guard let storyboard = self.storyboard else {
+        return
+      }
+      guard let groupVC = storyboard.instantiateViewController(withIdentifier: "groupViewController") as? GroupViewController else {
+        return
+      }
+      
+      groupVC.group = self.currentUser?.defaultGroup
+      
+      self.navigationController?.show(groupVC, sender: nil)
+      groupVC.siriShortcutPayBack()
+    }
+  }
+  
+  // MARK: Actions
+  
+  @IBAction func signOut(_ sender: UIBarButtonItem) {
+    UserAuthentication.signOutUser()
+    GlobalVariables.singleton.currentUser = nil
+    performSegue(withIdentifier: "toSignedOutSegue", sender: self)
+  }
+  
+  // MARK: Navigation
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "toAddGroupSegue" {
+      if let navigationVC = segue.destination as? UINavigationController,
+        let addGroupVC = navigationVC.topViewController as? AddGroupViewController {
+        addGroupVC.delegate = self
+      }
+    } else if segue.identifier == "toGroupViewSegue" {
+      if let groupViewVC = segue.destination as? GroupViewController,
+        let groupCell = sender as? GroupTableViewCell,
+        let groups = groups,
+        let selectedIndexPath = tableView.indexPath(for: groupCell) {
+        groupViewVC.group = groups[selectedIndexPath.row]
+      }
+    }
+  }
+  
+  // MARK: Private helper methods
+  
+  private func checkForCurrentUser(completion: @escaping () -> Void) {
+    UserAuthentication.getCurrentUser { [weak self] (currentUser: User?, groups: [Group], defaultGroup: Group?) in
+      if let currentUser = currentUser {
+        self?.currentUser = currentUser
+        GlobalVariables.singleton.currentUser = currentUser
         
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        self?.groups = groups
         
-        checkForCurrentUser() {
-            return
+        
+        if let defaultGroup = defaultGroup {
+          self?.currentUser?.defaultGroup = defaultGroup
+          let userTotalOwing = self?.currentUser?.defaultGroup?.listOfOwingAmounts[currentUser.uid]
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(defaultGroup.name, forKey: "defaultGroupName")
         }
         
-    }
-    
-    // MARK: Private helper methods
-    
-    private func checkForCurrentUser(completion: @escaping () -> Void) {
-        UserAuthentication.getCurrentUser { [weak self] (currentUser: User?, groups: [Group]) in
-            if let currentUser = currentUser {
-                self?.currentUser = currentUser
-                GlobalVariables.singleton.currentUser = currentUser
-                
-                self?.groups = groups
-                if self?.groups != nil && groups.count > 0 {
-                    self?.groups![0].isDefault = true
-                    self?.defaultGroup = self?.groups![0]
-                    let userTotalOwing = self?.defaultGroup!.listOfOwingAmounts[currentUser.uid]
-                    UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
-                }
-                OperationQueue.main.addOperation {
-                    self?.tableView.reloadData()
-                    completion()
-                }
-            } else {
-                self?.performSegue(withIdentifier: "toSignedOutSegue", sender: self)
-            }
+        OperationQueue.main.addOperation {
+          self?.tableView.reloadData()
+          completion()
         }
+      } else {
+        self?.performSegue(withIdentifier: "toSignedOutSegue", sender: self)
+      }
     }
+  }
+  
+  private func sortGroups() {
     
-    // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
-    
-    func siriShortcutNewTransaction() {
-        checkForCurrentUser {
-            guard let storyboard = self.storyboard else {
-                return
-            }
-            guard let groupVC = storyboard.instantiateViewController(withIdentifier: "groupViewController") as? GroupViewController else {
-                return
-            }
-            
-            groupVC.group = self.defaultGroup
-            
-            self.navigationController?.show(groupVC, sender: nil)
-            groupVC.siriShortcutNewTransaction()
+    if groups != nil {
+      groups = groups!.sorted(by: { (former, latter) -> Bool in
+        if former.name < latter.name {
+          return true
+        } else {
+          return false
         }
-    }
-    
-    
-    func siriShortcutPayBack() {
-        checkForCurrentUser {
-            guard let storyboard = self.storyboard else {
-                return
-            }
-            guard let groupVC = storyboard.instantiateViewController(withIdentifier: "groupViewController") as? GroupViewController else {
-                return
-            }
-            
-            groupVC.group = self.defaultGroup
-            
-            self.navigationController?.show(groupVC, sender: nil)
-            groupVC.siriShortcutPayBack()
+      })
+      
+      for index in 0..<groups!.count {
+        if groups?[index].uid == currentUser?.defaultGroup?.uid {
+          if let defaultGroup = groups?.remove(at: index) {
+            groups?.insert(defaultGroup, at: 0)
+            break
+          }
         }
+      }
     }
-    
-    
-    
-    // MARK: Actions
-    
-    @IBAction func signOut(_ sender: UIBarButtonItem) {
-        UserAuthentication.signOutUser()
-        GlobalVariables.singleton.currentUser = nil
-        performSegue(withIdentifier: "toSignedOutSegue", sender: self)
-    }
-    
-    // MARK: Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toAddGroupSegue" {
-            if let navigationVC = segue.destination as? UINavigationController,
-                let addGroupVC = navigationVC.topViewController as? AddGroupViewController {
-                addGroupVC.delegate = self
-            }
-        } else if segue.identifier == "toGroupViewSegue" {
-            if let groupViewVC = segue.destination as? GroupViewController {
-                if let groupCell = sender as? GroupTableViewCell,
-                    let groups = groups,
-                    let selectedIndexPath = tableView.indexPath(for: groupCell) {
-                    groupViewVC.group = groups[selectedIndexPath.row]
-                }
-            }
-            
-        }
-    }
+  }
 }
 
 extension MainViewController: AddGroupViewControllerDelegate {
-    
-    // MARK: AddGroupViewControllerDelegate methods
-    
-    func createGroup(name: String) {
-        DataManager.createGroup(name: name) { (group: Group?) in
-            if let group = group {
-                self.groups?.append(group)
-                
-                OperationQueue.main.addOperation {
-                    self.tableView.reloadData()
-                }
-            } else {
-                // NOTE: Alert the user for unsuccessful creation of group
-            }
+  
+  // MARK: AddGroupViewControllerDelegate methods
+  
+  func createGroup(name: String, completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.createGroup(name: name) { (group: Group?) in
+      if let group = group {
+        self.groups?.append(group)
+        
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+          completion(true)
         }
+      } else {
+        completion(false)
+      }
     }
+  }
+  
+  
 }
 
+
 extension MainViewController: UITableViewDataSource {
-    
-    // MARK: UITableViewDataSource methods
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let groups = groups {
-            return groups.count
-        }
-        return 0
+  
+  // MARK: UITableViewDataSource methods
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if let groups = groups {
+      return groups.count
+    }
+    return 0
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? GroupTableViewCell else {
+      return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? GroupTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        cell.group = groups?[indexPath.row]
-        cell.configureCell()
-        
-        return cell
-    }
+    cell.group = groups?[indexPath.row]
+    cell.configureCell()
     
-    
-    
+    return cell
+  }
+  
+  
+  
 }
 
 extension MainViewController: UITableViewDelegate {
-    
-    
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let flag = setDefault(at: indexPath)
-        return UISwipeActionsConfiguration(actions: [flag])
+  
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    return UISwipeActionsConfiguration(actions: [])
+  }
+  
+  
+  func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let flag = setDefault(at: indexPath)
+    return UISwipeActionsConfiguration(actions: [flag])
+  }
+  
+  func setDefault(at indexPath: IndexPath) -> UIContextualAction {
+    guard let groupToSetDefault = groups?[indexPath.row] else {
+      print("No group to set default")
+      return UIContextualAction()
+    }
+    guard let currentUser = currentUser else {
+      print("No current user for default group to be set")
+      return UIContextualAction()
     }
     
-    func setDefault(at indexPath: IndexPath) -> UIContextualAction {
-        let groups = self.groups?[indexPath.row]
-        let action = UIContextualAction(style: .normal, title: " Set \nDefault") { (action, view, completion) in
-            if let groups = groups {
-                if self.groups != nil {
-                    for group in self.groups! {
-                        group.isDefault = false
-                    }
-                }
-                groups.isDefault = true
-                if let currentUser = self.currentUser {
-                    let userTotalOwing = groups.listOfOwingAmounts[currentUser.uid]
-                    UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
-                }
-                completion(true)
-            }
+    let action = UIContextualAction(style: .normal, title: " Set \nDefault") { (action, view, completion) in
+      
+      DataManager.setDefaultGroup(groupToSetDefault, for: currentUser) { (success: Bool) in
+        if success {
+          self.currentUser?.defaultGroup = groupToSetDefault
+          self.sortGroups()
+          let userTotalOwing = groupToSetDefault.listOfOwingAmounts[currentUser.uid]
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(groupToSetDefault.name, forKey: "defaultGroupName")
+          
+          OperationQueue.main.addOperation {
+            self.tableView.reloadData()
+          }
+        } else {
+          // NOTE: Notify user for failure of setting default group
         }
-        //        action.image = UIImage(named: "Pin")
-        action.backgroundColor = UIColor.orange
-        //        action.backgroundColor = groups.isImportant ? UIColor.orange : UIColor.gray
-        
-        return action
+      }
+      
     }
     
+    action.backgroundColor = .orange
+    //        action.backgroundColor = groups.isImportant ? UIColor.orange : UIColor.gray
+    
+    return action
+  }
+  
 }

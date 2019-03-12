@@ -90,6 +90,9 @@ extension DataManager {
       getAllTransactions(of: uid) { (transactions: [Transaction]?) in
         if let transactions = transactions {
           group.listOfTransactions = transactions
+          
+          group.sortedTransactions = group.sortTransactionsByDate()
+          group.sortedMonthYear = group.sortMonthYear()
         }
         completion(group)
       }

@@ -10,8 +10,8 @@ class GroupTableViewCell: UITableViewCell {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var borrowedLabel: UILabel!
   @IBOutlet weak var amountLabel: UILabel!
-    @IBOutlet weak var defaultLabel: UILabel!
-    
+  @IBOutlet weak var defaultLabel: UILabel!
+  
   // MARK: GroupTableViewCell methods
   
   func configureCell() {
@@ -39,12 +39,12 @@ class GroupTableViewCell: UITableViewCell {
           amountLabel.textColor = .gray
         }
       }
-        
-        if group.isDefault == true {
-            defaultLabel.isHidden = false
-        } else {
-            defaultLabel.isHidden = true
-        }
+      
+      if group.uid == currentUser.defaultGroup?.uid {
+        defaultLabel.isHidden = false
+      } else {
+        defaultLabel.isHidden = true
+      }
     }
   }
   

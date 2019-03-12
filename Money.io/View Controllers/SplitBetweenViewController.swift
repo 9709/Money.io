@@ -20,7 +20,7 @@ class SplitBetweenViewController: UIViewController {
   
   // MARK: Properties
   
-  var group = GlobalVariables.singleton.currentGroup
+  var group: Group?
   var users: [User]?
   var paid: Bool?
   var delegate: SplitBetweenViewControllerDelegate?
@@ -32,9 +32,16 @@ class SplitBetweenViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
+    group = GlobalVariables.singleton.currentGroup
     tableView.dataSource = self
     tableView.delegate = self
+  }
+  
+  deinit {
+    group = nil
+    users = nil
+    paid = nil
+    delegate = nil
   }
   
   
@@ -47,17 +54,21 @@ class SplitBetweenViewController: UIViewController {
   
   @IBAction func save(_ sender: UIBarButtonItem) {
     users = []
-    if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
-      for indexPath in selectedIndexPaths {
-        if let user = group?.listOfUsers[indexPath.row] {
-          users?.append(user)
-        }
-      }
-      if let users = users, let paid = paid {
-        delegate?.updateTransactionUsers(users: users, paid: paid)
+    guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
+      // NOTE: Alert user for no users selected
+      return
+    }
+    
+    for indexPath in selectedIndexPaths {
+      if let user = group?.listOfUsers[indexPath.row] {
+        users?.append(user)
       }
     }
+    if let users = users, let paid = paid {
+      delegate?.updateTransactionUsers(users: users, paid: paid)
+    }
     dismiss(animated: true, completion: nil)
+    
   }
 }
 

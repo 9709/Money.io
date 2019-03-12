@@ -5,11 +5,11 @@ class UserAuthentication {
   
   // MARK: UserAuthentication methods
   
-  static func getCurrentUser(completion: @escaping (_ currentUser: User?, _ groups: [Group]) -> Void) {
+  static func getCurrentUser(completion: @escaping (_ currentUser: User?, _ groups: [Group], _ defaultGroup: Group?) -> Void) {
     guard let currentUser = Auth.auth().currentUser else {
       
       // There is no current user in Firebase Authentication session
-      completion(nil, [])
+      completion(nil, [], nil)
       return
     }
     

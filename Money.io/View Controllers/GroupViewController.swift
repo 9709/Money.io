@@ -1,223 +1,295 @@
 import UIKit
 
 class GroupViewController: UIViewController {
+  
+  // MARK: Properties
+  
+  var currentUser: User?
+  var group: Group?
+  
+  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var totalOwingLabel: UILabel!
+  @IBOutlet weak var oweStatusLabel: UILabel!
+  
+  lazy var refreshControl: UIRefreshControl = {
+    let refreshControl = UIRefreshControl()
     
-    // MARK: Properties
+    refreshControl.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
     
-    var currentUser = GlobalVariables.singleton.currentUser
-    var group: Group?
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var totalOwingLabel: UILabel!
-    @IBOutlet weak var oweStatusLabel: UILabel!
-    
-    // MARK: UIViewController methods
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        navigationItem.title = group?.name
-        tableView.dataSource = self
-        tableView.delegate = self
+    return refreshControl
+  }()
+  
+  // MARK: Refresh Control methods
+  
+  @objc func refreshTable(_ refreshControl: UIRefreshControl) {
+    populateGroupInformation {
+      refreshControl.endRefreshing()
     }
+  }
+  
+  // MARK: UIViewController methods
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    currentUser = GlobalVariables.singleton.currentUser
+    navigationItem.title = group?.name
+    tableView.dataSource = self
+    tableView.delegate = self
+    
+    tableView.addSubview(refreshControl)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    populateGroupInformation() {
+      return
+    }
+  }
+  
+  deinit {
+    group = nil
+    currentUser = nil
+  }
+  
+  
+  // MARK: Navigation
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "toNewTransactionSegue" {
+      if let viewController = segue.destination as? UINavigationController,
+        let newTransactionVC = viewController.topViewController as? NewTransactionViewController {
+        newTransactionVC.delegate = self
         
-        populateGroupInformation() {
-            return
+        // Siri Shortcut to NewTransactionViewController
+        let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.newTransaction")
+        activity.title = "Create new transaction"
+        activity.isEligibleForSearch = true
+        activity.isEligibleForPrediction = true
+        
+        self.userActivity = activity
+        self.userActivity?.becomeCurrent()
+      }
+    } else if segue.identifier == "toEditTransactionSegue" {
+      if let viewController = segue.destination as? UINavigationController,
+        let editTransactionVC = viewController.topViewController as? NewTransactionViewController {
+        if let transactionCell = sender as? TransactionTableViewCell,
+          let selectedIndexPath = tableView.indexPath(for: transactionCell),
+          let monthYear = group?.sortedMonthYear[selectedIndexPath.section],
+          let sortedTransactions = group?.sortedTransactions[monthYear] {
+          
+          let transaction = sortedTransactions[selectedIndexPath.row]
+          editTransactionVC.transaction = transaction
+          editTransactionVC.delegate = self
         }
+      }
+    } else if segue.identifier == "toPayBackSegue" {
+      if let viewController = segue.destination as? UINavigationController {
+        if let payBackVC = viewController.topViewController as? PayBackViewController {
+          payBackVC.group = group
+          payBackVC.currentUser = currentUser
+          payBackVC.delegate = self
+          
+          // Siri Shortcut to PayBackViewController
+          let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.payBack")
+          activity.title = "Who do I owe?"
+          activity.isEligibleForSearch = true
+          activity.isEligibleForPrediction = true
+          
+          self.userActivity = activity
+          self.userActivity?.becomeCurrent()
+        }
+      }
+    }
+  }
+  // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
+  
+  func siriShortcutNewTransaction() {
+    populateGroupInformation {
+      self.performSegue(withIdentifier: "toNewTransactionSegue", sender: nil)
+    }
+  }
+  
+  func siriShortcutPayBack() {
+    populateGroupInformation {
+      self.performSegue(withIdentifier: "toPayBackSegue", sender: nil)
+    }
+  }
+  
+  
+  // MARK: Private helper methods
+  
+  private func updateTotalOwingAmountLabel() {
+    guard let group = group, let currentUser = currentUser else {
+      print("Cannot update owing amount without valid current user or valid group")
+      return
+    }
+    let sum = group.groupOwingAmountForUser(currentUser)
+    totalOwingLabel.text = String(format: "$%.2f", abs(sum))
+    
+    if sum > 0 {
+      totalOwingLabel.textColor = .red
+      oweStatusLabel.text = "You owe:"
+    } else {
+      totalOwingLabel.textColor = .green
+      oweStatusLabel.text = "You need back:"
     }
     
-    // MARK: Private helper methods
-    
-    private func populateGroupInformation(completion: @escaping () -> Void) {
+    if let defaultGroup = currentUser.defaultGroup {
+      if group.uid == defaultGroup.uid {
+        let userTotalOwing = group.groupOwingAmountForUser(currentUser)
+        UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+      }
+    }
+  }
+  
+  private func populateGroupInformation(completion: @escaping () -> Void) {
+    if let group = group {
+      
+      DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
         if let group = group {
+          GlobalVariables.singleton.currentGroup = group
+          self?.group = group
+          
+          OperationQueue.main.addOperation {
+            self?.tableView.reloadData()
             
-            DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
-                if let group = group, let currentUser = self?.currentUser {
-                    GlobalVariables.singleton.currentGroup = group
-                    self?.group = group
-                    
-                    OperationQueue.main.addOperation {
-                        self?.tableView.reloadData()
-                        
-                        let sum = group.groupOwingAmountForUser(currentUser)
-                        self?.totalOwingLabel.text = String(format: "$%.2f", abs(sum))
-                        
-                        if sum > 0 {
-                            self?.totalOwingLabel.textColor = .red
-                            self?.oweStatusLabel.text = "You owe:"
-                        } else {
-                            self?.totalOwingLabel.textColor = .green
-                            self?.oweStatusLabel.text = "You need back:"
-                        }
-                        
-                        if let defaultGroup = group.isDefault {
-                            if defaultGroup {
-                                let userTotalOwing = group.listOfOwingAmounts[currentUser.uid]
-                                UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
-                            }
-                        }
-                        completion()
-                    }
-                    
-                } else {
-                    // NOTE: Alert users that group information could not be fetched
-                    self?.navigationController?.popViewController(animated: true)
-                }
-            }
+            self?.updateTotalOwingAmountLabel()
+            completion()
+          }
+          
         } else {
-            
-            // NOTE: Alert users that group information could not be fetched
-            navigationController?.popViewController(animated: true)
+          // NOTE: Alert users that group information could not be fetched
+          self?.navigationController?.popViewController(animated: true)
         }
+      }
+    } else {
+      
+      // NOTE: Alert users that group information could not be fetched
+      navigationController?.popViewController(animated: true)
     }
-    
-    // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
-    
-    func siriShortcutNewTransaction() {
-        populateGroupInformation {
-            self.performSegue(withIdentifier: "toNewTransactionSegue", sender: nil)
-        }
-    }
-    
-    func siriShortcutPayBack() {
-        populateGroupInformation {
-            self.performSegue(withIdentifier: "toPayBackSegue", sender: nil)
-        }
-    }
-    
-    // MARK: Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toNewTransactionSegue" {
-            if let viewController = segue.destination as? UINavigationController,
-                let newTransactionVC = viewController.topViewController as? NewTransactionViewController {
-                newTransactionVC.delegate = self
-                
-                // Siri Shortcut to NewTransactionViewController
-                let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.newTransaction")
-                activity.title = "Create new transaction"
-                activity.isEligibleForSearch = true
-                activity.isEligibleForPrediction = true
-                
-                self.userActivity = activity
-                self.userActivity?.becomeCurrent()
-            }
-        } else if segue.identifier == "toEditTransactionSegue" {
-            if let viewController = segue.destination as? UINavigationController,
-                let editTransactionVC = viewController.topViewController as? NewTransactionViewController {
-                if let transactionCell = sender as? TransactionTableViewCell,
-                    let selectedRow = tableView.indexPath(for: transactionCell)?.row {
-                    let transaction = group?.listOfTransactions[selectedRow]
-                    editTransactionVC.transaction = transaction
-                    editTransactionVC.delegate = self
-                }
-            }
-        } else if segue.identifier == "toPayBackSegue" {
-            if let viewController = segue.destination as? UINavigationController {
-                if let payBackVC = viewController.topViewController as? PayBackViewController {
-                    payBackVC.group = group
-                    payBackVC.currentUser = currentUser
-                    payBackVC.delegate = self
-                    
-                    // Siri Shortcut to PayBackViewController
-                    let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.payBack")
-                    activity.title = "Who do I owe?"
-                    activity.isEligibleForSearch = true
-                    activity.isEligibleForPrediction = true
-                    
-                    self.userActivity = activity
-                    self.userActivity?.becomeCurrent()
-                }
-            }
-        }
-    }
-    
+  }
 }
 
 extension GroupViewController: NewTransactionViewControllerDelegate {
-    
-    // MARK: NewTransactionViewControllerDelegate methods
-    
-    func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
-        group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
-            if success {
-                OperationQueue.main.addOperation {
-                    self.tableView.reloadData()
-                }
-            } else {
-                // NOTE: Alert user for unsuccessful creation of transaction
-            }
+  
+  // MARK: NewTransactionViewControllerDelegate methods
+  
+  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+      if success {
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+          completion(success)
         }
+      } else {
+        completion(success)
+      }
     }
-    
-    func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double]) {
-        group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
-            if success {
-                OperationQueue.main.addOperation {
-                    self.tableView.reloadData()
-                }
-            } else {
-                // NOTE: Alert user for unsuccessful creation of transaction
-            }
+  }
+  
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
+    group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+      if success {
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+          completion(success)
         }
+      } else {
+        completion(success)
+      }
     }
+  }
+  
 }
-
 extension GroupViewController: PayBackViewControllerDelegate {
-    
-    // MARK: PayBackViewControllerDelegate methods
-    
-    func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
-        group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
-            if success {
-                OperationQueue.main.addOperation {
-                    self.tableView.reloadData()
-                    completion(true)
-                }
-            } else {
-                completion(false)
-            }
+  
+  // MARK: PayBackViewControllerDelegate methods
+  
+  func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+      if success {
+        OperationQueue.main.addOperation {
+          self.tableView.reloadData()
+          completion(true)
         }
+      } else {
+        completion(false)
+      }
     }
+  }
 }
 
 extension GroupViewController: UITableViewDelegate {
-    
-    // MARK: UITableViewDelegate methods
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            group?.deleteTransaction(at: indexPath.row)
-            tableView.reloadData()
+  
+  // MARK: UITableViewDelegate methods
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      group?.deleteTransaction(at: indexPath.row) { (success: Bool) in
+        if success {
+          OperationQueue.main.addOperation {
+            self.updateTotalOwingAmountLabel()
+            self.tableView.reloadData()
+          }
+        } else {
+          // NOTE: Alert user for unsuccessful deletion of transaction
         }
+      }
     }
     
+  }
+  
 }
 
 extension GroupViewController: UITableViewDataSource {
-    
-    // MARK: UITableViewDataSource methods
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let group = group {
-            return group.listOfTransactions.count
-        }
-        return 0
+  
+  // MARK: UITableViewDataSource methods
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
+    if let sectionCount = group?.sortedMonthYear.count {
+      return sectionCount
+    }
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if let sortedMonthYear = group?.sortedMonthYear {
+      if sortedMonthYear.count > 0 {
+        return sortedMonthYear[section]
+      }
+    }
+    return nil
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if let group = group {
+      let monthYear = group.sortedMonthYear[section]
+      if let sortedTransactions = group.sortedTransactions[monthYear] {
+        return sortedTransactions.count
+      }
+    }
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell", for: indexPath) as? TransactionTableViewCell else {
+      return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell", for: indexPath) as? TransactionTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        cell.transaction = group?.listOfTransactions[indexPath.row]
-        cell.configureCell()
-        
-        return cell
+    
+    guard let group = group else {
+      print("We need group to populate the cells")
+      return UITableViewCell()
     }
     
-    
+    let monthYear = group.sortedMonthYear[indexPath.section]
+    if let sortedTransactions = group.sortedTransactions[monthYear] {
+      cell.transaction = sortedTransactions[indexPath.row]
+      cell.configureCell()
+    }
+    return cell
+  }
+  
 }
