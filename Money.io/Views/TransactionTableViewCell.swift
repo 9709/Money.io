@@ -49,19 +49,10 @@ class TransactionTableViewCell: UITableViewCell {
         amountLabel.text = "Not Involved"
         amountLabel.textColor = .gray
       }
-//        if transaction.name.contains("Paid back:") {
-//          borrowedLabel.text = ""
-//
-//          amountLabel.text = String(format: "$%.2f", abs(transactionAmount))
-//          amountLabel.textColor = UIColor.red
-//
-//        } else if transaction.name.contains("Took back from:") {
-//          borrowedLabel.text = ""
-//
-//          amountLabel.text = String(format: "$%.2f", abs(transactionAmount))
-//          amountLabel.textColor = UIColor.green
-//
-//        }
+      
+      if transaction.name.contains("Paid back:") || transaction.name.contains("Took back from:") {
+        borrowedLabel.text = ""
+      }
       
     }
   }

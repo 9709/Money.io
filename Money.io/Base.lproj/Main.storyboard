@@ -389,9 +389,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="uFF-5i-Jbe" kind="presentation" identifier="toEditMemberSegue" id="Pdf-V7-AaQ"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -1016,6 +1013,5 @@
         <segue reference="A1D-7y-ZhH"/>
         <segue reference="tyW-sY-F2R"/>
         <segue reference="UVD-Sh-o2U"/>
-        <segue reference="Pdf-V7-AaQ"/>
     </inferredMetricsTieBreakers>
 </document>
