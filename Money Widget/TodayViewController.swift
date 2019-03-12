@@ -13,19 +13,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var owingLable: UILabel!
     @IBOutlet weak var sumLabel: UILabel!
-   
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+//        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
     
     
     override func viewDidAppear(_ animated: Bool) {
-    
+        
         if let userTotalOwing = UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "userTotalOwing") as? Double {
             if userTotalOwing > 0 {
                 owingLable.text = "You owe:"
@@ -41,7 +41,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     
-    
+    @IBAction func launchAppButton(_ sender: UIButton) {
+        
+        if let url = URL(string: "money://") {
+            extensionContext?.open(url, completionHandler: nil)
+        }
+    }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
@@ -57,9 +62,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     // MARK: Expand widget "Show More"
     
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        let expanded = activeDisplayMode == .expanded
-        preferredContentSize = expanded ? CGSize(width: maxSize.width, height: 200) : maxSize
-    }
+//    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+//        let expanded = activeDisplayMode == .expanded
+//        preferredContentSize = expanded ? CGSize(width: maxSize.width, height: 200) : maxSize
+//    }
     
 }
