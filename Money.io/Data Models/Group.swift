@@ -1,11 +1,3 @@
-//
-//  Group.swift
-//  Money.io
-//
-//  Created by Matthew Chan on 2019-03-02.
-//  Copyright © 2019 Matthew Chan. All rights reserved.
-//
-
 import UIKit
 
 
@@ -22,7 +14,7 @@ class Group {
   
   var sortedTransactions: [String: [Transaction]] = [:]
   var sortedMonthYear: [String] = []
-
+  
   // MARK: Initializers
   
   init(uid: String, name: String) {
@@ -44,6 +36,7 @@ class Group {
     }
   }
   
+  
   func getUser(from uid: String) -> User? {
     for user in listOfUsers {
       if user.uid == uid {
@@ -63,6 +56,8 @@ class Group {
     DataManager.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, to: self) { (transaction: Transaction?) in
       if let transaction = transaction {
         self.listOfTransactions.insert(transaction, at: 0)
+        self.sortedMonthYear = self.sortMonthYear()
+        self.sortedTransactions = self.sortTransactionsByDate()
         completion(true)
       } else {
         completion(false)
@@ -78,6 +73,8 @@ class Group {
         for index in 0..<self.listOfTransactions.count {
           if self.listOfTransactions[index].uid == transaction.uid {
             self.listOfTransactions[index] = transaction
+            self.sortedMonthYear = self.sortMonthYear()
+            self.sortedTransactions = self.sortTransactionsByDate()
             completion(true)
             found = true
             break
@@ -91,11 +88,13 @@ class Group {
       }
     }
   }
-
+  
   func deleteTransaction(at index: Int, completion: @escaping (_ success: Bool) -> Void) {
     DataManager.deleteTransaction(listOfTransactions[index], of: self) { (success: Bool) in
       if success {
         self.listOfTransactions.remove(at: index)
+        self.sortedMonthYear = self.sortMonthYear()
+        self.sortedTransactions = self.sortTransactionsByDate()
         completion(success)
       } else {
         completion(success)

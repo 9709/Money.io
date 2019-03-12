@@ -35,7 +35,6 @@ struct Transaction {
         paidUserUIDs[user.key] = user.value
       }
     }
-    
     for user in splitAmountPerUser {
       if fullTransactionDetails.keys.contains(user.key), let oldAmount = fullTransactionDetails[user.key] {
         fullTransactionDetails[user.key] = oldAmount - user.value

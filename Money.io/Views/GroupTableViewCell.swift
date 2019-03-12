@@ -10,6 +10,7 @@ class GroupTableViewCell: UITableViewCell {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var borrowedLabel: UILabel!
   @IBOutlet weak var amountLabel: UILabel!
+  @IBOutlet weak var defaultLabel: UILabel!
   
   // MARK: GroupTableViewCell methods
   
@@ -37,6 +38,12 @@ class GroupTableViewCell: UITableViewCell {
           amountLabel.text = "Not Involved"
           amountLabel.textColor = .gray
         }
+      }
+      
+      if group.uid == currentUser.defaultGroup?.uid {
+        defaultLabel.isHidden = false
+      } else {
+        defaultLabel.isHidden = true
       }
     }
   }

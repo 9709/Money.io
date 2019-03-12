@@ -15,19 +15,38 @@ class MainViewController: UIViewController {
     super.viewDidLoad()
     
     tableView.dataSource = self
+    tableView.delegate = self
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    UserAuthentication.getCurrentUser { [weak self] (currentUser: User?, groups: [Group]) in
+    checkForCurrentUser() {
+      return
+    }
+    
+  }
+  
+  // MARK: Private helper methods
+  
+  private func checkForCurrentUser(completion: @escaping () -> Void) {
+    UserAuthentication.getCurrentUser { [weak self] (currentUser: User?, groups: [Group], defaultGroup: Group?) in
       if let currentUser = currentUser {
         self?.currentUser = currentUser
         GlobalVariables.singleton.currentUser = currentUser
         
         self?.groups = groups
+        
+        
+        if let defaultGroup = defaultGroup {
+          self?.currentUser?.defaultGroup = defaultGroup
+          let userTotalOwing = self?.currentUser?.defaultGroup?.listOfOwingAmounts[currentUser.uid]
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+        }
+        
         OperationQueue.main.addOperation {
           self?.tableView.reloadData()
+          completion()
         }
       } else {
         self?.performSegue(withIdentifier: "toSignedOutSegue", sender: self)
@@ -35,9 +54,45 @@ class MainViewController: UIViewController {
     }
   }
   
+  
   deinit {
     currentUser = nil
     groups = nil
+  }
+  
+  // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
+  
+  func siriShortcutNewTransaction() {
+    checkForCurrentUser {
+      guard let storyboard = self.storyboard else {
+        return
+      }
+      guard let groupVC = storyboard.instantiateViewController(withIdentifier: "groupViewController") as? GroupViewController else {
+        return
+      }
+      
+      groupVC.group = self.currentUser?.defaultGroup
+      
+      self.navigationController?.show(groupVC, sender: nil)
+      groupVC.siriShortcutNewTransaction()
+    }
+  }
+  
+  
+  func siriShortcutPayBack() {
+    checkForCurrentUser {
+      guard let storyboard = self.storyboard else {
+        return
+      }
+      guard let groupVC = storyboard.instantiateViewController(withIdentifier: "groupViewController") as? GroupViewController else {
+        return
+      }
+      
+      groupVC.group = self.currentUser?.defaultGroup
+      
+      self.navigationController?.show(groupVC, sender: nil)
+      groupVC.siriShortcutPayBack()
+    }
   }
   
   // MARK: Actions
@@ -85,8 +140,8 @@ extension MainViewController: AddGroupViewControllerDelegate {
       }
     }
   }
+  
 }
-
 extension MainViewController: UITableViewDataSource {
   
   // MARK: UITableViewDataSource methods
@@ -109,5 +164,51 @@ extension MainViewController: UITableViewDataSource {
     return cell
   }
   
+  
+  
+}
+
+extension MainViewController: UITableViewDelegate {
+  
+  
+  
+  func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let flag = setDefault(at: indexPath)
+    return UISwipeActionsConfiguration(actions: [flag])
+  }
+  
+  func setDefault(at indexPath: IndexPath) -> UIContextualAction {
+    guard let groupToSetDefault = groups?[indexPath.row] else {
+      print("No group to set default")
+      return UIContextualAction()
+    }
+    guard let currentUser = currentUser else {
+      print("No current user for default group to be set")
+      return UIContextualAction()
+    }
+    
+    let action = UIContextualAction(style: .normal, title: " Set \nDefault") { (action, view, completion) in
+      
+      DataManager.setDefaultGroup(groupToSetDefault, for: currentUser) { (success: Bool) in
+        if success {
+          self.currentUser?.defaultGroup = groupToSetDefault
+          let userTotalOwing = groupToSetDefault.listOfOwingAmounts[currentUser.uid]
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+          
+          OperationQueue.main.addOperation {
+            self.tableView.reloadData()
+          }
+        } else {
+          // NOTE: Notify user for failure of setting default group
+        }
+      }
+      
+    }
+    
+    action.backgroundColor = .orange
+    //        action.backgroundColor = groups.isImportant ? UIColor.orange : UIColor.gray
+    
+    return action
+  }
   
 }

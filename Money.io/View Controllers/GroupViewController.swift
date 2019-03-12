@@ -25,28 +25,8 @@ class GroupViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    if let group = group {
-      
-      DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
-        if let group = group {
-          GlobalVariables.singleton.currentGroup = group
-          self?.group = group
-          
-          OperationQueue.main.addOperation {
-            self?.tableView.reloadData()
-            
-            self?.updateTotalOwingAmountLabel()
-          }
-        
-        } else {
-          // NOTE: Alert users that group information could not be fetched
-          self?.navigationController?.popViewController(animated: true)
-        }
-      }
-    } else {
-      
-      // NOTE: Alert users that group information could not be fetched
-      navigationController?.popViewController(animated: true)
+    populateGroupInformation() {
+      return
     }
   }
   
@@ -55,6 +35,7 @@ class GroupViewController: UIViewController {
     currentUser = nil
   }
   
+  
   // MARK: Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,7 +43,7 @@ class GroupViewController: UIViewController {
       if let viewController = segue.destination as? UINavigationController,
         let newTransactionVC = viewController.topViewController as? NewTransactionViewController {
         newTransactionVC.delegate = self
-
+        
         // Siri Shortcut to NewTransactionViewController
         let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.newTransaction")
         activity.title = "Create new transaction"
@@ -76,8 +57,11 @@ class GroupViewController: UIViewController {
       if let viewController = segue.destination as? UINavigationController,
         let editTransactionVC = viewController.topViewController as? NewTransactionViewController {
         if let transactionCell = sender as? TransactionTableViewCell,
-          let selectedRow = tableView.indexPath(for: transactionCell)?.row {
-          let transaction = group?.listOfTransactions[selectedRow]
+          let selectedIndexPath = tableView.indexPath(for: transactionCell),
+          let monthYear = group?.sortedMonthYear[selectedIndexPath.section],
+          let sortedTransactions = group?.sortedTransactions[monthYear] {
+          
+          let transaction = sortedTransactions[selectedIndexPath.row]
           editTransactionVC.transaction = transaction
           editTransactionVC.delegate = self
         }
@@ -88,7 +72,7 @@ class GroupViewController: UIViewController {
           payBackVC.group = group
           payBackVC.currentUser = currentUser
           payBackVC.delegate = self
-
+          
           // Siri Shortcut to PayBackViewController
           let activity = NSUserActivity(activityType: "com.MatthewChan.Money-io.shortcut.payBack")
           activity.title = "Who do I owe?"
@@ -101,6 +85,20 @@ class GroupViewController: UIViewController {
       }
     }
   }
+  // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
+  
+  func siriShortcutNewTransaction() {
+    populateGroupInformation {
+      self.performSegue(withIdentifier: "toNewTransactionSegue", sender: nil)
+    }
+  }
+  
+  func siriShortcutPayBack() {
+    populateGroupInformation {
+      self.performSegue(withIdentifier: "toPayBackSegue", sender: nil)
+    }
+  }
+  
   
   // MARK: Private helper methods
   
@@ -120,8 +118,39 @@ class GroupViewController: UIViewController {
       oweStatusLabel.text = "You need back:"
     }
     
-    let stringSum = totalOwingLabel.text
-    UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(stringSum, forKey: "sum")
+    if let defaultGroup = currentUser.defaultGroup {
+      if group.uid == defaultGroup.uid {
+        let userTotalOwing = group.listOfOwingAmounts[currentUser.uid]
+        UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+      }
+    }
+  }
+  
+  private func populateGroupInformation(completion: @escaping () -> Void) {
+    if let group = group {
+      
+      DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
+        if let group = group {
+          GlobalVariables.singleton.currentGroup = group
+          self?.group = group
+          
+          OperationQueue.main.addOperation {
+            self?.tableView.reloadData()
+            
+            self?.updateTotalOwingAmountLabel()
+            completion()
+          }
+          
+        } else {
+          // NOTE: Alert users that group information could not be fetched
+          self?.navigationController?.popViewController(animated: true)
+        }
+      }
+    } else {
+      
+      // NOTE: Alert users that group information could not be fetched
+      navigationController?.popViewController(animated: true)
+    }
   }
 }
 
@@ -154,8 +183,8 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
       }
     }
   }
+  
 }
-
 extension GroupViewController: PayBackViewControllerDelegate {
   
   // MARK: PayBackViewControllerDelegate methods
@@ -183,14 +212,15 @@ extension GroupViewController: UITableViewDelegate {
       group?.deleteTransaction(at: indexPath.row) { (success: Bool) in
         if success {
           OperationQueue.main.addOperation {
-            self.tableView.reloadData()
             self.updateTotalOwingAmountLabel()
+            self.tableView.reloadData()
           }
         } else {
           // NOTE: Alert user for unsuccessful deletion of transaction
         }
       }
     }
+    
   }
   
 }
@@ -222,13 +252,14 @@ extension GroupViewController: UITableViewDataSource {
         return sortedTransactions.count
       }
     }
-    return 0
+    return 1
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell", for: indexPath) as? TransactionTableViewCell else {
       return UITableViewCell()
     }
+    
     
     guard let group = group else {
       print("We need group to populate the cells")
@@ -240,9 +271,7 @@ extension GroupViewController: UITableViewDataSource {
       cell.transaction = sortedTransactions[indexPath.row]
       cell.configureCell()
     }
-    
     return cell
   }
-  
   
 }
