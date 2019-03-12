@@ -10,7 +10,7 @@ import UIKit
 
 protocol NewTransactionViewControllerDelegate {
   func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void)
-  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void)
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, payback: Bool, completion: @escaping (_ success: Bool) -> Void)
 }
 
 
@@ -65,6 +65,13 @@ class NewTransactionViewController: UIViewController {
         }
       }
 
+      if transaction.payback {
+        nameTextField.isEnabled = false
+        paidByButton.isEnabled = false
+        paidByButton.tintColor = .gray
+        splitBetweenButton.isEnabled = false
+        splitBetweenButton.tintColor = .gray
+      }
       navigationItem.title = "Edit Transaction"
     } else {
       navigationItem.title = "Add Transaction"
@@ -103,9 +110,9 @@ class NewTransactionViewController: UIViewController {
         return
       }
       
-      guard amount != 0 else {
-        print("You can't split 0")
-        // NOTE: Alert user for 0 amount
+      guard amount > 0 else {
+        print("You can't split 0 or negative amount")
+        // NOTE: Alert user for 0 amount or negative amount
         return
       }
       
@@ -159,11 +166,14 @@ class NewTransactionViewController: UIViewController {
         }
       }
       
+      let createdTimestamp = transaction.createdTimestamp
+      let payback = transaction.payback
+      
       // If any value is different, update, otherwise, do not update
       if name != transaction.name ||
         paidUserUIDAndAmount != transaction.paidAmountPerUser ||
         splitUserUIDAndAmount != transaction.splitAmountPerUser {
-        delegate?.updateTransaction(transaction, name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser) { (success: Bool) in
+        delegate?.updateTransaction(transaction, name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback) { (success: Bool) in
           if success {
             self.dismiss(animated: true, completion: nil)
           } else {
@@ -180,7 +190,7 @@ class NewTransactionViewController: UIViewController {
         let paidByUsers = paidByUsers,
         let splitBetweenUsers = splitBetweenUsers {
         
-        guard amount != 0 && paidByUsers.count > 0 && splitBetweenUsers.count > 0 else {
+        guard amount > 0 && paidByUsers.count > 0 && splitBetweenUsers.count > 0 else {
           print("Someone has to pay and someone has to borrow")
           // NOTE: Alert user for empty amount, paid users, or split users
           return

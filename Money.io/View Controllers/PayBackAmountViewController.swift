@@ -71,13 +71,13 @@ class PayBackAmountViewController: UIViewController {
       // NOTE: Alert user something has gone wrong
       return
     }
-    guard let amountString = payBackAmountTextfield.text, let amount = Double(amountString) else {
-      // NOTE: Alert user for missing amount
+    guard let amountString = payBackAmountTextfield.text, let amount = Double(amountString), amount > 0 else {
+      // NOTE: Alert user for missing or negative amount
       return
     }
     let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
     
-    let name = (amountOwing > 0) ? "Paid back: \(memberName)" : "Took back from: \(memberName)"
+    let name = (amountOwing > 0) ? "\(currentUser.name) paid back \(memberName)" : "\(memberName) paid back \(currentUser.name)"
     let paidUsers = (amountOwing > 0) ? [currentUser.uid: amount] : [user.uid: amount]
     let splitUsers = (amountOwing > 0) ? [user.uid: amount] : [currentUser.uid: amount]
     let owingAmountPerUser = (amountOwing > 0) ? [currentUser.uid: 0 - amount, user.uid: amount] : [currentUser.uid: amount, user.uid: 0 - amount]

@@ -5,39 +5,21 @@ extension DataManager {
   
   // MARK: Transaction related methods
   
-  static func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
+  static func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], payback: Bool, to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
     let createdTimestamp = Date()
-    let transactionRef = db.collection("Group").document(group.uid).collection("Transactions").addDocument(data: ["name": name, "paidUsers": paidUsers, "splitUsers": splitUsers, "owingAmountPerUser": owingAmountPerUser, "createdTimestamp": createdTimestamp])
+    let transactionRef = db.collection("Group").document(group.uid).collection("Transactions").addDocument(data: ["name": name, "paidUsers": paidUsers, "splitUsers": splitUsers, "owingAmountPerUser": owingAmountPerUser, "createdTimestamp": createdTimestamp, "payback": payback])
     let uid = transactionRef.documentID
     
-    updateUsersForNewTransaction(uid: uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, to: group, completion: completion)
+    updateUsersForNewTransaction(uid: uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback, to: group, completion: completion)
   }
   
-  static func updateTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
-    var createdTimestamp: Date = Date()
-    db.runTransaction({ (transaction, errorPointer) -> Any? in
-      let transactionRef = db.collection("Group").document(group.uid).collection("Transactions").document(uid)
-      let transactionDocument: DocumentSnapshot
-      do {
-        transactionDocument = try transaction.getDocument(transactionRef)
-      } catch let fetchError as NSError {
-        errorPointer?.pointee = fetchError
-        return nil
-      }
-      
-      if let createdTimestampData = transactionDocument.data()?["createdTimestamp"] as? Timestamp {
-        createdTimestamp = createdTimestampData.dateValue()
-      }
-      
-      transaction.updateData(["name": name, "paidUsers": paidUsers, "splitUsers": splitUsers, "owingAmountPerUser": owingAmountPerUser], forDocument: transactionRef)
-      
-      return nil
-    }) { (object, error) in
+  static func updateTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, payback: Bool, to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
+    db.collection("Group").document(group.uid).collection("Transactions").document(uid).updateData(["name": name, "paidUsers": paidUsers, "splitUsers": splitUsers, "owingAmountPerUser": owingAmountPerUser]) { (error) in
       if let error = error {
         print("Error: \(error)")
         completion(nil)
       } else {
-        updateUsersForUpdatingTransaction(uid: uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, to: group, completion: completion)
+        updateUsersForUpdatingTransaction(uid: uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback, to: group, completion: completion)
       }
     }
   }
@@ -54,9 +36,11 @@ extension DataManager {
             let paidUsers = transactionDocument.data()["paidUsers"] as? [String: Double],
             let splitUsers = transactionDocument.data()["splitUsers"] as? [String: Double],
             let owingAmountPerUser = transactionDocument.data()["owingAmountPerUser"] as? [String: Double],
-            let createdTimestampData = transactionDocument.data()["createdTimestamp"] as? Timestamp {
+            let createdTimestampData = transactionDocument.data()["createdTimestamp"] as? Timestamp,
+            let payback = transactionDocument.data()["payback"] as? Bool {
             let createdTimestamp = createdTimestampData.dateValue()
-            transactions.insert(Transaction(uid: transactionDocument.documentID, name: name, paidAmountPerUser: paidUsers, splitAmountPerUser: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp), at: 0)
+            
+            transactions.insert(Transaction(uid: transactionDocument.documentID, name: name, paidAmountPerUser: paidUsers, splitAmountPerUser: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback), at: 0)
           }
         }
         completion(transactions)
@@ -111,7 +95,7 @@ extension DataManager {
   
   // MARK: Private helper methods
   
-  static private func updateUsersForUpdatingTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
+  static private func updateUsersForUpdatingTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, payback: Bool, to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
     db.runTransaction({ (transaction, errorPointer) -> Any? in
       var transactionToUpdate: Transaction?
       for oldTransaction in group.listOfTransactions {
@@ -198,13 +182,13 @@ extension DataManager {
         print("Error: \(error)")
         completion(nil)
       } else {
-        let transaction = Transaction(uid: uid, name: name, paidAmountPerUser: paidUsers, splitAmountPerUser: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp)
+        let transaction = Transaction(uid: uid, name: name, paidAmountPerUser: paidUsers, splitAmountPerUser: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback)
         completion(transaction)
       }
     }
   }
   
-  static private func updateUsersForNewTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
+  static private func updateUsersForNewTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, payback: Bool, to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
     db.runTransaction({ (transaction, errorPointer) -> Any? in
       var usersData: [String: (DocumentReference, DocumentSnapshot)] = [:]
       for userUID in [String](owingAmountPerUser.keys) {
@@ -237,7 +221,7 @@ extension DataManager {
         print("Error: \(error)")
         completion(nil)
       } else {
-        let transaction = Transaction(uid: uid, name: name, paidAmountPerUser: paidUsers, splitAmountPerUser: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp)
+        let transaction = Transaction(uid: uid, name: name, paidAmountPerUser: paidUsers, splitAmountPerUser: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback)
         completion(transaction)
       }
     }

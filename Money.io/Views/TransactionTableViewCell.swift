@@ -25,36 +25,48 @@ class TransactionTableViewCell: UITableViewCell {
   
   func configureCell() {
     currentUser = GlobalVariables.singleton.currentUser
-    if let transaction = transaction, let currentUser = currentUser {
-      
-      nameLabel.text = transaction.name
-      
-      if let userAmount = transaction.owingAmountPerUser[currentUser.uid] {
-        if userAmount > 0 {
-          borrowedLabel.text = "You borrowed"
-          borrowedLabel.textColor = .red
-          
-          amountLabel.text = String(format: "$%.2f", abs(userAmount))
-          amountLabel.textColor = .red
-        } else {
-          borrowedLabel.text = "You lent out"
-          borrowedLabel.textColor = .green
-          
-          amountLabel.text = String(format: "$%.2f", abs(userAmount))
-          amountLabel.textColor = .green
-        }
-      } else {
-        borrowedLabel.text = ""
-        
-        amountLabel.text = "Not Involved"
-        amountLabel.textColor = .gray
-      }
-      
-      if transaction.name.contains("Paid back:") || transaction.name.contains("Took back from:") {
-        borrowedLabel.text = ""
-      }
-      
+    guard let transaction = transaction, let currentUser = currentUser else {
+      return
     }
+      
+    nameLabel.text = transaction.name
+    
+    if let userAmount = transaction.owingAmountPerUser[currentUser.uid] {
+      if userAmount > 0 {
+        borrowedLabel.text = "You borrowed"
+        borrowedLabel.textColor = .red
+        
+        amountLabel.text = String(format: "$%.2f", abs(userAmount))
+        amountLabel.textColor = .red
+      } else {
+        borrowedLabel.text = "You lent out"
+        borrowedLabel.textColor = .green
+        
+        amountLabel.text = String(format: "$%.2f", abs(userAmount))
+        amountLabel.textColor = .green
+      }
+    } else {
+      borrowedLabel.text = ""
+      
+      amountLabel.text = "Not Involved"
+      amountLabel.textColor = .gray
+    }
+    
+    if transaction.payback {
+      borrowedLabel.text = ""
+      amountLabel.textColor = .gray
+      
+      if let owingAmount = transaction.owingAmountPerUser[currentUser.uid] {
+        var nameString = transaction.name
+        if owingAmount < 0 {
+          nameString = nameString.replacingOccurrences(of: currentUser.name, with: "You", options: .anchored, range: nil)
+        } else {
+          nameString = nameString.replacingOccurrences(of: "back \(currentUser.name)", with: "you back", options: [.anchored, .backwards], range: nil)
+        }
+        nameLabel.text = nameString
+      }
+    }
+    
   }
   
   override func prepareForReuse() {
