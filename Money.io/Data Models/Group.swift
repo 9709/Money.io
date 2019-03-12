@@ -52,8 +52,8 @@ class Group {
   
   // MARK: Group Transaction methods
   
-  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
-    DataManager.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, to: self) { (transaction: Transaction?) in
+  func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], payback: Bool, completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, payback: payback, to: self) { (transaction: Transaction?) in
       if let transaction = transaction {
         self.listOfTransactions.insert(transaction, at: 0)
         self.sortedMonthYear = self.sortMonthYear()
@@ -66,8 +66,8 @@ class Group {
     }
   }
   
-  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
-    DataManager.updateTransaction(uid: transaction.uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, to: self) { (transaction: Transaction?) in
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, payback: Bool, completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.updateTransaction(uid: transaction.uid, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback, to: self) { (transaction: Transaction?) in
       if let transaction = transaction {
         var found = false
         for index in 0..<self.listOfTransactions.count {

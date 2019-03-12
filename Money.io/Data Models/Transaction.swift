@@ -12,6 +12,7 @@ struct Transaction {
   var owingAmountPerUser: [String: Double]
   
   var createdTimestamp: Date
+  var payback: Bool
   
   var totalAmount: Double {
     var totalAmount: Double = 0

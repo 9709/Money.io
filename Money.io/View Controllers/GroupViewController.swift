@@ -179,7 +179,7 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
   // MARK: NewTransactionViewControllerDelegate methods
   
   func createTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
-    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, payback: false) { (success: Bool) in
       if success {
         OperationQueue.main.addOperation {
           self.tableView.reloadData()
@@ -191,8 +191,8 @@ extension GroupViewController: NewTransactionViewControllerDelegate {
     }
   }
   
-  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
-    group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+  func updateTransaction(_ transaction: Transaction, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, payback: Bool, completion: @escaping (_ success: Bool) -> Void) {
+    group?.updateTransaction(transaction, name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback) { (success: Bool) in
       if success {
         OperationQueue.main.addOperation {
           self.tableView.reloadData()
@@ -210,7 +210,7 @@ extension GroupViewController: PayBackViewControllerDelegate {
   // MARK: PayBackViewControllerDelegate methods
   
   func payBackTransaction(name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], completion: @escaping (_ success: Bool) -> Void) {
-    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+    group?.createTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser, payback: true) { (success: Bool) in
       if success {
         OperationQueue.main.addOperation {
           self.tableView.reloadData()
