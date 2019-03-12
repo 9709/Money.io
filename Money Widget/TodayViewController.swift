@@ -19,6 +19,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Widet "Show More" button
 //        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
