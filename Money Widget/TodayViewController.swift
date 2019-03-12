@@ -25,6 +25,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   
   
   override func viewDidAppear(_ animated: Bool) {
+    let darkGreen = UIColor(red:0, green:0.80, blue:0, alpha:1.0)
+
     if let groupName = UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "defaultGroupName") as? String {
       groupNameLabel.text = groupName
     }
@@ -36,7 +38,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
       } else {
 //        owingLable.text = "You need back:"
-        sumLabel.textColor = .green
+        sumLabel.textColor = darkGreen
         sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
       }
     }

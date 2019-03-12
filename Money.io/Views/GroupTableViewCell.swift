@@ -15,6 +15,8 @@ class GroupTableViewCell: UITableViewCell {
   // MARK: GroupTableViewCell methods
   
   func configureCell() {
+    let darkGreen = UIColor(red:0, green:0.80, blue:0, alpha:1.0)
+
     currentUser = GlobalVariables.singleton.currentUser
     if let group = group, let currentUser = currentUser {
       nameLabel.text = group.name
@@ -28,10 +30,10 @@ class GroupTableViewCell: UITableViewCell {
           amountLabel.textColor = .red
         } else if owingAmount < 0 {
           borrowedLabel.text = "You lent out"
-          borrowedLabel.textColor = .green
+          borrowedLabel.textColor = darkGreen
           
           amountLabel.text = String(format: "$%.2f", abs(owingAmount))
-          amountLabel.textColor = .green
+          amountLabel.textColor = darkGreen
         } else {
           borrowedLabel.text = ""
           

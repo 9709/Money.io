@@ -23,6 +23,8 @@ class PayBackTableViewCell: UITableViewCell {
   // MARK: PayBackTableViewCell methods
   
   func configureCell() {
+    let darkGreen = UIColor(red:0, green:0.80, blue:0, alpha:1.0)
+
     currentUser = GlobalVariables.singleton.currentUser
     group = GlobalVariables.singleton.currentGroup
     if let user = user, let currentUser = currentUser, let group = group {
@@ -39,10 +41,10 @@ class PayBackTableViewCell: UITableViewCell {
         
       case let x where x < 0:
         owingLabel.text = "Need back"
-        owingLabel.textColor = .green
+        owingLabel.textColor = darkGreen
         
         amountLabel.text = String(format: "$%.2f", abs(amountOwing))
-        amountLabel.textColor = .green
+        amountLabel.textColor = darkGreen
         
       default:
         owingLabel.text = ""
