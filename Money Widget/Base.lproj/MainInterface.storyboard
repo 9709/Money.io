@@ -18,18 +18,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxm-dK-uwt" userLabel="Sum label">
-                                <rect key="frame" x="77" y="34" width="166" height="43"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCd-Bm-27h" userLabel="Owing label">
-                                <rect key="frame" x="77" y="13" width="15.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mdY-4Y-1MZ">
+                                <rect key="frame" x="77" y="13" width="166" height="84"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfT-cx-HO5">
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCd-Bm-27h" userLabel="Owing label">
+                                        <rect key="frame" x="0.0" y="20.5" width="166" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxm-dK-uwt" userLabel="Sum label">
+                                        <rect key="frame" x="0.0" y="41" width="166" height="43"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wa-t1-dJl">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -40,10 +51,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.12549019607843137" green="0.32549019607843138" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="yxm-dK-uwt" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="5fA-jm-Za6"/>
-                            <constraint firstItem="yxm-dK-uwt" firstAttribute="top" secondItem="FCd-Bm-27h" secondAttribute="bottom" id="7Se-3J-cja"/>
-                            <constraint firstItem="FCd-Bm-27h" firstAttribute="leading" secondItem="yxm-dK-uwt" secondAttribute="leading" id="dPR-b1-Pay"/>
-                            <constraint firstItem="yxm-dK-uwt" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" constant="34" id="pJ8-eo-jfc"/>
+                            <constraint firstItem="mdY-4Y-1MZ" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="Z1u-48-8Cj"/>
+                            <constraint firstItem="mdY-4Y-1MZ" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="eug-Qm-UPA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
@@ -51,6 +60,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="110"/>
                     <connections>
+                        <outlet property="groupNameLabel" destination="lfT-cx-HO5" id="jO6-Lw-YLn"/>
                         <outlet property="owingLable" destination="FCd-Bm-27h" id="AjM-sg-mpR"/>
                         <outlet property="sumLabel" destination="yxm-dK-uwt" id="Egh-ZE-6Ir"/>
                     </connections>

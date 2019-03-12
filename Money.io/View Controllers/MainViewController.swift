@@ -108,6 +108,7 @@ class MainViewController: UIViewController {
           self?.currentUser?.defaultGroup = defaultGroup
           let userTotalOwing = self?.currentUser?.defaultGroup?.listOfOwingAmounts[currentUser.uid]
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(defaultGroup.name, forKey: "defaultGroupName")
         }
         
         OperationQueue.main.addOperation {
@@ -218,6 +219,7 @@ extension MainViewController: UITableViewDelegate {
           self.sortGroups()
           let userTotalOwing = groupToSetDefault.listOfOwingAmounts[currentUser.uid]
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(groupToSetDefault.name, forKey: "defaultGroupName")
           
           OperationQueue.main.addOperation {
             self.tableView.reloadData()
