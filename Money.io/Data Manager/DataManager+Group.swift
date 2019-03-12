@@ -32,7 +32,7 @@ extension DataManager {
         newGroups[groupRef.documentID] = ["name": name, "owingAmount": 0]
         transaction.updateData(["groups": newGroups], forDocument: currentUserRef)
       } else {
-        transaction.updateData(["groups": [groupRef.documentID: ["name": name, "owingAmount": 0]]], forDocument: currentUserRef)
+        transaction.updateData(["groups": [groupRef.documentID: ["name": name, "owingAmount": 0]], "defaultGroup": groupRef.documentID], forDocument: currentUserRef)
       }
       
       group?.listOfUsers.append(currentUser)
