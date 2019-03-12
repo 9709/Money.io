@@ -64,11 +64,55 @@ extension DataManager {
     }
   }
   
+  static func deleteTransaction(_ transaction: Transaction, of group: Group, completion: @escaping (_ success: Bool) -> Void) {
+    db.runTransaction({ (networkTransaction, errorPointer) -> Any? in
+      var usersData: [String: (DocumentReference, DocumentSnapshot)] = [:]
+      for userUID in [String](transaction.owingAmountPerUser.keys) {
+        let userRef = db.collection("User").document(userUID)
+        let userDocument: DocumentSnapshot
+        do {
+          userDocument = try networkTransaction.getDocument(userRef)
+        } catch let fetchError as NSError {
+          errorPointer?.pointee = fetchError
+          return nil
+        }
+        usersData[userUID] = (userRef, userDocument)
+      }
+      
+      let transactionRef = db.collection("Group").document(group.uid).collection("Transactions").document(transaction.uid)
+      
+      
+      for (userUID, (userRef, userDocument)) in usersData {
+        if transaction.owingAmountPerUser[userUID] != nil {
+          guard let owingAmountForTransaction = transaction.owingAmountPerUser[userUID],
+            let oldGroups = userDocument.data()?["groups"] as? [String: [String: Any]],
+            let groupToUpdate = oldGroups[group.uid],
+            let owingAmountForGroup = groupToUpdate["owingAmount"] as? Double else {
+              return nil
+          }
+          
+          var newGroups = oldGroups
+          newGroups[group.uid] = ["name": group.name, "owingAmount": owingAmountForGroup - owingAmountForTransaction]
+          networkTransaction.updateData(["groups": newGroups], forDocument: userRef)
+        }
+      }
+      
+      networkTransaction.deleteDocument(transactionRef)
+      return nil
+    }) { (object, error) in
+      if let error = error {
+        print("Error: \(error)")
+        completion(false)
+      } else {
+        completion(true)
+      }
+    }
+  }
+  
   // MARK: Private helper methods
   
   static private func updateUsersForUpdatingTransaction(uid: String, name: String, paidUsers: [String: Double], splitUsers: [String: Double], owingAmountPerUser: [String: Double], createdTimestamp: Date, to group: Group, completion: @escaping (_ transaction: Transaction?) -> Void) {
     db.runTransaction({ (transaction, errorPointer) -> Any? in
-      
       var transactionToUpdate: Transaction?
       for oldTransaction in group.listOfTransactions {
         if oldTransaction.uid == uid {

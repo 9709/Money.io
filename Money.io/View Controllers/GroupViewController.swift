@@ -28,26 +28,14 @@ class GroupViewController: UIViewController {
     if let group = group {
       
       DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
-        if let group = group, let currentUser = self?.currentUser {
+        if let group = group {
           GlobalVariables.singleton.currentGroup = group
           self?.group = group
           
           OperationQueue.main.addOperation {
             self?.tableView.reloadData()
             
-            let sum = group.groupOwingAmountForUser(currentUser)
-            self?.totalOwingLabel.text = String(format: "$%.2f", abs(sum))
-            
-            if sum > 0 {
-              self?.totalOwingLabel.textColor = .red
-              self?.oweStatusLabel.text = "You owe:"
-            } else {
-              self?.totalOwingLabel.textColor = .green
-              self?.oweStatusLabel.text = "You need back:"
-            }
-            
-            let stringSum = self?.totalOwingLabel.text
-            UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(stringSum, forKey: "sum")
+            self?.updateTotalOwingAmountLabel()
           }
         
         } else {
@@ -114,6 +102,27 @@ class GroupViewController: UIViewController {
     }
   }
   
+  // MARK: Private helper methods
+  
+  private func updateTotalOwingAmountLabel() {
+    guard let group = group, let currentUser = currentUser else {
+      print("Cannot update owing amount without valid current user or valid group")
+      return
+    }
+    let sum = group.groupOwingAmountForUser(currentUser)
+    totalOwingLabel.text = String(format: "$%.2f", abs(sum))
+    
+    if sum > 0 {
+      totalOwingLabel.textColor = .red
+      oweStatusLabel.text = "You owe:"
+    } else {
+      totalOwingLabel.textColor = .green
+      oweStatusLabel.text = "You need back:"
+    }
+    
+    let stringSum = totalOwingLabel.text
+    UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(stringSum, forKey: "sum")
+  }
 }
 
 extension GroupViewController: NewTransactionViewControllerDelegate {
@@ -171,8 +180,16 @@ extension GroupViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      group?.deleteTransaction(at: indexPath.row)
-      tableView.reloadData()
+      group?.deleteTransaction(at: indexPath.row) { (success: Bool) in
+        if success {
+          OperationQueue.main.addOperation {
+            self.tableView.reloadData()
+            self.updateTotalOwingAmountLabel()
+          }
+        } else {
+          // NOTE: Alert user for unsuccessful deletion of transaction
+        }
+      }
     }
   }
   
@@ -182,9 +199,28 @@ extension GroupViewController: UITableViewDataSource {
   
   // MARK: UITableViewDataSource methods
   
+  func numberOfSections(in tableView: UITableView) -> Int {
+    if let sectionCount = group?.sortedMonthYear.count {
+      return sectionCount
+    }
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if let sortedMonthYear = group?.sortedMonthYear {
+      if sortedMonthYear.count > 0 {
+        return sortedMonthYear[section]
+      }
+    }
+    return nil
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let group = group {
-      return group.listOfTransactions.count
+      let monthYear = group.sortedMonthYear[section]
+      if let sortedTransactions = group.sortedTransactions[monthYear] {
+        return sortedTransactions.count
+      }
     }
     return 0
   }
@@ -194,8 +230,16 @@ extension GroupViewController: UITableViewDataSource {
       return UITableViewCell()
     }
     
-    cell.transaction = group?.listOfTransactions[indexPath.row]
-    cell.configureCell()
+    guard let group = group else {
+      print("We need group to populate the cells")
+      return UITableViewCell()
+    }
+    
+    let monthYear = group.sortedMonthYear[indexPath.section]
+    if let sortedTransactions = group.sortedTransactions[monthYear] {
+      cell.transaction = sortedTransactions[indexPath.row]
+      cell.configureCell()
+    }
     
     return cell
   }

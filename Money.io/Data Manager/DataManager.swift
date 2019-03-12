@@ -133,6 +133,14 @@ class DataManager {
             userGroups.append(group)
           }
         }
+        
+        userGroups = userGroups.sorted(by: { (former, latter) -> Bool in
+          if former.name < latter.name {
+            return true
+          } else {
+            return false
+          }
+        })
         completion(user, userGroups)
       } else {
         completion(user, [])

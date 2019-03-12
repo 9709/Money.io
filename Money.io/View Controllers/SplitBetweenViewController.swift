@@ -54,17 +54,21 @@ class SplitBetweenViewController: UIViewController {
   
   @IBAction func save(_ sender: UIBarButtonItem) {
     users = []
-    if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
-      for indexPath in selectedIndexPaths {
-        if let user = group?.listOfUsers[indexPath.row] {
-          users?.append(user)
-        }
-      }
-      if let users = users, let paid = paid {
-        delegate?.updateTransactionUsers(users: users, paid: paid)
+    guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
+      // NOTE: Alert user for no users selected
+      return
+    }
+    
+    for indexPath in selectedIndexPaths {
+      if let user = group?.listOfUsers[indexPath.row] {
+        users?.append(user)
       }
     }
+    if let users = users, let paid = paid {
+      delegate?.updateTransactionUsers(users: users, paid: paid)
+    }
     dismiss(animated: true, completion: nil)
+    
   }
 }
 

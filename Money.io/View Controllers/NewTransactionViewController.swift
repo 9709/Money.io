@@ -47,9 +47,23 @@ class NewTransactionViewController: UIViewController {
       let paidTitle = NSAttributedString(string: paidUserString)
       paidByButton.setAttributedTitle(paidTitle, for: .normal)
 
+      paidByUsers = []
+      for userUID in [String](transaction.paidAmountPerUser.keys) {
+        if let user = group?.getUser(from: userUID) {
+          paidByUsers?.append(user)
+        }
+      }
+      
       let splitUserString = listMultipleUserNames(from: [String](transaction.splitAmountPerUser.keys))
       let splitTitle = NSAttributedString(string: splitUserString)
       splitBetweenButton.setAttributedTitle(splitTitle, for: .normal)
+      
+      splitBetweenUsers = []
+      for userUID in [String](transaction.splitAmountPerUser.keys) {
+        if let user = group?.getUser(from: userUID) {
+          splitBetweenUsers?.append(user)
+        }
+      }
 
       navigationItem.title = "Edit Transaction"
     } else {

@@ -19,6 +19,9 @@ class Group {
   var listOfOwingAmounts: [String: Double] = [:]
   var listOfUsers: [User] = []
   var listOfTransactions: [Transaction] = []
+  
+  var sortedTransactions: [String: [Transaction]] = [:]
+  var sortedMonthYear: [String] = []
 
   // MARK: Initializers
   
@@ -89,9 +92,47 @@ class Group {
     }
   }
 
-  func deleteTransaction(at index: Int) {
-    listOfTransactions.remove(at: index)
-    updateOwningAmountPerMember()
+  func deleteTransaction(at index: Int, completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.deleteTransaction(listOfTransactions[index], of: self) { (success: Bool) in
+      if success {
+        self.listOfTransactions.remove(at: index)
+        completion(success)
+      } else {
+        completion(success)
+      }
+    }
+  }
+  
+  func sortTransactionsByDate() -> [String: [Transaction]] {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "LLLL YYYY"
+    var sortedTransactions: [String: [Transaction]] = [:]
+    for transaction in listOfTransactions {
+      let monthYear = dateFormatter.string(from: transaction.createdTimestamp)
+      if sortedTransactions.keys.contains(monthYear) {
+        sortedTransactions[monthYear]?.append(transaction)
+      } else {
+        sortedTransactions[monthYear] = [transaction]
+      }
+    }
+    return sortedTransactions
+  }
+  
+  func sortMonthYear() -> [String] {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "LLLL YYYY"
+    var sortedMonthYear: [String] = []
+    for transaction in listOfTransactions {
+      let monthYear = dateFormatter.string(from: transaction.createdTimestamp)
+      if sortedMonthYear.count == 0 {
+        sortedMonthYear.append(monthYear)
+        continue
+      }
+      if sortedMonthYear.last! != monthYear {
+        sortedMonthYear.append(monthYear)
+      }
+    }
+    return sortedMonthYear
   }
   
   func groupOwingAmountForUser(_ user: User) -> Double {
@@ -119,25 +160,6 @@ class Group {
       }
     }
     return amount
-  }
-  
-  func updateOwningAmountPerMember() {
-//    self.listOfUsers.forEach({(user: User) -> Void in user.amountOwing = 0})
-//    let currentUser: User = GlobalVariables.singleton.currentUser;
-//    for transaction in self.listOfTransactions {
-//      let amountPerPerson = transaction.amount/Double(transaction.splitUsers.count)
-//      if currentUser.uid == transaction.paidUser.uid {
-//        for user in transaction.splitUsers {
-//          if user.uid != currentUser.uid {
-//            user.amountOwing -= amountPerPerson
-//          }
-//        }
-//      } else if transaction.splitUsers.contains(where: { (splitUser) -> Bool in
-//        splitUser.uid == currentUser.uid
-//      }) {
-//        transaction.paidUser.amountOwing += amountPerPerson
-//      }
-//    }
   }
   
 }
