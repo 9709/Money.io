@@ -24,43 +24,68 @@ class GroupViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    if let group = group {
-      
-      DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
-        if let group = group, let currentUser = self?.currentUser {
-          GlobalVariables.singleton.currentGroup = group
-          self?.group = group
-          
-          OperationQueue.main.addOperation {
-            self?.tableView.reloadData()
-            
-            let sum = group.groupOwingAmountForUser(currentUser)
-            self?.totalOwingLabel.text = String(format: "$%.2f", abs(sum))
-            
-            if sum > 0 {
-              self?.totalOwingLabel.textColor = .red
-              self?.oweStatusLabel.text = "You owe:"
-            } else {
-              self?.totalOwingLabel.textColor = .green
-              self?.oweStatusLabel.text = "You need back:"
-            }
-            
-            let stringSum = self?.totalOwingLabel.text
-            UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(stringSum, forKey: "sum")
-          }
-        
-        } else {
-          // NOTE: Alert users that group information could not be fetched
-          self?.navigationController?.popViewController(animated: true)
-        }
-      }
-    } else {
-      
-      // NOTE: Alert users that group information could not be fetched
-      navigationController?.popViewController(animated: true)
+    populateGroupInformation() {
+        return
     }
   }
+    
+    // MARK: Private helper methods
+    
+    private func populateGroupInformation(completion: @escaping () -> Void) {
+        if let group = group {
+            
+            DataManager.getGroup(uid: group.uid) { [weak self] (group: Group?) in
+                if let group = group, let currentUser = self?.currentUser {
+                    GlobalVariables.singleton.currentGroup = group
+                    self?.group = group
+                    
+                    OperationQueue.main.addOperation {
+                        self?.tableView.reloadData()
+                        
+                        let sum = group.groupOwingAmountForUser(currentUser)
+                        self?.totalOwingLabel.text = String(format: "$%.2f", abs(sum))
+                        
+                        if sum > 0 {
+                            self?.totalOwingLabel.textColor = .red
+                            self?.oweStatusLabel.text = "You owe:"
+                        } else {
+                            self?.totalOwingLabel.textColor = .green
+                            self?.oweStatusLabel.text = "You need back:"
+                        }
+                        
+                        // Passing data to widget for display
+                        let stringSum = self?.totalOwingLabel.text
+                        UserDefaults.init(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(stringSum, forKey: "sum")
+                        
+                        completion()
+                    }
+                    
+                } else {
+                    // NOTE: Alert users that group information could not be fetched
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }
+        } else {
+            
+            // NOTE: Alert users that group information could not be fetched
+            navigationController?.popViewController(animated: true)
+        }
+    }
   
+    // MARK: Siri Shortcut - transitioning from appDelegate -> mainVC -> groupVC -> (newTransactionVC) or (payBackVC)
+
+    func siriShortcutNewTransaction() {
+        populateGroupInformation {
+            self.performSegue(withIdentifier: "toNewTransactionSegue", sender: nil)
+        }
+    }
+    
+    func siriShortcutPayBack() {
+        populateGroupInformation {
+            self.performSegue(withIdentifier: "toPayBackSegue", sender: nil)
+        }
+    }
+    
   // MARK: Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

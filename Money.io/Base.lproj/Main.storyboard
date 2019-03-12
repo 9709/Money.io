@@ -225,7 +225,7 @@
         <!--Group Name-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GroupViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="groupViewController" id="BYZ-38-t0r" customClass="GroupViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -478,24 +478,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R9u-so-5A1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="996" y="1634"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="D7c-FY-K8h">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="G3Z-dY-DHf" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t25-Xg-3K8">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Tjb-zD-Bp9"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vnA-WA-cdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="62" y="23"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mvg-gw-9GG">
@@ -830,32 +812,38 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" id="ziI-pO-Eun" customClass="GroupTableViewCell" customModule="Money_io" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="71" id="ziI-pO-Eun" customClass="GroupTableViewCell" customModule="Money_io" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ziI-pO-Eun" id="xyR-y9-8ne">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="k4e-BV-N1Z">
-                                                    <rect key="frame" x="8.0000000000000071" y="8.0000000000000018" width="124.66666666666669" height="27.666666666666671"/>
+                                                    <rect key="frame" x="8.0000000000000071" y="7.9999999999999964" width="124.66666666666669" height="54.666666666666657"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="Transaction" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFF-3y-ZSH">
-                                                            <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="12"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="23.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="You borrowed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEb-Ez-3Hc">
-                                                            <rect key="frame" x="0.0" y="12" width="124.66666666666667" height="15.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="23.333333333333332" width="124.66666666666667" height="15.666666666666668"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHu-Kp-21b" userLabel="Default Label">
+                                                            <rect key="frame" x="0.0" y="39" width="124.66666666666667" height="15.666666666666664"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                            <color key="textColor" white="0.82987300228310501" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$99999.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hD0-uW-g1Q">
-                                                    <rect key="frame" x="232.66666666666663" y="6.3333333333333339" width="134.33333333333337" height="31.333333333333329"/>
+                                                    <rect key="frame" x="232.66666666666663" y="19.666666666666671" width="134.33333333333337" height="31.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -872,6 +860,7 @@
                                         <connections>
                                             <outlet property="amountLabel" destination="hD0-uW-g1Q" id="1PR-Ff-xwa"/>
                                             <outlet property="borrowedLabel" destination="zEb-Ez-3Hc" id="uLH-BH-5tp"/>
+                                            <outlet property="defaultLabel" destination="OHu-Kp-21b" id="FyJ-sf-P63"/>
                                             <outlet property="nameLabel" destination="xFF-3y-ZSH" id="YwY-Mp-RhW"/>
                                             <segue destination="BYZ-38-t0r" kind="show" identifier="toGroupViewSegue" id="fMm-mL-s3U"/>
                                         </connections>
@@ -907,7 +896,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEt-pX-yoQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="-1689"/>
+            <point key="canvasLocation" x="996" y="-1689.1625615763548"/>
         </scene>
         <!--Signed Out View Controller-->
         <scene sceneID="zgg-Ni-Vzk">
@@ -953,7 +942,7 @@
         <!--Navigation Controller-->
         <scene sceneID="13w-CD-0SM">
             <objects>
-                <navigationController storyboardIdentifier="initialViewController" automaticallyAdjustsScrollViewInsets="NO" id="8iL-RG-nwu" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8iL-RG-nwu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Lhe-Cb-Err">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -1028,6 +1017,5 @@
         <segue reference="tyW-sY-F2R"/>
         <segue reference="UVD-Sh-o2U"/>
         <segue reference="Pdf-V7-AaQ"/>
-        <segue reference="Tjb-zD-Bp9"/>
     </inferredMetricsTieBreakers>
 </document>
