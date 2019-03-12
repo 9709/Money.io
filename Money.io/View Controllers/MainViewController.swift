@@ -90,6 +90,8 @@ class MainViewController: UIViewController {
   @IBAction func signOut(_ sender: UIBarButtonItem) {
     UserAuthentication.signOutUser()
     GlobalVariables.singleton.currentUser = nil
+    UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "userTotalOwing")
+    UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "defaultGroupName")
     performSegue(withIdentifier: "toSignedOutSegue", sender: self)
   }
   
@@ -127,6 +129,9 @@ class MainViewController: UIViewController {
           let userTotalOwing = self?.currentUser?.defaultGroup?.listOfOwingAmounts[currentUser.uid]
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(defaultGroup.name, forKey: "defaultGroupName")
+        } else {
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "userTotalOwing")
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "defaultGroupName")
         }
         
         OperationQueue.main.addOperation {
