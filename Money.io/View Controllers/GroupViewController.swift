@@ -11,6 +11,22 @@ class GroupViewController: UIViewController {
   @IBOutlet weak var totalOwingLabel: UILabel!
   @IBOutlet weak var oweStatusLabel: UILabel!
   
+  lazy var refreshControl: UIRefreshControl = {
+    let refreshControl = UIRefreshControl()
+    
+    refreshControl.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
+    
+    return refreshControl
+  }()
+  
+  // MARK: Refresh Control methods
+  
+  @objc func refreshTable(_ refreshControl: UIRefreshControl) {
+    populateGroupInformation {
+      refreshControl.endRefreshing()
+    }
+  }
+  
   // MARK: UIViewController methods
   
   override func viewDidLoad() {
@@ -20,6 +36,8 @@ class GroupViewController: UIViewController {
     navigationItem.title = group?.name
     tableView.dataSource = self
     tableView.delegate = self
+    
+    tableView.addSubview(refreshControl)
   }
   
   override func viewWillAppear(_ animated: Bool) {

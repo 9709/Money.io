@@ -9,6 +9,22 @@ class MainViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   
+  lazy var refreshControl: UIRefreshControl = {
+    let refreshControl = UIRefreshControl()
+    
+    refreshControl.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
+    
+    return refreshControl
+  }()
+  
+  // MARK: Refresh Control methods
+  
+  @objc func refreshTable(_ refreshControl: UIRefreshControl) {
+    checkForCurrentUser {
+      refreshControl.endRefreshing()
+    }
+  }
+  
   // MARK: UIViewController methods
   
   override func viewDidLoad() {
@@ -16,6 +32,8 @@ class MainViewController: UIViewController {
     
     tableView.dataSource = self
     tableView.delegate = self
+    
+    tableView.addSubview(refreshControl)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -134,9 +152,10 @@ class MainViewController: UIViewController {
       
       for index in 0..<groups!.count {
         if groups?[index].uid == currentUser?.defaultGroup?.uid {
-          let defaultGroup = groups?.remove(at: index)
-          groups?.insert(defaultGroup!, at: 0)
-          break
+          if let defaultGroup = groups?.remove(at: index) {
+            groups?.insert(defaultGroup, at: 0)
+            break
+          }
         }
       }
     }
@@ -194,6 +213,9 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDelegate {
   
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    return UISwipeActionsConfiguration(actions: [])
+  }
   
   
   func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
