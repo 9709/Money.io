@@ -27,22 +27,30 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   override func viewDidAppear(_ animated: Bool) {
     let darkGreen = UIColor(red:0, green:0.80, blue:0, alpha:1.0)
 
-    if let groupName = UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "defaultGroupName") as? String {
-      groupNameLabel.text = groupName
+    guard let defaultGroupIsSet = UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "defaultGroupIsSet") as? Bool else {
+      return
     }
     
-    if let userTotalOwing = UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "userTotalOwing") as? Double {
-      if userTotalOwing > 0 {
-//        owingLable.text = "You owe:"
-        sumLabel.textColor = .red
-        sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
-      } else {
-//        owingLable.text = "You need back:"
-        sumLabel.textColor = darkGreen
-        sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
+    if defaultGroupIsSet {
+      if let groupName = UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "defaultGroupName") as? String {
+        groupNameLabel.text = groupName
       }
+      
+      if let userTotalOwing = UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.value(forKey: "userTotalOwing") as? Double {
+        if userTotalOwing > 0 {
+          //        owingLable.text = "You owe:"
+          sumLabel.textColor = .red
+          sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
+        } else {
+          //        owingLable.text = "You need back:"
+          sumLabel.textColor = darkGreen
+          sumLabel.text = String(format: "$%.2f", abs(userTotalOwing))
+        }
+      }
+    } else {
+      groupNameLabel.text = "No default group set"
+      sumLabel.isHidden = true
     }
-    
   }
   
   
