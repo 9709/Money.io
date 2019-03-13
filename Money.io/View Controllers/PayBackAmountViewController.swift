@@ -43,9 +43,9 @@ class PayBackAmountViewController: UIViewController {
       memberName = user.name
       let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
       if amountOwing > 0 {
-        payBackMemberLabel.text = "Pay \(memberName) back:"
+        payBackMemberLabel.text = "Pay \(memberName) back"
       } else {
-        payBackMemberLabel.text = "Taking back from \(memberName) :"
+        payBackMemberLabel.text = "\(memberName) gave back"
       }
     }
   }
@@ -61,35 +61,43 @@ class PayBackAmountViewController: UIViewController {
   
   
   // MARK: Action
-  
-  @IBAction func cancel(_ sender: UIBarButtonItem) {
-    dismiss(animated: true, completion: nil)
-  }
-  
-  @IBAction func save(_ sender: UIBarButtonItem) {
-    guard let user = user, let currentUser = currentUser, let group = group else {
-      // NOTE: Alert user something has gone wrong
-      return
-    }
-    guard let amountString = payBackAmountTextfield.text, let amount = Double(amountString), amount > 0 else {
-      // NOTE: Alert user for missing or negative amount
-      return
-    }
-    let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
     
-    let name = (amountOwing > 0) ? "\(currentUser.name) paid back \(memberName)" : "\(memberName) paid back \(currentUser.name)"
-    let paidUsers = (amountOwing > 0) ? [currentUser.uid: amount] : [user.uid: amount]
-    let splitUsers = (amountOwing > 0) ? [user.uid: amount] : [currentUser.uid: amount]
-    let owingAmountPerUser = (amountOwing > 0) ? [currentUser.uid: 0 - amount, user.uid: amount] : [currentUser.uid: amount, user.uid: 0 - amount]
-    delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
-      if success {
-        self.dismiss(animated: true, completion: nil)
-      } else {
-        // NOTE: Alert user for unsuccessful creation of payback
-      }
+    @IBAction func cancel(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
-    showSpinner()
-  }
+    
+    @IBAction func save(_ sender: UIButton) {
+        guard let user = user, let currentUser = currentUser, let group = group else {
+            // NOTE: Alert user something has gone wrong
+            return
+        }
+        guard let amountString = payBackAmountTextfield.text, let amount = Double(amountString), amount > 0 else {
+            // NOTE: Alert user for missing or negative amount
+            return
+        }
+        let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
+        
+        let name = (amountOwing > 0) ? "\(currentUser.name) paid back \(memberName)" : "\(memberName) paid back \(currentUser.name)"
+        let paidUsers = (amountOwing > 0) ? [currentUser.uid: amount] : [user.uid: amount]
+        let splitUsers = (amountOwing > 0) ? [user.uid: amount] : [currentUser.uid: amount]
+        let owingAmountPerUser = (amountOwing > 0) ? [currentUser.uid: 0 - amount, user.uid: amount] : [currentUser.uid: amount, user.uid: 0 - amount]
+        delegate?.payBackTransaction(name: name, paidUsers: paidUsers, splitUsers: splitUsers, owingAmountPerUser: owingAmountPerUser) { (success: Bool) in
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                // NOTE: Alert user for unsuccessful creation of payback
+            }
+        }
+        showSpinner()
+    }
+    
+    
+    
+//  @IBAction func cancel(_ sender: UIBarButtonItem) {
+//  }
+  
+//  @IBAction func save(_ sender: UIBarButtonItem) {
+//  }
   
   // MARK: Private helper methods
   

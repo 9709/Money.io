@@ -52,8 +52,8 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PyY-CN-7We">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
-                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="backgroundColor" red="0.59565355330000003" green="0.0058397407189999997" blue="0.0058397407189999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -63,8 +63,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFN-mF-ilg">
                                         <rect key="frame" x="188" y="0.0" width="187" height="110"/>
-                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="backgroundColor" red="0.0" green="0.49411764705882355" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Create/Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -111,7 +111,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hHP-rc-UPZ">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="614"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayBackCell" rowHeight="69" id="JxD-pu-byd" customClass="PayBackTableViewCell" customModule="Money_io" customModuleProvider="target">
@@ -164,32 +164,43 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dB8-9k-xSB">
+                                <rect key="frame" x="0.0" y="702" width="375" height="110"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="mSi-Yh-Iaa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="Hkg-oQ-7e0" eventType="touchUpInside" id="GXo-ta-sps"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YKZ-mG-WkH" firstAttribute="trailing" secondItem="hHP-rc-UPZ" secondAttribute="trailing" id="79R-Kf-OqA"/>
+                            <constraint firstAttribute="bottom" secondItem="dB8-9k-xSB" secondAttribute="bottom" id="7Wf-0Q-1L2"/>
                             <constraint firstItem="hHP-rc-UPZ" firstAttribute="top" secondItem="YKZ-mG-WkH" secondAttribute="top" id="FAb-JW-O43"/>
+                            <constraint firstItem="hHP-rc-UPZ" firstAttribute="bottom" secondItem="dB8-9k-xSB" secondAttribute="top" id="Fv3-7O-sHg"/>
                             <constraint firstItem="hHP-rc-UPZ" firstAttribute="leading" secondItem="YKZ-mG-WkH" secondAttribute="leading" id="SAy-ZR-b1k"/>
-                            <constraint firstItem="YKZ-mG-WkH" firstAttribute="bottom" secondItem="hHP-rc-UPZ" secondAttribute="bottom" id="cCf-EA-Sai"/>
+                            <constraint firstItem="YKZ-mG-WkH" firstAttribute="trailing" secondItem="dB8-9k-xSB" secondAttribute="trailing" id="ZDV-r4-yHK"/>
+                            <constraint firstItem="dB8-9k-xSB" firstAttribute="leading" secondItem="YKZ-mG-WkH" secondAttribute="leading" id="f5t-RS-Jc2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YKZ-mG-WkH"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pay Back" id="obj-63-tim">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="7Iv-rk-SWF">
-                            <connections>
-                                <action selector="cancel:" destination="Hkg-oQ-7e0" id="OsW-7w-HO7"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Pay Back" id="obj-63-tim"/>
                     <connections>
                         <outlet property="tableView" destination="hHP-rc-UPZ" id="yUe-YV-fZm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62d-Bs-qxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3214" y="-794"/>
+            <point key="canvasLocation" x="3213.5999999999999" y="-794.33497536945811"/>
         </scene>
-        <!--Pay Back-->
+        <!--Pay Back Amount View Controller-->
         <scene sceneID="ZKN-kZ-gt3">
             <objects>
                 <viewController id="ORd-ia-RK3" customClass="PayBackAmountViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
@@ -197,44 +208,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rom-GR-ypJ">
-                                <rect key="frame" x="40" y="238" width="295" height="60"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Rom-GR-ypJ">
+                                <rect key="frame" x="40" y="238" width="295" height="96"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay Jun back:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yer-tu-uq2">
-                                        <rect key="frame" x="0.0" y="0.0" width="295" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay Jun back:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yer-tu-uq2">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="36"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-E5-Ghh">
-                                        <rect key="frame" x="0.0" y="30" width="295" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-E5-Ghh">
+                                        <rect key="frame" x="0.0" y="66" width="295" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                 </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Vop-gL-57U" userLabel="Button Stack View">
+                                <rect key="frame" x="0.0" y="702" width="375" height="110"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6St-E9-e1X">
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
+                                        <color key="backgroundColor" red="0.59565355330000003" green="0.0058397407189999997" blue="0.0058397407189999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="ORd-ia-RK3" eventType="touchUpInside" id="Ctd-f2-w7D"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Skq-ao-mvy">
+                                        <rect key="frame" x="188" y="0.0" width="187" height="110"/>
+                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="save:" destination="ORd-ia-RK3" eventType="touchUpInside" id="BU7-bq-La9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="bPR-vc-m4q"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Rom-GR-ypJ" firstAttribute="top" secondItem="U4Q-nx-t6J" secondAttribute="top" constant="150" id="EB2-UN-fnc"/>
+                            <constraint firstAttribute="bottom" secondItem="Vop-gL-57U" secondAttribute="bottom" id="F0m-1I-m2V"/>
+                            <constraint firstItem="U4Q-nx-t6J" firstAttribute="trailing" secondItem="Vop-gL-57U" secondAttribute="trailing" id="MHZ-c3-us0"/>
                             <constraint firstItem="UNi-E5-Ghh" firstAttribute="width" secondItem="ptu-xG-w99" secondAttribute="width" constant="-80" id="g14-mb-ZC9"/>
                             <constraint firstItem="Rom-GR-ypJ" firstAttribute="centerX" secondItem="ptu-xG-w99" secondAttribute="centerX" id="l9t-jL-aoG"/>
+                            <constraint firstItem="Vop-gL-57U" firstAttribute="leading" secondItem="U4Q-nx-t6J" secondAttribute="leading" id="wYs-QW-map"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U4Q-nx-t6J"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pay Back" id="Tr4-f9-PF6" userLabel="Pay Back amount textfield">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="8ni-aw-bge">
-                            <connections>
-                                <action selector="cancel:" destination="ORd-ia-RK3" id="HfE-Dt-2Lf"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="TDh-tr-P1F">
-                            <connections>
-                                <action selector="save:" destination="ORd-ia-RK3" id="svS-zP-PMl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Tr4-f9-PF6" userLabel="Pay Back amount textfield"/>
                     <connections>
                         <outlet property="payBackAmountTextfield" destination="UNi-E5-Ghh" id="KwO-7W-5dZ"/>
                         <outlet property="payBackMemberLabel" destination="Yer-tu-uq2" id="2ds-U8-rVn"/>
@@ -420,7 +453,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-BT-JsA">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Back">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -431,7 +464,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dy3-ie-ELY">
                                         <rect key="frame" x="188" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Add member">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -497,7 +530,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guz-j7-mBz">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -508,7 +541,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="355-lb-DUv">
                                         <rect key="frame" x="188" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -599,7 +632,7 @@
                                         <rect key="frame" x="0.0" y="66" width="300" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -608,8 +641,8 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkE-61-hBJ">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
-                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="backgroundColor" red="0.59565355330000003" green="0.0058397407189999997" blue="0.0058397407189999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -619,8 +652,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QC3-Oc-81Q">
                                         <rect key="frame" x="188" y="0.0" width="187" height="110"/>
-                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -958,24 +991,22 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmj-aj-Ra6">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.59565355329949243" green="0.0058397407186224545" blue="0.0058397407186224545" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Sign Out">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="cancel:" destination="zdJ-0d-Y99" eventType="touchUpInside" id="Lvx-hI-pqm"/>
                                             <action selector="signOut:" destination="9eM-yg-ay2" eventType="touchUpInside" id="VYa-jl-ELX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="173-yz-RgX">
                                         <rect key="frame" x="188" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Add new group">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="loginOrCreate:" destination="zdJ-0d-Y99" eventType="touchUpInside" id="RsT-1m-LdP"/>
                                             <segue destination="qK1-an-vYE" kind="presentation" identifier="toAddGroupSegue" id="Vdf-sW-ixB"/>
                                         </connections>
                                     </button>
@@ -1020,8 +1051,8 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZK-C5-XAY">
                                         <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
-                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="backgroundColor" red="0.0" green="0.49411764705882355" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Sign in">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -1032,8 +1063,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tu-gT-qpJ">
                                         <rect key="frame" x="188" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Create new account">
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="Create account">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>

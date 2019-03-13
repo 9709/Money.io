@@ -66,6 +66,7 @@ class TransactionTableViewCell: UITableViewCell {
           nameString = nameString.replacingOccurrences(of: "back \(currentUser.name)", with: "you back", options: [.anchored, .backwards], range: nil)
         }
         nameLabel.text = nameString
+        nameLabel.textColor = .gray
       }
     }
     
