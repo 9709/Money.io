@@ -37,6 +37,28 @@ class Group {
   }
   
   
+  func deleteUser(_ user: User, completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.deleteUser(user, from: self) { (success: Bool) in
+      if success {
+        for index in 0..<self.listOfUsers.count {
+          if self.listOfUsers[index].uid == user.uid {
+            self.listOfUsers.remove(at: index)
+            break
+          }
+          
+          if index == self.listOfUsers.count-1 {
+            completion(false)
+          }
+        }
+        completion(success)
+      } else {
+        completion(success)
+      }
+    }
+    
+   
+  }
+  
   func getUser(from uid: String) -> User? {
     for user in listOfUsers {
       if user.uid == uid {
@@ -44,10 +66,6 @@ class Group {
       }
     }
     return nil
-  }
-  
-  func deleteUser(at index: Int) {
-    listOfUsers.remove(at: index)
   }
   
   // MARK: Group Transaction methods
@@ -89,10 +107,18 @@ class Group {
     }
   }
   
-  func deleteTransaction(at index: Int, completion: @escaping (_ success: Bool) -> Void) {
-    DataManager.deleteTransaction(listOfTransactions[index], of: self) { (success: Bool) in
+  func deleteTransaction(_ transaction: Transaction, completion: @escaping (_ success: Bool) -> Void) {
+    DataManager.deleteTransaction(transaction, of: self) { (success: Bool) in
       if success {
-        self.listOfTransactions.remove(at: index)
+        for index in 0..<self.listOfTransactions.count {
+          if self.listOfTransactions[index].uid == transaction.uid {
+            self.listOfTransactions.remove(at: index)
+            break
+          }
+          if index == self.listOfTransactions.count-1 {
+            completion(false)
+          }
+        }
         self.sortedMonthYear = self.sortMonthYear()
         self.sortedTransactions = self.sortTransactionsByDate()
         completion(success)

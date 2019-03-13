@@ -154,6 +154,22 @@ class GroupViewController: UIViewController {
           GlobalVariables.singleton.currentGroup = group
           self?.group = group
           
+          guard let currentUser = GlobalVariables.singleton.currentUser else {
+            print("There must be a current user")
+            self?.navigationController?.popViewController(animated: true)
+            return
+          }
+          var currentUserInGroup = false
+          for user in group.listOfUsers {
+            if user.uid == currentUser.uid {
+              currentUserInGroup = true
+            }
+          }
+          if !currentUserInGroup {
+            self?.navigationController?.popToRootViewController(animated: true)
+            return
+          }
+          
           OperationQueue.main.addOperation {
             self?.tableView.reloadData()
             
@@ -229,7 +245,19 @@ extension GroupViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      group?.deleteTransaction(at: indexPath.row) { (success: Bool) in
+      guard let group = group else {
+        print("No group")
+        return
+      }
+      let monthYear = group.sortedMonthYear[indexPath.section]
+      
+      guard let sortedTransactions = group.sortedTransactions[monthYear] else {
+        print("No transaction to delete")
+        return
+      }
+      
+      let transaction = sortedTransactions[indexPath.row]
+      group.deleteTransaction(transaction) { (success: Bool) in
         if success {
           OperationQueue.main.addOperation {
             self.updateTotalOwingAmountLabel()
