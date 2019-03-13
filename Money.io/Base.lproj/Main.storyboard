@@ -593,7 +593,7 @@
             </objects>
             <point key="canvasLocation" x="62" y="1634"/>
         </scene>
-        <!--New Group-->
+        <!--Add Group View Controller-->
         <scene sceneID="kAi-Oo-XEC">
             <objects>
                 <viewController id="flf-9a-bWH" customClass="AddGroupViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
@@ -601,17 +601,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Q1N-X4-Pit">
-                                <rect key="frame" x="37.666666666666657" y="248.00000000000003" width="300" height="50.333333333333343"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Q1N-X4-Pit">
+                                <rect key="frame" x="37.666666666666657" y="248" width="300" height="90"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOn-dV-Z1l">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="20.333333333333332"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOn-dV-Z1l">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wmr-XO-3kY">
-                                        <rect key="frame" x="0.0" y="20.333333333333314" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="60" width="300" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
@@ -663,7 +663,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v6R-A5-1Xo"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New Group" id="M1G-Dw-Xk5"/>
+                    <navigationItem key="navigationItem" id="M1G-Dw-Xk5"/>
                     <connections>
                         <outlet property="nameTextField" destination="wmr-XO-3kY" id="DOg-jI-u3z"/>
                     </connections>
@@ -912,7 +912,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8JW-eo-13t">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="614"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="71" id="ziI-pO-Eun" customClass="GroupTableViewCell" customModule="Money_io" customModuleProvider="target">
@@ -970,13 +970,51 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-bt-oHn" userLabel="Button Stack View">
+                                <rect key="frame" x="0.0" y="702" width="375" height="110"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmj-aj-Ra6">
+                                        <rect key="frame" x="0.0" y="0.0" width="186" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="KnX-eT-d4D"/>
+                                            <constraint firstAttribute="width" constant="188" id="Qhv-fd-CQo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="zdJ-0d-Y99" eventType="touchUpInside" id="Lvx-hI-pqm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="173-yz-RgX">
+                                        <rect key="frame" x="187" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="188" id="24u-rM-zNM"/>
+                                            <constraint firstAttribute="height" constant="110" id="sLz-Td-buP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Create/Login">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginOrCreate:" destination="zdJ-0d-Y99" eventType="touchUpInside" id="RsT-1m-LdP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8JW-eo-13t" firstAttribute="leading" secondItem="Ufs-iK-GWG" secondAttribute="leading" id="8jh-Y9-gWH"/>
+                            <constraint firstAttribute="bottom" secondItem="Zls-bt-oHn" secondAttribute="bottom" id="EUs-6M-38F"/>
                             <constraint firstItem="8JW-eo-13t" firstAttribute="top" secondItem="Ufs-iK-GWG" secondAttribute="top" id="Ezo-nU-xwu"/>
+                            <constraint firstItem="Zls-bt-oHn" firstAttribute="leading" secondItem="Nh5-Mu-Lg8" secondAttribute="leading" id="Kq1-d1-wdR"/>
                             <constraint firstItem="8JW-eo-13t" firstAttribute="trailing" secondItem="Ufs-iK-GWG" secondAttribute="trailing" id="N7j-zo-rTS"/>
-                            <constraint firstItem="Ufs-iK-GWG" firstAttribute="bottom" secondItem="8JW-eo-13t" secondAttribute="bottom" id="YJN-eh-OAq"/>
+                            <constraint firstItem="Zls-bt-oHn" firstAttribute="trailing" secondItem="Ufs-iK-GWG" secondAttribute="trailing" id="Vee-6u-h7E"/>
+                            <constraint firstItem="8JW-eo-13t" firstAttribute="bottom" secondItem="Zls-bt-oHn" secondAttribute="top" id="YJN-eh-OAq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ufs-iK-GWG"/>
                     </view>
