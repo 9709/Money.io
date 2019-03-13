@@ -423,7 +423,7 @@
                                 <rect key="frame" x="0.0" y="702" width="375" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-BT-JsA">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="110"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="188" id="Nqy-HW-dlV"/>
@@ -438,7 +438,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dy3-ie-ELY">
-                                        <rect key="frame" x="189" y="0.0" width="186" height="110"/>
+                                        <rect key="frame" x="187" y="0.0" width="188" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="110" id="FCr-dY-Z4U"/>
@@ -970,66 +970,52 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-bt-oHn" userLabel="Button Stack View">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Zls-bt-oHn" userLabel="Button Stack View">
                                 <rect key="frame" x="0.0" y="702" width="375" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmj-aj-Ra6">
-                                        <rect key="frame" x="0.0" y="0.0" width="186" height="110"/>
-                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="110" id="KnX-eT-d4D"/>
-                                            <constraint firstAttribute="width" constant="188" id="Qhv-fd-CQo"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
+                                        <color key="backgroundColor" red="0.59565355329949243" green="0.0058397407186224545" blue="0.0058397407186224545" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Cancel">
+                                        <state key="normal" title="Sign Out">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="cancel:" destination="zdJ-0d-Y99" eventType="touchUpInside" id="Lvx-hI-pqm"/>
+                                            <action selector="signOut:" destination="9eM-yg-ay2" eventType="touchUpInside" id="VYa-jl-ELX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="173-yz-RgX">
-                                        <rect key="frame" x="187" y="0.0" width="188" height="110"/>
+                                        <rect key="frame" x="188" y="0.0" width="187" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="188" id="24u-rM-zNM"/>
-                                            <constraint firstAttribute="height" constant="110" id="sLz-Td-buP"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Create/Login">
+                                        <state key="normal" title="Add new group">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="loginOrCreate:" destination="zdJ-0d-Y99" eventType="touchUpInside" id="RsT-1m-LdP"/>
+                                            <segue destination="qK1-an-vYE" kind="presentation" identifier="toAddGroupSegue" id="Vdf-sW-ixB"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="t2R-hU-mZq"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Zls-bt-oHn" firstAttribute="leading" secondItem="Ufs-iK-GWG" secondAttribute="leading" id="12R-kp-aqv"/>
                             <constraint firstItem="8JW-eo-13t" firstAttribute="leading" secondItem="Ufs-iK-GWG" secondAttribute="leading" id="8jh-Y9-gWH"/>
-                            <constraint firstAttribute="bottom" secondItem="Zls-bt-oHn" secondAttribute="bottom" id="EUs-6M-38F"/>
                             <constraint firstItem="8JW-eo-13t" firstAttribute="top" secondItem="Ufs-iK-GWG" secondAttribute="top" id="Ezo-nU-xwu"/>
-                            <constraint firstItem="Zls-bt-oHn" firstAttribute="leading" secondItem="Nh5-Mu-Lg8" secondAttribute="leading" id="Kq1-d1-wdR"/>
                             <constraint firstItem="8JW-eo-13t" firstAttribute="trailing" secondItem="Ufs-iK-GWG" secondAttribute="trailing" id="N7j-zo-rTS"/>
-                            <constraint firstItem="Zls-bt-oHn" firstAttribute="trailing" secondItem="Ufs-iK-GWG" secondAttribute="trailing" id="Vee-6u-h7E"/>
-                            <constraint firstItem="8JW-eo-13t" firstAttribute="bottom" secondItem="Zls-bt-oHn" secondAttribute="top" id="YJN-eh-OAq"/>
+                            <constraint firstItem="Ufs-iK-GWG" firstAttribute="trailing" secondItem="Zls-bt-oHn" secondAttribute="trailing" id="jh3-X0-Vf6"/>
+                            <constraint firstAttribute="bottom" secondItem="Zls-bt-oHn" secondAttribute="bottom" id="kjr-tg-XhW"/>
+                            <constraint firstItem="8JW-eo-13t" firstAttribute="bottom" secondItem="Zls-bt-oHn" secondAttribute="top" id="lrX-35-fQa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ufs-iK-GWG"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your Groups" id="iZD-PD-kxs">
-                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="Uaq-vj-LIh">
-                            <connections>
-                                <action selector="signOut:" destination="9eM-yg-ay2" id="bQM-zt-kzE"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mfa-Cd-jSZ">
-                            <connections>
-                                <segue destination="qK1-an-vYE" kind="presentation" identifier="toAddGroupSegue" id="Taj-yh-UNU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Your Groups" id="iZD-PD-kxs"/>
                     <connections>
                         <outlet property="tableView" destination="8JW-eo-13t" id="pOi-Gv-4rB"/>
                         <segue destination="KWe-DJ-qTP" kind="presentation" identifier="toSignedOutSegue" id="TE8-LT-jm4"/>
@@ -1051,7 +1037,7 @@
                                 <rect key="frame" x="0.0" y="702" width="375" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZK-C5-XAY">
-                                        <rect key="frame" x="0.0" y="0.0" width="186" height="110"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="110" id="haf-Mx-hle"/>
@@ -1066,7 +1052,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tu-gT-qpJ">
-                                        <rect key="frame" x="187" y="0.0" width="188" height="110"/>
+                                        <rect key="frame" x="189" y="0.0" width="186" height="110"/>
                                         <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="110" id="T7K-W4-2xB"/>

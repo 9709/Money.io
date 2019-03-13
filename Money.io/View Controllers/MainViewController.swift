@@ -87,14 +87,16 @@ class MainViewController: UIViewController {
   
   // MARK: Actions
   
-  @IBAction func signOut(_ sender: UIBarButtonItem) {
-    UserAuthentication.signOutUser()
-    GlobalVariables.singleton.currentUser = nil
-    UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "userTotalOwing")
-    UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "defaultGroupName")
-    UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(false, forKey: "defaultGroupIsSet")
-    performSegue(withIdentifier: "toSignedOutSegue", sender: self)
-  }
+    @IBAction func signOut(_ sender: UIButton) {
+        UserAuthentication.signOutUser()
+        GlobalVariables.singleton.currentUser = nil
+        UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "userTotalOwing")
+        UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "defaultGroupName")
+        UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(false, forKey: "defaultGroupIsSet")
+        performSegue(withIdentifier: "toSignedOutSegue", sender: self)
+    }
+    
+
   
   // MARK: Navigation
   
