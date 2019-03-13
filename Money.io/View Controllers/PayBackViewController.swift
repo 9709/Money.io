@@ -76,9 +76,12 @@ class PayBackViewController: UIViewController {
   
   // MARK: Actions
   
-  @IBAction func cancel(_ sender: UIBarButtonItem) {
-    dismiss(animated: true, completion: nil)
-  }
+    
+    @IBAction func cancel(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+
+
   
   
   // MARK: Navigation
