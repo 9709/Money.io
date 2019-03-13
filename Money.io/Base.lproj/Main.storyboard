@@ -461,6 +461,36 @@
                                     </textField>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vxi-uE-0xO">
+                                <rect key="frame" x="0.0" y="702" width="377" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guz-j7-mBz">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="JQD-SY-kfV"/>
+                                            <constraint firstAttribute="width" constant="188" id="Rwe-9X-wQ7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="355-lb-DUv">
+                                        <rect key="frame" x="189" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="VrK-L9-RAP"/>
+                                            <constraint firstAttribute="width" constant="188" id="hry-4a-E2F"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -472,11 +502,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Member" id="D7n-gx-r3w">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZPU-EM-M0Z"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vyp-r9-48F">
-                            <connections>
-                                <action selector="save:" destination="Mg0-2o-iWE" id="Fgl-6X-ACu"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vyp-r9-48F"/>
                     </navigationItem>
                     <connections>
                         <outlet property="textField" destination="qHo-8r-1oX" id="crz-X8-rbg"/>
