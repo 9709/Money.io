@@ -17,7 +17,8 @@ class PayBackTableViewCell: UITableViewCell {
   var user: User?
   
   @IBOutlet weak var memberLabel: UILabel!
-  @IBOutlet weak var owingLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var owingLabel: UILabel!
   @IBOutlet weak var amountLabel: UILabel!
   
   // MARK: PayBackTableViewCell methods
@@ -29,6 +30,7 @@ class PayBackTableViewCell: UITableViewCell {
     group = GlobalVariables.singleton.currentGroup
     if let user = user, let currentUser = currentUser, let group = group {
       memberLabel.text = user.name
+        emailLabel.text = user.email
       let amountOwing = group.owingAmountForUser(currentUser, owingToUser: user)
       
       switch amountOwing {
