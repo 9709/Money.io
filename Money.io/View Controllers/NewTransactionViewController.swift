@@ -27,7 +27,8 @@ class NewTransactionViewController: UIViewController {
   
   var delegate: NewTransactionViewControllerDelegate?
   
-  @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var amountTextField: UITextField!
   @IBOutlet weak var paidByButton: UIButton!
   @IBOutlet weak var splitBetweenButton: UIButton!
@@ -37,6 +38,9 @@ class NewTransactionViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    nameTextField.delegate = self
+    amountTextField.delegate = self
     
     group = GlobalVariables.singleton.currentGroup
     if let transaction = transaction {
@@ -72,9 +76,9 @@ class NewTransactionViewController: UIViewController {
         splitBetweenButton.isEnabled = false
         splitBetweenButton.tintColor = .gray
       }
-      navigationItem.title = "Edit Transaction"
+        titleLabel.text = "Edit Transaction"
     } else {
-      navigationItem.title = "Add Transaction"
+        titleLabel.text = "Add Transaction"
     }
     
   }
@@ -87,149 +91,151 @@ class NewTransactionViewController: UIViewController {
     delegate = nil
   }
   
+    
   // MARK: Actions
-  
-  @IBAction func cancel(_ sender: UIBarButtonItem) {
-    dismiss(animated: true, completion: nil)
-  }
-  
-  @IBAction func save(_ sender: UIBarButtonItem) {
-    if let transaction = transaction {
-      var name = transaction.name
-      if let newName = nameTextField.text {
-        guard newName != "" else {
-          // NOTE: Alert user for empty name
-          return
-        }
-        name = newName
-      }
-      
-      guard let amountString = amountTextField.text, let amount = Double(amountString) else {
-        print("Nothing to split")
-        // NOTE: Alert user for empty amount
-        return
-      }
-      
-      guard amount > 0 else {
-        print("You can't split 0 or negative amount")
-        // NOTE: Alert user for 0 amount or negative amount
-        return
-      }
-      
-      var paidUserUIDAndAmount = transaction.paidAmountPerUser
-      if let paidByUsers = paidByUsers {
-        guard paidByUsers.count > 0 else {
-          print("Someone has to pay")
-          // NOTE: Alert user for empty paid users
-          return
-        }
-        
-        paidUserUIDAndAmount = [:]
-        for user in paidByUsers {
-          paidUserUIDAndAmount[user.uid] = amount / Double(paidByUsers.count)
-        }
-      }
-      
-      var splitUserUIDAndAmount = transaction.splitAmountPerUser
-      if let splitBetweenUsers = splitBetweenUsers {
-        guard splitBetweenUsers.count > 0 else {
-          print("Someone has to pay")
-          // NOTE: Alert user for empty split users
-          return
-        }
-        
-        splitUserUIDAndAmount = [:]
-        for user in splitBetweenUsers {
-          splitUserUIDAndAmount[user.uid] = amount / Double(splitBetweenUsers.count)
-        }
-      }
-      
-      if amount != transaction.totalAmount && (paidByUsers == nil && splitBetweenUsers == nil) {
-        for user in paidUserUIDAndAmount {
-          paidUserUIDAndAmount[user.key] = amount / Double(paidUserUIDAndAmount.count)
-        }
-        for user in splitUserUIDAndAmount {
-          splitUserUIDAndAmount[user.key] = amount / Double(splitUserUIDAndAmount.count)
-        }
-      }
-      
-      var totalOwingAmountPerUser: [String: Double] = [:]
-      for (userUID, paidAmount) in paidUserUIDAndAmount {
-        totalOwingAmountPerUser[userUID] = 0 - paidAmount
-      }
-      
-      for (userUID, owingAmount) in splitUserUIDAndAmount {
-        if paidUserUIDAndAmount.keys.contains(userUID), let oldAmount = totalOwingAmountPerUser[userUID] {
-          totalOwingAmountPerUser[userUID] = owingAmount + oldAmount
-        } else {
-          totalOwingAmountPerUser[userUID] = owingAmount
-        }
-      }
-      
-      let createdTimestamp = transaction.createdTimestamp
-      let payback = transaction.payback
-      
-      // If any value is different, update, otherwise, do not update
-      if name != transaction.name ||
-        paidUserUIDAndAmount != transaction.paidAmountPerUser ||
-        splitUserUIDAndAmount != transaction.splitAmountPerUser {
-        delegate?.updateTransaction(transaction, name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback) { (success: Bool) in
-          if success {
-            self.dismiss(animated: true, completion: nil)
-          } else {
-            // NOTE: Alert the user for the unsuccessful creation of transaction
-          }
-        }
-        showSpinner()
-      } else {
+    
+    @IBAction func cancel(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
-      }
-    } else {
-      if let name = nameTextField.text,
-        let amountString = amountTextField.text, let amount = Double(amountString),
-        let paidByUsers = paidByUsers,
-        let splitBetweenUsers = splitBetweenUsers {
-        
-        guard amount > 0 && paidByUsers.count > 0 && splitBetweenUsers.count > 0 else {
-          print("Someone has to pay and someone has to borrow")
-          // NOTE: Alert user for empty amount, paid users, or split users
-          return
-        }
-        
-        var totalOwingAmountPerUser: [String: Double] = [:]
-        
-        var paidUserUIDAndAmount: [String: Double] = [:]
-        for user in paidByUsers {
-          paidUserUIDAndAmount[user.uid] = amount / Double(paidByUsers.count)
-          
-          totalOwingAmountPerUser[user.uid] = 0 - amount / Double(paidByUsers.count)
-        }
-        
-        var splitUserUIDAndAmount: [String: Double] = [:]
-        for user in splitBetweenUsers {
-          splitUserUIDAndAmount[user.uid] = amount / Double(splitBetweenUsers.count)
-          
-          if paidUserUIDAndAmount.keys.contains(user.uid), let oldAmount = totalOwingAmountPerUser[user.uid] {
-            totalOwingAmountPerUser[user.uid] = amount / Double(splitBetweenUsers.count) + oldAmount
-          } else {
-            totalOwingAmountPerUser[user.uid] = amount / Double(splitBetweenUsers.count)
-          }
-        }
-        
-        // Delegate will dissmiss the view
-        delegate?.createTransaction(name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser) { (success: Bool) in
-          if success {
-            self.dismiss(animated: true, completion: nil)
-          } else {
-            // NOTE: Alert the user for the unsuccessful creation of transaction
-          }
-        }
-        showSpinner()
-      } else {
-        // NOTE: Alert user for empty name, amount, paid users, or split users
-      }
     }
-  }
+    
+    @IBAction func save(_ sender: UIButton) {
+        if let transaction = transaction {
+            var name = transaction.name
+            if let newName = nameTextField.text {
+                guard newName != "" else {
+                    // NOTE: Alert user for empty name
+                    return
+                }
+                name = newName
+            }
+            
+            guard let amountString = amountTextField.text, let amount = Double(amountString) else {
+                print("Nothing to split")
+                // NOTE: Alert user for empty amount
+                return
+            }
+            
+            guard amount > 0 else {
+                print("You can't split 0 or negative amount")
+                // NOTE: Alert user for 0 amount or negative amount
+                return
+            }
+            
+            var paidUserUIDAndAmount = transaction.paidAmountPerUser
+            if let paidByUsers = paidByUsers {
+                guard paidByUsers.count > 0 else {
+                    print("Someone has to pay")
+                    // NOTE: Alert user for empty paid users
+                    return
+                }
+                
+                paidUserUIDAndAmount = [:]
+                for user in paidByUsers {
+                    paidUserUIDAndAmount[user.uid] = amount / Double(paidByUsers.count)
+                }
+            }
+            
+            var splitUserUIDAndAmount = transaction.splitAmountPerUser
+            if let splitBetweenUsers = splitBetweenUsers {
+                guard splitBetweenUsers.count > 0 else {
+                    print("Someone has to pay")
+                    // NOTE: Alert user for empty split users
+                    return
+                }
+                
+                splitUserUIDAndAmount = [:]
+                for user in splitBetweenUsers {
+                    splitUserUIDAndAmount[user.uid] = amount / Double(splitBetweenUsers.count)
+                }
+            }
+            
+            if amount != transaction.totalAmount && (paidByUsers == nil && splitBetweenUsers == nil) {
+                for user in paidUserUIDAndAmount {
+                    paidUserUIDAndAmount[user.key] = amount / Double(paidUserUIDAndAmount.count)
+                }
+                for user in splitUserUIDAndAmount {
+                    splitUserUIDAndAmount[user.key] = amount / Double(splitUserUIDAndAmount.count)
+                }
+            }
+            
+            var totalOwingAmountPerUser: [String: Double] = [:]
+            for (userUID, paidAmount) in paidUserUIDAndAmount {
+                totalOwingAmountPerUser[userUID] = 0 - paidAmount
+            }
+            
+            for (userUID, owingAmount) in splitUserUIDAndAmount {
+                if paidUserUIDAndAmount.keys.contains(userUID), let oldAmount = totalOwingAmountPerUser[userUID] {
+                    totalOwingAmountPerUser[userUID] = owingAmount + oldAmount
+                } else {
+                    totalOwingAmountPerUser[userUID] = owingAmount
+                }
+            }
+            
+            let createdTimestamp = transaction.createdTimestamp
+            let payback = transaction.payback
+            
+            // If any value is different, update, otherwise, do not update
+            if name != transaction.name ||
+                paidUserUIDAndAmount != transaction.paidAmountPerUser ||
+                splitUserUIDAndAmount != transaction.splitAmountPerUser {
+                delegate?.updateTransaction(transaction, name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser, createdTimestamp: createdTimestamp, payback: payback) { (success: Bool) in
+                    if success {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        // NOTE: Alert the user for the unsuccessful creation of transaction
+                    }
+                }
+                showSpinner()
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        } else {
+            if let name = nameTextField.text,
+                let amountString = amountTextField.text, let amount = Double(amountString),
+                let paidByUsers = paidByUsers,
+                let splitBetweenUsers = splitBetweenUsers {
+                
+                guard amount > 0 && paidByUsers.count > 0 && splitBetweenUsers.count > 0 else {
+                    print("Someone has to pay and someone has to borrow")
+                    // NOTE: Alert user for empty amount, paid users, or split users
+                    return
+                }
+                
+                var totalOwingAmountPerUser: [String: Double] = [:]
+                
+                var paidUserUIDAndAmount: [String: Double] = [:]
+                for user in paidByUsers {
+                    paidUserUIDAndAmount[user.uid] = amount / Double(paidByUsers.count)
+                    
+                    totalOwingAmountPerUser[user.uid] = 0 - amount / Double(paidByUsers.count)
+                }
+                
+                var splitUserUIDAndAmount: [String: Double] = [:]
+                for user in splitBetweenUsers {
+                    splitUserUIDAndAmount[user.uid] = amount / Double(splitBetweenUsers.count)
+                    
+                    if paidUserUIDAndAmount.keys.contains(user.uid), let oldAmount = totalOwingAmountPerUser[user.uid] {
+                        totalOwingAmountPerUser[user.uid] = amount / Double(splitBetweenUsers.count) + oldAmount
+                    } else {
+                        totalOwingAmountPerUser[user.uid] = amount / Double(splitBetweenUsers.count)
+                    }
+                }
+                
+                // Delegate will dissmiss the view
+                delegate?.createTransaction(name: name, paidUsers: paidUserUIDAndAmount, splitUsers: splitUserUIDAndAmount, owingAmountPerUser: totalOwingAmountPerUser) { (success: Bool) in
+                    if success {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        // NOTE: Alert the user for the unsuccessful creation of transaction
+                    }
+                }
+                showSpinner()
+            } else {
+                // NOTE: Alert user for empty name, amount, paid users, or split users
+            }
+        }
+    }
+
   
   // MARK: Navigation
   
@@ -276,9 +282,6 @@ class NewTransactionViewController: UIViewController {
 }
 
 
-
-
-
 extension NewTransactionViewController: SplitBetweenViewControllerDelegate {
   
   // MARK: SplitBetweenViewControllerDelegate methods
@@ -299,4 +302,13 @@ extension NewTransactionViewController: SplitBetweenViewControllerDelegate {
       splitBetweenUsers = users
     }
   }
+}
+
+
+extension NewTransactionViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTextField.resignFirstResponder()
+        amountTextField.resignFirstResponder()
+        return true
+    }
 }

@@ -383,6 +383,7 @@
                     <navigationItem key="navigationItem" title="Group Name" id="vzU-94-uRf">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="8mu-PQ-KeV">
+                                <color key="tintColor" red="0.0" green="0.4941176471" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="2db-Ep-bnv" kind="presentation" identifier="toNewTransactionSegue" id="UVD-Sh-o2U"/>
                                 </connections>
@@ -687,7 +688,7 @@
             </objects>
             <point key="canvasLocation" x="3212" y="-1689"/>
         </scene>
-        <!--New Transaction-->
+        <!--New Transaction View Controller-->
         <scene sceneID="Y7t-bn-SCv">
             <objects>
                 <viewController id="b28-pc-R6y" customClass="NewTransactionViewController" customModule="Money_io" customModuleProvider="target" sceneMemberID="viewController">
@@ -695,72 +696,102 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-z3-8ZI">
-                                <rect key="frame" x="37.666666666666657" y="148" width="300" height="246.66666666666663"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-z3-8ZI">
+                                <rect key="frame" x="37.666666666666657" y="148.00000000000003" width="300" height="406.66666666666674"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjT-Qy-hdy">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Transaction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjT-Qy-hdy" userLabel="Title Label">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="36"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e3c-nh-uNx">
-                                        <rect key="frame" x="0.0" y="30" width="300" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter name of transaction" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e3c-nh-uNx">
+                                        <rect key="frame" x="0.0" y="66" width="300" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B75-0m-BKp">
-                                        <rect key="frame" x="0.0" y="60" width="300" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOS-UP-xLX">
+                                        <rect key="frame" x="0.0" y="126" width="300" height="30"/>
                                         <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOS-UP-xLX">
-                                        <rect key="frame" x="0.0" y="90" width="300" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid by: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZQ-qo-Tk2">
-                                        <rect key="frame" x="0.0" y="120" width="300" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <rect key="frame" x="0.0" y="186" width="300" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQe-bq-e3O">
-                                        <rect key="frame" x="0.0" y="150" width="300" height="33.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="246.00000000000003" width="300" height="35.333333333333343"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Select member">
                                                     <attributes>
-                                                        <font key="NSFont" size="18" name=".AppleSystemUIFont"/>
+                                                        <font key="NSFont" size="20" name=".SFNSDisplay"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
-                                        </state>
-                                        <state key="selected">
-                                            <attributedString key="attributedTitle"/>
                                         </state>
                                         <connections>
                                             <segue destination="m8N-RH-zT0" kind="presentation" identifier="toPaidBySegue" id="tyW-sY-F2R"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Split between: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-mr-n6L">
-                                        <rect key="frame" x="0.0" y="183.33333333333331" width="300" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <rect key="frame" x="0.0" y="311.33333333333331" width="300" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Imh-ol-t0V">
-                                        <rect key="frame" x="0.0" y="213.33333333333331" width="300" height="33.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="371.33333333333337" width="300" height="35.333333333333314"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Select member">
                                                     <attributes>
-                                                        <font key="NSFont" size="18" name=".AppleSystemUIFont"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        <font key="NSFont" size="20" name=".SFNSDisplay"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                            <tabStops>
+                                                                <textTab alignment="left" location="28">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="56">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="84">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="112">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="140">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="168">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="196">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="224">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="252">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="280">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="308">
+                                                                    <options/>
+                                                                </textTab>
+                                                                <textTab alignment="left" location="336">
+                                                                    <options/>
+                                                                </textTab>
+                                                            </tabStops>
+                                                        </paragraphStyle>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -771,32 +802,56 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="wnF-wz-WJB" userLabel="Button Stack View">
+                                <rect key="frame" x="0.0" y="702" width="375" height="110"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgB-4x-0nv">
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
+                                        <color key="backgroundColor" red="0.59565355330000003" green="0.0058397407189999997" blue="0.0058397407189999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="b28-pc-R6y" eventType="touchUpInside" id="lju-Kf-QjN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cb3-mL-Thg">
+                                        <rect key="frame" x="188" y="0.0" width="187" height="110"/>
+                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="save:" destination="b28-pc-R6y" eventType="touchUpInside" id="C9g-mC-aPn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="fSs-8Z-poI"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="110" id="q2D-Po-naS"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="wnF-wz-WJB" firstAttribute="leading" secondItem="sge-WM-pCs" secondAttribute="leading" id="7u5-6w-qjI"/>
+                            <constraint firstItem="jbB-oC-SUU" firstAttribute="trailing" secondItem="wnF-wz-WJB" secondAttribute="trailing" id="J7l-g4-UGD"/>
                             <constraint firstItem="Le5-z3-8ZI" firstAttribute="width" secondItem="sge-WM-pCs" secondAttribute="width" multiplier="0.8" id="eHT-pO-Ukt"/>
                             <constraint firstItem="Le5-z3-8ZI" firstAttribute="centerX" secondItem="sge-WM-pCs" secondAttribute="centerX" id="ndw-EV-LDO"/>
                             <constraint firstItem="Le5-z3-8ZI" firstAttribute="top" secondItem="jbB-oC-SUU" secondAttribute="top" constant="60" id="p9v-fx-elG"/>
+                            <constraint firstAttribute="bottom" secondItem="wnF-wz-WJB" secondAttribute="bottom" id="qBx-iH-6Zd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jbB-oC-SUU"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New Transaction" id="WLv-oD-ugD">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="HA6-rd-Buw">
-                            <connections>
-                                <action selector="cancel:" destination="b28-pc-R6y" id="xWp-ne-3L3"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="QSX-3x-kzB">
-                            <connections>
-                                <action selector="save:" destination="b28-pc-R6y" id="mkJ-2Y-wdm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="WLv-oD-ugD"/>
                     <connections>
                         <outlet property="amountTextField" destination="UOS-UP-xLX" id="ZXJ-VO-njX"/>
                         <outlet property="nameTextField" destination="e3c-nh-uNx" id="YgY-X9-ecw"/>
                         <outlet property="paidByButton" destination="hQe-bq-e3O" id="3QZ-Qh-1cI"/>
                         <outlet property="splitBetweenButton" destination="Imh-ol-t0V" id="BYv-0a-Lce"/>
+                        <outlet property="titleLabel" destination="SjT-Qy-hdy" id="NgH-NZ-cfk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mOc-Rq-p2B" userLabel="First Responder" sceneMemberID="firstResponder"/>
