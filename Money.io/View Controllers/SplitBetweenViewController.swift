@@ -104,6 +104,7 @@ extension SplitBetweenViewController: UITableViewDataSource {
     let font = UIFont.systemFont(ofSize: 20)
     cell.textLabel?.font = font
     cell.textLabel?.text = group?.listOfUsers[indexPath.row].name
+    cell.detailTextLabel?.text = group?.listOfUsers[indexPath.row].email
     
     if let users = users {
       for index in 0..<users.count {
