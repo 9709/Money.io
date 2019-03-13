@@ -104,6 +104,69 @@ class DataManager {
     }
   }
   
+  static func deleteUser(_ user: User, from group: Group, completion: @escaping (_ success: Bool) -> Void) {
+    db.runTransaction({ (transaction, errorPointer) -> Any? in
+      let userRef = db.collection("User").document(user.uid)
+      let userDocument: DocumentSnapshot
+      do {
+        userDocument = try transaction.getDocument(userRef)
+      } catch let fetchError as NSError {
+        errorPointer?.pointee = fetchError
+        return nil
+      }
+      
+      let groupRef = db.collection("Group").document(group.uid)
+      let groupDocument: DocumentSnapshot
+      do {
+        groupDocument = try transaction.getDocument(groupRef)
+      } catch let fetchError as NSError {
+        errorPointer?.pointee = fetchError
+        return nil
+      }
+      
+      guard let oldGroups = userDocument.data()?["groups"] as? [String: [String: Any]] else {
+        print("No group to delete")
+        return nil
+      }
+      
+      guard let groupData = oldGroups[group.uid] else {
+        print("User does not belong in this group")
+        return nil
+      }
+      
+      guard let amountOwing = groupData["owingAmount"] as? Double, amountOwing == 0 else {
+        print("Cannot delete from group unless user's balance of the group is 0")
+        return nil
+      }
+      
+      var newGroups = oldGroups
+      newGroups[group.uid] = nil
+      transaction.updateData(["groups": newGroups], forDocument: userRef)
+      
+      if let defaultGroup = userDocument.data()?["defaultGroup"] as? String {
+        if defaultGroup == group.uid {
+          transaction.updateData(["defaultGroup": FieldValue.delete()], forDocument: userRef)
+        }
+      }
+      
+      guard let oldUsers = groupDocument.data()?["users"] as? [String: [String: Any]] else {
+        print("No users for this group")
+        return nil
+      }
+      
+      var newUsers = oldUsers
+      newUsers[user.uid] = nil
+      transaction.updateData(["users": newUsers], forDocument: groupRef)
+      return nil
+    }) { (object, error) in
+      if let error = error {
+        print("Error: \(error)")
+        completion(false)
+      } else {
+        completion(true)
+      }
+    }
+  }
   
   
   static func setDefaultGroup(_ group: Group, for user: User, completion: @escaping (_ success: Bool) -> Void) {

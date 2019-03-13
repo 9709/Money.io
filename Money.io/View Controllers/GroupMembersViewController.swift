@@ -158,12 +158,34 @@ extension GroupMembersViewController: UITableViewDelegate {
   
   // MARK: UITableViewDelegate methods
   
-//  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//    if editingStyle == .delete {
-//      group?.deleteUser(at: indexPath.row)
-//      tableView.reloadData()
-//    }
-//  }
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      guard let user = users?[indexPath.row] else {
+        print("No user at this index path")
+        return
+      }
+      group?.deleteUser(user) { (success: Bool) in
+        if success {
+          self.populateGroupInformation {
+            OperationQueue.main.addOperation {
+              self.sortUsers()
+              self.tableView.reloadData()
+              
+              guard let currentUser = GlobalVariables.singleton.currentUser else {
+                print("There must be a current user")
+                return
+              }
+              if user.uid == currentUser.uid {
+                self.dismiss(animated: true, completion: nil)
+              }
+            }
+          }
+        } else {
+          // NOTE: Alert user for unsuccessful removal of user
+        }
+      }
+    }
+  }
 }
 
 extension GroupMembersViewController: NewEditMemberViewControllerDelegate {
