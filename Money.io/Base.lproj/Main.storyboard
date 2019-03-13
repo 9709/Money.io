@@ -752,46 +752,7 @@
                                                 <fragment content="Select member">
                                                     <attributes>
                                                         <font key="NSFont" size="20" name=".SFNSDisplay"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                            <tabStops>
-                                                                <textTab alignment="left" location="28">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="56">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="84">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="112">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="140">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="168">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="196">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="224">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="252">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="280">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="308">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="336">
-                                                                    <options/>
-                                                                </textTab>
-                                                            </tabStops>
-                                                        </paragraphStyle>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -803,10 +764,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="wnF-wz-WJB" userLabel="Button Stack View">
-                                <rect key="frame" x="0.0" y="702" width="375" height="110"/>
+                                <rect key="frame" x="0.0" y="722" width="375" height="90"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgB-4x-0nv">
-                                        <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="90"/>
                                         <color key="backgroundColor" red="0.59565355330000003" green="0.0058397407189999997" blue="0.0058397407189999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Cancel">
@@ -817,7 +778,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cb3-mL-Thg">
-                                        <rect key="frame" x="188" y="0.0" width="187" height="110"/>
+                                        <rect key="frame" x="188" y="0.0" width="187" height="90"/>
                                         <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <state key="normal" title="Save">
@@ -829,8 +790,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="110" id="fSs-8Z-poI"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="110" id="q2D-Po-naS"/>
+                                    <constraint firstAttribute="height" constant="90" id="fSs-8Z-poI"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -867,7 +827,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-eY-O3M">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="614"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" editingAccessoryType="checkmark" textLabel="j94-TT-9pJ" style="IBUITableViewCellStyleDefault" id="Glb-Qt-1cS">
@@ -889,35 +849,57 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="xIg-9i-MTe" userLabel="Button Stack View">
+                                <rect key="frame" x="0.0" y="702" width="375" height="110"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nmp-vH-joE">
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="110"/>
+                                        <color key="backgroundColor" red="0.59565355330000003" green="0.0058397407189999997" blue="0.0058397407189999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="Awi-iL-mXb" eventType="touchUpInside" id="gVR-sm-KET"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tx5-r3-pLX">
+                                        <rect key="frame" x="188" y="0.0" width="187" height="110"/>
+                                        <color key="backgroundColor" red="0.0" green="0.4941176471" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="Select">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectButton:" destination="Awi-iL-mXb" eventType="touchUpInside" id="Vbl-BG-l7f"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="3en-4B-5vf"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="xIg-9i-MTe" secondAttribute="bottom" id="2xS-2H-DGJ"/>
                             <constraint firstItem="b8d-0Z-hgF" firstAttribute="trailing" secondItem="Rdy-eY-O3M" secondAttribute="trailing" id="8hE-Ge-K0c"/>
+                            <constraint firstItem="xIg-9i-MTe" firstAttribute="leading" secondItem="kcO-nK-JPc" secondAttribute="leading" id="Gkt-mU-Vnu"/>
                             <constraint firstItem="Rdy-eY-O3M" firstAttribute="top" secondItem="b8d-0Z-hgF" secondAttribute="top" id="J4U-sb-hp7"/>
+                            <constraint firstItem="Rdy-eY-O3M" firstAttribute="bottom" secondItem="xIg-9i-MTe" secondAttribute="top" id="djz-lC-q5k"/>
                             <constraint firstItem="Rdy-eY-O3M" firstAttribute="leading" secondItem="b8d-0Z-hgF" secondAttribute="leading" id="do3-CO-Hm7"/>
-                            <constraint firstItem="b8d-0Z-hgF" firstAttribute="bottom" secondItem="Rdy-eY-O3M" secondAttribute="bottom" id="rjK-u0-ZAF"/>
+                            <constraint firstItem="b8d-0Z-hgF" firstAttribute="trailing" secondItem="xIg-9i-MTe" secondAttribute="trailing" id="pcv-Pe-shZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="b8d-0Z-hgF"/>
                     </view>
-                    <navigationItem key="navigationItem" id="tCf-rX-zwD">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2Gg-zc-PLb">
-                            <connections>
-                                <action selector="cancel:" destination="Awi-iL-mXb" id="Now-5j-DGd"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="NSw-iS-78h">
-                            <connections>
-                                <action selector="save:" destination="Awi-iL-mXb" id="bv7-lI-6WF"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="tCf-rX-zwD"/>
                     <connections>
                         <outlet property="tableView" destination="Rdy-eY-O3M" id="O37-eu-mBd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWN-Te-Juy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3214" y="822"/>
+            <point key="canvasLocation" x="3213.5999999999999" y="821.67487684729065"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bHU-le-3v4">
