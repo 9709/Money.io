@@ -366,7 +366,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="615"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupMemberNameCell" textLabel="dio-nw-jGM" detailTextLabel="fdl-bY-3ej" style="IBUITableViewCellStyleSubtitle" id="P5B-dn-sYa">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupMemberNameCell" textLabel="dio-nw-jGM" detailTextLabel="fdl-bY-3ej" style="IBUITableViewCellStyleSubtitle" id="P5B-dn-sYa">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P5B-dn-sYa" id="lyq-8P-evf">
@@ -392,21 +392,42 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vza-KY-gqt">
-                                <rect key="frame" x="0.0" y="702" width="375" height="110"/>
-                                <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="110" id="nEJ-9w-r36"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="back:" destination="HZJ-0T-9pM" eventType="touchUpInside" id="nkf-i6-NeY"/>
-                                    <action selector="back:" destination="eCG-I8-hT4" eventType="touchUpInside" id="oPO-GH-BFi"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="N8z-mz-DM4">
+                                <rect key="frame" x="-2" y="702" width="377" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-BT-JsA">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="188" id="Nqy-HW-dlV"/>
+                                            <constraint firstAttribute="height" constant="110" id="h9D-YQ-63B"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="back:" destination="HZJ-0T-9pM" eventType="touchUpInside" id="TzQ-CG-AGR"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dy3-ie-ELY">
+                                        <rect key="frame" x="189" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="FCr-dY-Z4U"/>
+                                            <constraint firstAttribute="width" constant="188" id="qoe-fN-snw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Add member">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="uFF-5i-Jbe" kind="presentation" identifier="toAddMemberSegue" id="Tw3-vw-jr8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -414,25 +435,15 @@
                             <constraint firstItem="XG5-A3-DGL" firstAttribute="trailing" secondItem="T9j-Wa-XDG" secondAttribute="trailing" id="7Xu-Z0-Pd7"/>
                             <constraint firstItem="T9j-Wa-XDG" firstAttribute="top" secondItem="XG5-A3-DGL" secondAttribute="top" id="8aN-5P-3w3"/>
                             <constraint firstItem="XG5-A3-DGL" firstAttribute="bottom" secondItem="T9j-Wa-XDG" secondAttribute="bottom" constant="75" id="Pec-Fk-KGH"/>
-                            <constraint firstItem="vza-KY-gqt" firstAttribute="trailing" secondItem="XG5-A3-DGL" secondAttribute="trailing" id="haE-3c-bCH"/>
-                            <constraint firstItem="vza-KY-gqt" firstAttribute="leading" secondItem="XG5-A3-DGL" secondAttribute="leading" id="kqs-Bp-x6p"/>
-                            <constraint firstAttribute="bottom" secondItem="vza-KY-gqt" secondAttribute="bottom" id="yYn-ZZ-KB5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XG5-A3-DGL"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Group Members" id="MXa-av-guy">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="huJ-qr-Itg">
-                            <connections>
-                                <segue destination="uFF-5i-Jbe" kind="presentation" identifier="toAddMemberSegue" id="Rb8-QA-hmT"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Group Members" id="MXa-av-guy"/>
                     <connections>
                         <outlet property="tableView" destination="T9j-Wa-XDG" id="Ihy-Id-5pL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h4A-lW-3wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="eCG-I8-hT4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="996" y="821.67487684729065"/>
         </scene>
@@ -457,7 +468,7 @@
                                         <rect key="frame" x="0.0" y="20.333333333333314" width="300" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -476,6 +487,9 @@
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="Mg0-2o-iWE" eventType="touchUpInside" id="jUI-8Y-fc1"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="355-lb-DUv">
                                         <rect key="frame" x="189" y="0.0" width="188" height="110"/>
@@ -488,6 +502,9 @@
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="save:" destination="Mg0-2o-iWE" eventType="touchUpInside" id="Dyy-SC-2SX"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -500,12 +517,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pVO-S3-4C7"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Member" id="D7n-gx-r3w">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZPU-EM-M0Z"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vyp-r9-48F"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Add Member" id="D7n-gx-r3w"/>
                     <connections>
-                        <outlet property="textField" destination="qHo-8r-1oX" id="crz-X8-rbg"/>
+                        <outlet property="emailTextField" destination="qHo-8r-1oX" id="crz-X8-rbg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R9u-so-5A1" userLabel="First Responder" sceneMemberID="firstResponder"/>
