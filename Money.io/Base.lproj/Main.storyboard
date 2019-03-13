@@ -30,19 +30,19 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TV5-Nh-Szm">
                                         <rect key="frame" x="0.0" y="60" width="300" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ndy-3E-ych">
                                         <rect key="frame" x="0.0" y="120" width="300" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CLo-tk-sJ5">
                                         <rect key="frame" x="0.0" y="180" width="300" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
@@ -532,9 +532,45 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wmr-XO-3kY">
                                         <rect key="frame" x="0.0" y="20.333333333333314" width="300" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                     </textField>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="DIr-kV-g8I">
+                                <rect key="frame" x="0.0" y="702" width="377" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkE-61-hBJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="188" id="Upb-HA-OHY"/>
+                                            <constraint firstAttribute="height" constant="110" id="WYJ-M0-eoq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="flf-9a-bWH" eventType="touchUpInside" id="s37-l9-obt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QC3-Oc-81Q">
+                                        <rect key="frame" x="189" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="188" id="iMD-LP-RLr"/>
+                                            <constraint firstAttribute="height" constant="110" id="j1i-ek-FPS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="save:" destination="flf-9a-bWH" eventType="touchUpInside" id="sLE-mY-2Vo"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -546,18 +582,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v6R-A5-1Xo"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New Group" id="M1G-Dw-Xk5">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1kO-xe-BHk">
-                            <connections>
-                                <action selector="cancel:" destination="flf-9a-bWH" id="eyD-Od-nT0"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="giz-8I-Xf8">
-                            <connections>
-                                <action selector="save:" destination="flf-9a-bWH" id="mqT-ne-afH"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New Group" id="M1G-Dw-Xk5"/>
                     <connections>
                         <outlet property="nameTextField" destination="wmr-XO-3kY" id="DOg-jI-u3z"/>
                     </connections>
@@ -903,38 +928,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="dXE-cz-fXv">
-                                <rect key="frame" x="37.666666666666657" y="351" width="300" height="110"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="DHG-Pw-jZJ">
+                                <rect key="frame" x="0.0" y="703" width="377" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tu-gT-qpJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                        <state key="normal" title="Create a new account"/>
-                                        <connections>
-                                            <segue destination="2nl-J2-ZFz" kind="presentation" identifier="toCreateNewAccountSegue" id="A1D-7y-ZhH"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZK-C5-XAY">
-                                        <rect key="frame" x="0.0" y="80" width="300" height="30"/>
-                                        <state key="normal" title="Sign in as an existing user"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="haf-Mx-hle"/>
+                                            <constraint firstAttribute="width" constant="188" id="xmn-2d-Yso"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Sign in">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="2nl-J2-ZFz" kind="presentation" identifier="toSignInSegue" id="3IF-rh-0pT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tu-gT-qpJ">
+                                        <rect key="frame" x="189" y="0.0" width="188" height="110"/>
+                                        <color key="backgroundColor" red="0.12549019610000001" green="0.32549019610000002" blue="0.5450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="T7K-W4-2xB"/>
+                                            <constraint firstAttribute="width" constant="188" id="tKY-aj-KGx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Create new account">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="2nl-J2-ZFz" kind="presentation" identifier="toCreateNewAccountSegue" id="A1D-7y-ZhH"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="dXE-cz-fXv" firstAttribute="centerX" secondItem="Gx8-JP-BhP" secondAttribute="centerX" id="L9H-Ra-NXl"/>
-                            <constraint firstItem="dXE-cz-fXv" firstAttribute="centerY" secondItem="Gx8-JP-BhP" secondAttribute="centerY" id="nTw-Tu-Z5h"/>
-                            <constraint firstItem="dXE-cz-fXv" firstAttribute="width" secondItem="Gx8-JP-BhP" secondAttribute="width" multiplier="0.8" id="qGo-GE-51X"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Kf2-Nv-0bq"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="39T-hh-Qhi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-930" y="-2365"/>
+            <point key="canvasLocation" x="-930.39999999999998" y="-2365.270935960591"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="13w-CD-0SM">
@@ -1010,7 +1047,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="A1D-7y-ZhH"/>
+        <segue reference="3IF-rh-0pT"/>
         <segue reference="tyW-sY-F2R"/>
         <segue reference="UVD-Sh-o2U"/>
     </inferredMetricsTieBreakers>
