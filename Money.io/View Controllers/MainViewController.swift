@@ -92,6 +92,7 @@ class MainViewController: UIViewController {
     GlobalVariables.singleton.currentUser = nil
     UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "userTotalOwing")
     UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "defaultGroupName")
+    UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(false, forKey: "defaultGroupIsSet")
     performSegue(withIdentifier: "toSignedOutSegue", sender: self)
   }
   
@@ -129,9 +130,11 @@ class MainViewController: UIViewController {
           let userTotalOwing = self?.currentUser?.defaultGroup?.listOfOwingAmounts[currentUser.uid]
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(userTotalOwing, forKey: "userTotalOwing")
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(defaultGroup.name, forKey: "defaultGroupName")
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(true, forKey: "defaultGroupIsSet")
         } else {
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "userTotalOwing")
           UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.removeObject(forKey: "defaultGroupName")
+          UserDefaults(suiteName: "group.com.MatthewChan.Money-io.widget")?.set(false, forKey: "defaultGroupIsSet")
         }
         
         OperationQueue.main.addOperation {
