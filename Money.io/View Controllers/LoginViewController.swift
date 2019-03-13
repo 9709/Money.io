@@ -9,8 +9,8 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var emailTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
-  @IBOutlet weak var saveButton: UIBarButtonItem!
-  @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var loginOrCreate: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
   
   // MARK: UIViewController methods
   
@@ -21,11 +21,11 @@ class LoginViewController: UIViewController {
 
     if let newAccount = newAccount {
       if newAccount {
-        saveButton.title = "Create"
+        loginOrCreate.setTitle("Create", for: .normal)
         titleLabel.text = "Create New Account"
       } else {
         nameTextField.isHidden = true
-        saveButton.title = "Login"
+        loginOrCreate.setTitle("Login", for: .normal)
         titleLabel.text = "Login"
       }
     }
@@ -37,50 +37,52 @@ class LoginViewController: UIViewController {
   
   // MARK: Actions
   
-  @IBAction func save(_ sender: UIBarButtonItem) {
-    guard let email = emailTextField.text,
-      let password = passwordTextField.text else {
-        // NOTE: Alert the user for missing email/password
-        return
+    @IBAction func loginOrCreate(_ sender: UIButton) {
+        guard let email = emailTextField.text,
+            let password = passwordTextField.text else {
+                // NOTE: Alert the user for missing email/password
+                return
+        }
+        
+        if let newAccount = newAccount {
+            
+            // NOTE: Make sure email and password is in a right format
+            //        Alert the user if either is not in right format (invalid email format without @ or ., password < 6 characters, etc)
+            
+            if newAccount {
+                guard let name = nameTextField.text else {
+                    // NOTE: Alert the user for missing name
+                    return
+                }
+                
+                // NOTE: Check if name is in right format?
+                
+                UserAuthentication.createNewUser(name, email: email, password: password) { (success: Bool) in
+                    if success {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        // NOTE: Alert the user for unsuccessful user creation
+                    }
+                }
+                showSpinner()
+            } else {
+                UserAuthentication.signInUser(withEmail: email, password: password) { (success: Bool) in
+                    if success {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        // NOTE: Alert the user for unsuccessful sign in
+                    }
+                }
+                showSpinner()
+            }
+        }
     }
     
-    if let newAccount = newAccount {
-      
-      // NOTE: Make sure email and password is in a right format
-      //        Alert the user if either is not in right format (invalid email format without @ or ., password < 6 characters, etc)
-      
-      if newAccount {
-        guard let name = nameTextField.text else {
-          // NOTE: Alert the user for missing name
-          return
-        }
-        
-        // NOTE: Check if name is in right format?
-        
-        UserAuthentication.createNewUser(name, email: email, password: password) { (success: Bool) in
-          if success {
-            self.dismiss(animated: true, completion: nil)
-          } else {
-            // NOTE: Alert the user for unsuccessful user creation
-          }
-        }
-        showSpinner()
-      } else {
-        UserAuthentication.signInUser(withEmail: email, password: password) { (success: Bool) in
-          if success {
-            self.dismiss(animated: true, completion: nil)
-          } else {
-            // NOTE: Alert the user for unsuccessful sign in
-          }
-        }
-        showSpinner()
-      }
+    
+    @IBAction func cancel(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
-  }
-  
-  @IBAction func cancel(_ sender: UIBarButtonItem) {
-    dismiss(animated: true, completion: nil)
-  }
+    
     
   // MARK: Private helper methods
   
