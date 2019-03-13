@@ -81,6 +81,12 @@ class NewTransactionViewController: UIViewController {
         titleLabel.text = "Add Transaction"
     }
     
+    let toolbar: UIToolbar = UIToolbar()
+    toolbar.barStyle = .default
+    toolbar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+                     UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard(_:)))]
+    toolbar.sizeToFit()
+    amountTextField.inputAccessoryView = toolbar
   }
   
   deinit {
@@ -91,6 +97,12 @@ class NewTransactionViewController: UIViewController {
     delegate = nil
   }
   
+    // MARK: Dismiss keyboard
+    
+    @objc func dismissKeyboard(_ sender: UIBarButtonItem) {
+        nameTextField.resignFirstResponder()
+        amountTextField.resignFirstResponder()
+    }
     
   // MARK: Actions
     

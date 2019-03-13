@@ -48,6 +48,13 @@ class PayBackAmountViewController: UIViewController {
         payBackMemberLabel.text = "\(memberName) gave back"
       }
     }
+    
+    let toolbar: UIToolbar = UIToolbar()
+    toolbar.barStyle = .default
+    toolbar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+        UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard(_:)))]
+    toolbar.sizeToFit()
+    payBackAmountTextfield.inputAccessoryView = toolbar
   }
   
   deinit {
@@ -57,6 +64,11 @@ class PayBackAmountViewController: UIViewController {
     delegate = nil
   }
   
+    // MARK: Dismiss keybaord
+    
+    @objc func dismissKeyboard(_ sender: UIBarButtonItem) {
+        payBackAmountTextfield.resignFirstResponder()
+    }
   
   
   

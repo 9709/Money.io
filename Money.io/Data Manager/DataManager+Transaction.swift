@@ -65,7 +65,18 @@ extension DataManager {
       
       let transactionRef = db.collection("Group").document(group.uid).collection("Transactions").document(transaction.uid)
       
-      
+        let transactionDocument: DocumentSnapshot
+        do {
+            transactionDocument = try networkTransaction.getDocument(transactionRef)
+        } catch let fetchError as NSError {
+            errorPointer?.pointee = fetchError
+            return nil
+        }
+        guard transactionDocument.exists else {
+            print("There must be a document to delete")
+            return nil
+        }
+        
       for (userUID, (userRef, userDocument)) in usersData {
         if transaction.owingAmountPerUser[userUID] != nil {
           guard let owingAmountForTransaction = transaction.owingAmountPerUser[userUID],
