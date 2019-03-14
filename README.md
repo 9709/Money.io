@@ -26,7 +26,7 @@ the app or even without unlocking your phone.
 
 ### Tech Stack
 
-- Swift, Firebase, Widgets, Siri Shortcuts
+- Swift, Firebase, Widget Extension, Siri Shortcuts
 
 
 ### Future Goals
